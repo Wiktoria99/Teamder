@@ -1,0 +1,22 @@
+<h3>User info</h3>
+<a href="{% url 'logout' %}">Logout</a></br>
+<p>User: {{request.user}}</p>
+<p>Username: {{request.user.username}}</p>
+<p>Imie: {{request.user.first_name}}</p>
+<p>Nazwisko: {{request.user.last_name}}</p>
+<p>Email: {{request.user.email}}</p>
+
+<p>My attributes:</p>
+{% for attrib in my_attributes %}
+    <tr>
+        <td>{{attrib.attribute_name}}</td></br>
+    </tr>
+{% endfor %}.
+
+
+<p>All attributes:</p>
+{% for attrib in all_attributes %}
+    <tr>
+        <td>{{attrib.attribute_name}}</td></br>
+    </tr>
+{% endfor %}.
