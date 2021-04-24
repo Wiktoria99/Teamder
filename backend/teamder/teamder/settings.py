@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'accounts.apps.AccountsConfig',
 ]
 
@@ -76,16 +76,16 @@ WSGI_APPLICATION = 'teamder.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-"default": {
-    "ENGINE": "djongo",
-    "CLIENT": {
-        "host": "mongodb+srv://teamder:teamder@cluster0.ftvbd.mongodb.net/?retryWrites=true&w=majority",
-        "username": "teamder",
-        "password": "teamder",
-        "name": "teamder_database",
-        "authMechanism": "SCRAM-SHA-1",
-    },
-}}
+    "default": {
+        "ENGINE": "djongo",
+        "CLIENT": {
+            "host": "mongodb+srv://teamder:teamder@cluster0.ftvbd.mongodb.net/?retryWrites=true&w=majority",
+            "username": "teamder",
+            "password": "teamder",
+            "name": "teamder_database",
+            "authMechanism": "SCRAM-SHA-1",
+        },
+    }}
 
 
 # Password validation
