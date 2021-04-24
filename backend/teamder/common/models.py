@@ -1,6 +1,9 @@
 from mongoengine import fields, Document, EmbeddedDocument
 
 
+# TODO - check if Django is adding ID
+
+
 class Location(EmbeddedDocument):
     address = fields.StringField(max_length=200)
     coordinates = fields.GeoPointField()
@@ -16,9 +19,9 @@ class Person(EmbeddedDocument):
     user_name = fields.StringField(max_length=100, unique)
     name = fields.StringField(min_length=2, max_length=100)
     surname = fields.StringField(min_length=2, max_length=100)
-    age = fields.IntField(min_value=0, max_value=100)
+    age = fields.IntField(min_value=13, max_value=100)
     mail = fields.StringField(max_length=100, unique)
-    telephone_number = fields.IntField(min_value=0, max_value=999999999, unique)
+    telephone_number = fields.StringField(min_length=8, max_length=12, unique)
     location = fields.EmbeddedDocument(Location)
     percent_rating = fields.FloatField(max_value=0, max_value=100)
     ratings = fields.ListField(fields.EmbeddedDocumentField(Rate))
@@ -32,12 +35,13 @@ class Person(EmbeddedDocument):
         return self.name
 
 
-class People(EmbeddedDocument):
+class Team(EmbeddedDocument):
+    eager_people = fields.ListField(fields.EmbeddedDocumentField(Person))
     current_number_of_people = fields.IntField(
-        default=0, min_value=0, max_value=10000)
+        default=0, min_value=0, max_value=30)
     needed_amount_of_people = fields.DictField(
         default={'min': None, 'max': None})
-    list_of_people = fields.ListField(fields.EmbeddedDocumentField(Person))
+    verified_people = fields.ListField(fields.EmbeddedDocumentField(Person))
 
 
 class Subcategory(EmbeddedDocument):
@@ -47,11 +51,12 @@ class Subcategory(EmbeddedDocument):
 
 class Event(EmbeddedDocument):
     name = fields.StringField(max_length=100)
+    description = fields.StringField(max_length=300)
     date = fields.DateField()
     location = fields.EmbeddedDocumentField(Location)
     host = fields.EmbeddedDocumentField(Person)
-    people = fields.EmbeddedDocumentField(People)
-    cost_for_person = fields.FloatField(min_value=0, max_value=10000)
+    team = fields.EmbeddedDocumentField(Team)
+    cost_for_person = fields.FloatField(max_value=100)
     categories = fields.ListField(
         fields.EmbeddedDocumentField(Subcategory))
 
