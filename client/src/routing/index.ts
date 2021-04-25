@@ -1,1 +1,2 @@
-export * from "./auth";
+export * from './paths';
+export * from './unauthorizedRoutes';
