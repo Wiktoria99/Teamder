@@ -1,3 +1,3 @@
 export const URL = {
-  main: '',
+  main: 'http://localhost:3000/api',
 };

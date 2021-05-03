@@ -1,1 +1,1 @@
-export const img = "";
+export * from './TeamderLogo';

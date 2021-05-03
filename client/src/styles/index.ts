@@ -1,1 +1,2 @@
-export const globalStyles = {};
+export * from './colors';
+export * from './theme';
