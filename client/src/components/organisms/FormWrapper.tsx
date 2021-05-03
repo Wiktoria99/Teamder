@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, makeStyles, Theme } from '@material-ui/core';
 import { colors } from '@/styles';
 import { TeamderLogo } from '@/assets';
-import BgImage from '@/assets/images/login-bg.png';
+import BgImage from '@/assets/images/login-bg.jpg';
 
 interface FormWrapperI extends React.HTMLProps<HTMLDivElement> {
   title?: string;
@@ -63,7 +63,7 @@ const useStyles = makeStyles<Theme, { isForm: boolean }>((theme) => ({
     justifyContent: 'flex-end',
     backgroundImage: `url(${BgImage})`,
     backgroundRepeat: 'no-repeat',
-    backgroundSize: '60% 100%',
+    backgroundSize: 'cover',
   },
   formContainer: {
     width: '100vw',
