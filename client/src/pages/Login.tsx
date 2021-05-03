@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import {
-  Typography,
-  Button,
-  IconButton,
-  InputAdornment,
-  withStyles,
-} from '@material-ui/core';
+import { Typography, IconButton, InputAdornment } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { login } from '@/api';
 import { useLocalStorage } from '@/hooks';
 import { LoginRequestI } from '@/interfaces';
 import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from '@/constants';
 import { paths } from '@/routing';
-import { CustomTextField, FormWrapper, useFormStyles } from '@/components';
-import { colors } from '@/styles';
+import {
+  CustomButton,
+  CustomTextField,
+  FormWrapper,
+  useFormStyles,
+} from '@/components';
 
 export const Login: React.FC = () => {
   const history = useHistory();
@@ -50,17 +48,6 @@ export const Login: React.FC = () => {
       console.log(error.response.data.error, 'error');
     }
   };
-
-  const ColorButton = withStyles((theme) => ({
-    root: {
-      borderRadius: '5px',
-      color: colors.BLACK,
-      backgroundColor: colors.SECONDARY,
-      '&:hover': {
-        backgroundColor: colors.SECONDARY_HOV,
-      },
-    },
-  }))(Button);
 
   return (
     <>
@@ -98,14 +85,14 @@ export const Login: React.FC = () => {
             Forgot password?
           </Link>
 
-          <ColorButton
+          <CustomButton
             type="submit"
             color="secondary"
             variant="contained"
             className={styles.button}
           >
             <Typography variant="button">Login now</Typography>
-          </ColorButton>
+          </CustomButton>
         </form>
         <Link to={paths.REGISTER} className={styles.formLinkDisclaimer}>
           Don’t have an account yet? <span>Sign up!</span>

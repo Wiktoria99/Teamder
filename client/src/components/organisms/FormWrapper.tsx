@@ -1,9 +1,6 @@
 import React from 'react';
 import { Box, Typography, makeStyles, Theme } from '@material-ui/core';
-
 import { colors } from '@/styles';
-import { paths } from '@/routing';
-import { BackButton } from '@/components';
 import { TeamderLogo } from '@/assets';
 import BgImage from '@/assets/images/login-bg.png';
 
@@ -11,7 +8,6 @@ interface FormWrapperI extends React.HTMLProps<HTMLDivElement> {
   title?: string;
   subtitle?: string;
   isForm?: boolean;
-  showBackArrow?: boolean;
 }
 
 export const useFormStyles = makeStyles((theme) => ({
@@ -109,10 +105,6 @@ const useStyles = makeStyles<Theme, { isForm: boolean }>((theme) => ({
     transform: 'rotate(180deg)',
     color: theme.palette.primary.main,
   },
-  backArrow: {
-    position: 'absolute',
-    top: 20,
-  },
 }));
 
 export const FormWrapper: React.FC<FormWrapperI> = ({
@@ -120,7 +112,6 @@ export const FormWrapper: React.FC<FormWrapperI> = ({
   subtitle,
   children,
   isForm = true,
-  showBackArrow = false,
 }: FormWrapperI) => {
   const styles = useStyles({ isForm });
   return (
@@ -139,9 +130,6 @@ export const FormWrapper: React.FC<FormWrapperI> = ({
             </Typography>
           )}
           {children}
-          {showBackArrow && (
-            <BackButton pathname={paths.LOGIN} classname={styles.backArrow} />
-          )}
         </Box>
       </Box>
     </Box>

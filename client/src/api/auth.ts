@@ -35,3 +35,12 @@ export const register = (data: RegisterRequestI) => {
   );
   return response;
 };
+
+export const forgotPassword = (data: { username: string; email: string }) => {
+  const response: Promise<AxiosResponse<{ message: string }>> = axios.post(
+    `/accounts/forgot_password`,
+    data,
+    axiosUnauthorizedConfig,
+  );
+  return response;
+};
