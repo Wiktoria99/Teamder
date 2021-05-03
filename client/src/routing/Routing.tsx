@@ -14,10 +14,10 @@ export const Routing: React.FC = () => {
     <>
       <Route component={ScrollToTop} />
       <Switch>
-        <Route exact={true} component={MainPage} />
         {unauthorizedRoutes.map((routeProps, i) => (
           <Route key={`${routeProps.path}-${i}`} {...routeProps} />
         ))}
+        <Route exact={true} component={MainPage} />
       </Switch>
     </>
   );
