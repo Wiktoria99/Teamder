@@ -38,8 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+    'rest_framework.authtoken',
+
     'accounts.apps.AccountsConfig',
+    'api.apps.ApiConfig',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,6 +79,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'api.Account'
+
 WSGI_APPLICATION = 'teamder.wsgi.application'
 
 
@@ -82,7 +94,7 @@ DATABASES = {
             "host": "mongodb+srv://teamder:teamder@cluster0.ftvbd.mongodb.net/?retryWrites=true&w=majority",
             "username": "teamder",
             "password": "teamder",
-            "name": "teamder_database",
+            "name": "teamder_database_test",
             "authMechanism": "SCRAM-SHA-1",
         },
     }}
