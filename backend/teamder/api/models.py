@@ -14,17 +14,38 @@ from djongo import models
 # Create your models here.
 
 
-class Subcategory(models.Model):
+class Category(models.Model):
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=20, unique = True, null=False)
-    main_category = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class User(models.Model):
+    id = models.BigAutoField(primary_key=True)
     user_name = models.CharField(max_length=50, unique = True)
-    list_of_categories = models.ArrayReferenceField(to=Subcategory, on_delete=models.CASCADE,blank=True)
+    list_of_categories = models.ArrayReferenceField(to=Category, on_delete=models.CASCADE, null=True)
+    
+    name = models.CharField(max_length=50, null=True)
+    surname = models.CharField(max_length=50, null=True)
+    age = models.IntegerField(blank=True, null=True)
+
+    telephone_number = models.CharField(max_length=50, null=True)
+
+    location = models.CharField(max_length=50, null=True)              # TODO
+
+    percent_rating = models.FloatField(blank=True, null=True)
+    
+    #ratings                                                            # TODO
+            #ratings = fields.ListField(fields.EmbeddedDocumentField(Rate))
+    
+    bio = models.CharField(max_length=500, null=True)
+    facebook_link = models.URLField(max_length=100, null=True)
+    instagram_link = models.URLField(max_length=100, null=True)
+    open_for_invites = models.BooleanField(default=True)
+
+
 
     def __str__(self):
         return self.user_name
@@ -69,6 +90,8 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
+    id = models.BigAutoField(primary_key=True)
+
     user_name = models.CharField(max_length=100, null=False, unique=True)
 
     email = models.EmailField(verbose_name='email', max_length=100, unique=True, null=False)

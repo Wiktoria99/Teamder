@@ -41,13 +41,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
-    'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
     ]
 }
 
@@ -94,7 +96,7 @@ DATABASES = {
             "host": "mongodb+srv://teamder:teamder@cluster0.ftvbd.mongodb.net/?retryWrites=true&w=majority",
             "username": "teamder",
             "password": "teamder",
-            "name": "teamder_database_test",
+            "name": "teamder_database",
             "authMechanism": "SCRAM-SHA-1",
         },
     }}
