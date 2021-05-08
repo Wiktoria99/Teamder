@@ -18,8 +18,8 @@ from .models import *
 
 @api_view(['GET',])
 @permission_classes(())
-def get_all_categories(request):
-    return Response(Category.objects.all().values(), status=status.HTTP_200_OK)
+def get_all_interests(request):
+    return Response(Interest.objects.all().values(), status=status.HTTP_200_OK)
 
 
 

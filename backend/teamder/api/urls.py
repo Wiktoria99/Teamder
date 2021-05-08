@@ -8,7 +8,7 @@ urlpatterns = [
     path('login', obtain_auth_token, name = "login"),
 
     
-    path('categories', views.get_all_categories),
+    path('interests', views.get_all_interests),
     
     path('getUserInfo', views.user_info_view), 
 

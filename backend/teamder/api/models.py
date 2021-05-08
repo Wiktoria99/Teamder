@@ -14,7 +14,7 @@ from djongo import models
 # Create your models here.
 
 
-class Category(models.Model):
+class Interest(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=20, unique = True, null=False)
 
@@ -25,24 +25,24 @@ class Category(models.Model):
 class User(models.Model):
     id = models.BigAutoField(primary_key=True)
     user_name = models.CharField(max_length=50, unique = True)
-    list_of_categories = models.ArrayReferenceField(to=Category, on_delete=models.CASCADE, null=True)
+    list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.PROTECT, null=True, blank = True)
     
-    name = models.CharField(max_length=50, null=True)
-    surname = models.CharField(max_length=50, null=True)
-    age = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=50, null=True, blank = True)
+    surname = models.CharField(max_length=50, null=True, blank = True)
+    age = models.IntegerField(null=True, blank = True)
 
-    telephone_number = models.CharField(max_length=50, null=True)
+    telephone_number = models.CharField(max_length=50, null=True, blank = True)
 
-    location = models.CharField(max_length=50, null=True)              # TODO
+    location = models.CharField(max_length=50, null=True, blank = True)              # TODO
 
-    percent_rating = models.FloatField(blank=True, null=True)
+    percent_rating = models.FloatField(null=True, blank = True)
     
     #ratings                                                            # TODO
             #ratings = fields.ListField(fields.EmbeddedDocumentField(Rate))
     
-    bio = models.CharField(max_length=500, null=True)
-    facebook_link = models.URLField(max_length=100, null=True)
-    instagram_link = models.URLField(max_length=100, null=True)
+    bio = models.CharField(max_length=500, null=True, blank = True)
+    facebook_link = models.URLField(max_length=100, null=True, blank = True)
+    instagram_link = models.URLField(max_length=100, null=True, blank = True)
     open_for_invites = models.BooleanField(default=True)
 
 

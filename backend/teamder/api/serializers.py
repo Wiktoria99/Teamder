@@ -4,13 +4,13 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "user_name", "list_of_categories")
+        fields = ("id", "user_name", "list_of_interests")
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class InterestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
-        fields = ("id", "name", "main_category")
+        model = Interest
+        fields = ("id", "name")
 
 
 
