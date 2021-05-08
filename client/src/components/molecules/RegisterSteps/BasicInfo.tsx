@@ -30,6 +30,7 @@ export const BasicInfo: React.FC<Props> = ({
     <>
       <form onSubmit={handleClick} className={styles.form}>
         <CustomTextField
+          required
           label="Login"
           variant="standard"
           color="secondary"
@@ -41,6 +42,7 @@ export const BasicInfo: React.FC<Props> = ({
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <CustomTextField
+            required
             style={{ width: '48%' }}
             label="Name"
             variant="standard"
@@ -52,6 +54,7 @@ export const BasicInfo: React.FC<Props> = ({
           />
 
           <CustomTextField
+            required
             style={{ width: '48%' }}
             label="Surname"
             variant="standard"
@@ -67,7 +70,9 @@ export const BasicInfo: React.FC<Props> = ({
         </div>
 
         <CustomTextField
+          required
           label="E-mail"
+          type="email"
           variant="standard"
           color="secondary"
           onChange={(e) =>
@@ -77,6 +82,7 @@ export const BasicInfo: React.FC<Props> = ({
         />
 
         <CustomTextField
+          required
           label="Password"
           variant="standard"
           type={showPassword ? 'text' : 'password'}
@@ -104,6 +110,7 @@ export const BasicInfo: React.FC<Props> = ({
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <CustomTextField
+            required
             style={{ width: '48%' }}
             label="City"
             variant="standard"
@@ -115,6 +122,7 @@ export const BasicInfo: React.FC<Props> = ({
           />
 
           <CustomTextField
+            required
             style={{ width: '48%' }}
             label="Day of birth"
             variant="standard"
