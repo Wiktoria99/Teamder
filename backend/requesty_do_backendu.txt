@@ -1,0 +1,35 @@
+W folderze backend/teamder/     
+python manage.py runserver      (trzeba zainstalowac requirements.txt)
+
+http://127.0.0.1:8000/admin
+Panel logowania do panelu administratora:
+l: admin
+h: admin
+I można tu dodawać i oglądać dane w bazie
+
+http://127.0.0.1:8000/api/login     POST
+username: <username>
+password: <password>
+
+http://127.0.0.1:8000/api/register  POST
+user_name: <username>
+email: <email>
+password: <password>
+password2: <password>
+
+http://127.0.0.1:8000/api/getUserInfo   GET
+w headerze zapytania musi byc 
+Authorization: Token <token> 
+
+http://127.0.0.1:8000/api/interests     GET
+
+
+http://127.0.0.1:8000/api/teams         GET
+
+
+http://127.0.0.1:8000/api/createTeam    POST
+w headerze zapytania musi byc token do utoryzacji tak jak w getUserInfo
+Authorization: Token <token> 
+name: <nazwa zespołu>
+date: <data wydarzenia>
+hostem automatycznie zostaje uzytkownik który towrzy team (którego token wysyłamy w headerze)
