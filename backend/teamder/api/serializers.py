@@ -12,6 +12,12 @@ class InterestSerializer(serializers.ModelSerializer):
         model = Interest
         fields = ("id", "name")
 
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ("id", "name", "date")#, "size", "description", "cost_per_person", "list_of_interests", "waiting_people", "accepted_people")
+
+
 
 
 # Account stuff
@@ -29,6 +35,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def save(self):
         account = Account(
+                id = ID_value.get_next_id("Account"),
                 email=self.validated_data['email'],
                 user_name=self.validated_data['user_name'],
             )

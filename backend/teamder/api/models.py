@@ -15,7 +15,7 @@ from djongo import models
 
 
 class Interest(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
     name = models.CharField(max_length=20, unique = True, null=False)
 
     def __str__(self):
@@ -23,9 +23,12 @@ class Interest(models.Model):
 
 
 class User(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    #_id = models.ObjectIdField()
+    #_id = models.BigAutoField(primary_key=True)
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
+
     user_name = models.CharField(max_length=50, unique = True)
-    list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.PROTECT, null=True, blank = True)
+    list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.DO_NOTHING, null=True, blank = True)
     
     name = models.CharField(max_length=50, null=True, blank = True)
     surname = models.CharField(max_length=50, null=True, blank = True)
@@ -52,9 +55,46 @@ class User(models.Model):
 
 
 
+class Team(models.Model):
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
+    host = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)                                      # TODO    dodać unique = True, czy nie dodać  
+    date = models.DateField()
+    #localizaton =                                                              # TODO
+
+    size = models.IntegerField(null=True, blank = True)
+
+    description = models.CharField(max_length=500, null=True, blank = True)  
+    
+    cost_per_person = models.FloatField(null=True, blank = True)
+    list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.DO_NOTHING, null=True, blank = True)    
+
+    waiting_people = models.ArrayReferenceField(to=User, on_delete=models.DO_NOTHING, related_name='waiting_people', null=True, blank = True)  
+    accepted_people = models.ArrayReferenceField(to=User, on_delete=models.DO_NOTHING, related_name='accepted_people', null=True, blank = True)   
+
+    def __str__(self):
+        return self.name
 
 
 
+class ID_value(models.Model):
+    id = models.IntegerField(unique=True, primary_key=True, blank=False, null=False)
+    class_name = models.CharField(max_length=50, blank=False, null=False, unique=True)
+    next_id_value = models.BigIntegerField(blank=False, null=False, default=1)
+
+    @staticmethod
+    def get_next_id(name_of_class: str):
+        #obj = ID_value.objects.filter(class_name=name_of_class)[0]
+        obj = ID_value.objects.get(class_name = name_of_class)
+        value_to_return = obj.next_id_value
+        obj.next_id_value = obj.next_id_value + 1
+        obj.save()
+        return value_to_return
+
+
+
+    def __str__(self):
+        return self.class_name 
 
 
 # Account stuff:
@@ -90,7 +130,7 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
 
     user_name = models.CharField(max_length=100, null=False, unique=True)
 

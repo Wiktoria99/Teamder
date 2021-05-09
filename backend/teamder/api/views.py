@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from django.shortcuts import render
 from django import core
 
@@ -18,6 +20,12 @@ from .models import *
 
 @api_view(['GET',])
 @permission_classes(())
+def get_all_teams(request):
+    return Response(Team.objects.all().values(), status=status.HTTP_200_OK)
+
+
+@api_view(['GET',])
+@permission_classes(())
 def get_all_interests(request):
     return Response(Interest.objects.all().values(), status=status.HTTP_200_OK)
 
@@ -25,10 +33,44 @@ def get_all_interests(request):
 
 @api_view(['GET',])
 @permission_classes((IsAuthenticated,))
-def user_info_view(request):    # for now return all users TODO
-    curr_user = request.user
+def user_info_view(request):
+    curr_user = request.user.user_name
     return Response(User.objects.filter(user_name=curr_user).values(), status=status.HTTP_200_OK)
 
+
+
+@api_view(['POST',])
+@permission_classes((IsAuthenticated,))
+def create_team_view(request):
+
+    if request.method =='POST':
+        host = request.user.user_name
+
+        data = deepcopy(request.data)
+        data['host'] = host
+        data['id'] = ID_value.get_next_id("Team")
+        serializer = TeamSerializer(data = data)
+
+        response_data = {}
+        if serializer.is_valid():
+            
+            id = serializer.data['id']
+            name = serializer.data['name']
+            date = serializer.data['date']
+
+            team = Team()
+            team.id = id
+            team.host = host
+            team.name = name
+            team.date = date
+            team.save()
+
+            response_data['response'] = "succesfully created new Team!"
+            response_data['id'] = team.id
+            response_data['name'] = team.name
+        else:
+            response_data = serializer.errors
+        return Response(response_data)
 
 
 @api_view(['POST',])
@@ -36,12 +78,16 @@ def user_info_view(request):    # for now return all users TODO
 def registration_view(request):
 
     if request.method =='POST':
+
+        data = deepcopy(request.data)
         serializer = RegistrationSerializer(data = request.data)
         response_data = {}
+
         if serializer.is_valid():
             account = serializer.save()
             
             user = User()
+            user.id = ID_value.get_next_id("User")
             user.user_name = account.user_name
             user.save()
 
