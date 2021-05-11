@@ -7,15 +7,38 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
+from django.apps import apps
+from django.db.models import Max
+
 from djongo import models
 
+
+# JAK DODAĆ ID:
+# dodajesz funckje <nazwa_klasy>_get_next_ID(), w której wywłujesz funckję get_next_ID_for("<nazwa_klasy>")
+# w klasie modelu dodajesz linijkę: 
+# id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=<nazwa_klasy>_get_next_ID)
+def get_next_ID_for(name_of_class: str):
+    if apps.get_model(app_label = 'api', model_name = name_of_class).objects.all().count() == 0:
+        return 1
+    else:
+        apps.get_model(app_label = 'api', model_name = name_of_class).objects.aggregate(Max('id')).values()
+        return list(apps.get_model(app_label = 'api', model_name = name_of_class).objects.aggregate(Max('id')).values())[0] + 1
+           
+def Interest_get_next_ID():
+    return get_next_ID_for('Interest')
+def User_get_next_ID():
+    return get_next_ID_for('User')
+def Team_get_next_ID():
+    return get_next_ID_for('Team')
+def Account_get_next_ID():
+    return get_next_ID_for('Account')
 
 
 # Create your models here.
 
 
 class Interest(models.Model):
-    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Interest_get_next_ID)
     name = models.CharField(max_length=20, unique = True, null=False)
 
     def __str__(self):
@@ -23,9 +46,7 @@ class Interest(models.Model):
 
 
 class User(models.Model):
-    #_id = models.ObjectIdField()
-    #_id = models.BigAutoField(primary_key=True)
-    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=User_get_next_ID)
 
     user_name = models.CharField(max_length=50, unique = True)
     list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.DO_NOTHING, null=True, blank = True)
@@ -56,7 +77,7 @@ class User(models.Model):
 
 
 class Team(models.Model):
-    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Team_get_next_ID)
     host = models.CharField(max_length=50)
     name = models.CharField(max_length=50)                                      # TODO    dodać unique = True, czy nie dodać  
     date = models.DateField()
@@ -76,25 +97,6 @@ class Team(models.Model):
         return self.name
 
 
-
-class ID_value(models.Model):
-    id = models.IntegerField(unique=True, primary_key=True, blank=False, null=False)
-    class_name = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    next_id_value = models.BigIntegerField(blank=False, null=False, default=1)
-
-    @staticmethod
-    def get_next_id(name_of_class: str):
-        #obj = ID_value.objects.filter(class_name=name_of_class)[0]
-        obj = ID_value.objects.get(class_name = name_of_class)
-        value_to_return = obj.next_id_value
-        obj.next_id_value = obj.next_id_value + 1
-        obj.save()
-        return value_to_return
-
-
-
-    def __str__(self):
-        return self.class_name 
 
 
 # Account stuff:
@@ -130,7 +132,7 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False)
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Account_get_next_ID)
 
     user_name = models.CharField(max_length=100, null=False, unique=True)
 

@@ -4,18 +4,18 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "user_name", "list_of_interests")
+        fields = ("user_name", "list_of_interests")
 
 
 class InterestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interest
-        fields = ("id", "name")
+        fields = ("name")
 
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ("id", "name", "date")#, "size", "description", "cost_per_person", "list_of_interests", "waiting_people", "accepted_people")
+        fields = ("name", "date")#, "size", "description", "cost_per_person", "list_of_interests", "waiting_people", "accepted_people")
 
 
 
@@ -35,7 +35,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def save(self):
         account = Account(
-                id = ID_value.get_next_id("Account"),
                 email=self.validated_data['email'],
                 user_name=self.validated_data['user_name'],
             )
