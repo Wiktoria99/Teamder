@@ -42,7 +42,7 @@ export const theme = {
     palette: {
       type: 'dark',
       background: {
-        default: colors.WHITE,
+        default: colors.BLACK,
       },
       primary: {
         main: colors.SECONDARY,
