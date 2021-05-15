@@ -41,6 +41,7 @@ export const useFormStyles = makeStyles((theme) => ({
     fontWeight: 400,
     marginTop: 40,
     textAlign: 'center',
+    cursor: 'pointer',
 
     '& span': {
       color: colors.SECONDARY,

@@ -34,6 +34,7 @@ export const Login: React.FC = () => {
 
   const loginUser = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const user: LoginRequestI = {
       username,
       password,

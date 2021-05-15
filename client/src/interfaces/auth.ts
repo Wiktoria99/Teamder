@@ -14,10 +14,20 @@ export interface LogoutRequestI {
 }
 
 export interface RegisterRequestI {
-  username: string;
+  login: string;
   password: string;
   name: string;
+  surname: string;
   email: string;
+  city: string;
+  dayOfBirth: number | null;
+  bio: string;
+  socialMedia: {
+    first: string;
+    second: string;
+    third: string;
+  };
+  interests: string[];
 }
 
 export interface RegisterResponseI {
