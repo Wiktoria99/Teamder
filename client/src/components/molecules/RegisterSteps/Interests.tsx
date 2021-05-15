@@ -11,8 +11,8 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { RegisterRequestI } from '@/interfaces';
 import { InterestList } from '@/constants';
+import { RegisterRequestI } from '@/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

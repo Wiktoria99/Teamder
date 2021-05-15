@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import {
   CustomButton,
@@ -6,9 +7,8 @@ import {
   FormWrapper,
   useFormStyles,
 } from '@/components';
-import { forgotPassword } from '@/api';
 import { paths } from '@/routing';
-import { Link } from 'react-router-dom';
+import { forgotPassword } from '@/api';
 
 export const ForgotPassword: React.FC = () => {
   const [username, setUsername] = useState('');

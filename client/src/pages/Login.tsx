@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Typography, IconButton, InputAdornment } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Typography, IconButton, InputAdornment } from '@material-ui/core';
 import { login } from '@/api';
+import { paths } from '@/routing';
 import { useLocalStorage } from '@/hooks';
 import { LoginRequestI } from '@/interfaces';
 import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from '@/constants';
-import { paths } from '@/routing';
 import {
   CustomButton,
   CustomTextField,

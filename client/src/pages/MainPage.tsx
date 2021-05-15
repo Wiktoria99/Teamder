@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { useLocalStorage } from '@/hooks';
+import React from 'react';
 import { useHistory } from 'react-router';
-import { ACCESS_TOKEN, ID_TOKEN } from '@/constants';
-import { paths } from '@/routing';
 import { logout } from '@/api';
+import { useLocalStorage } from '@/hooks';
+import { ACCESS_TOKEN, ID_TOKEN } from '@/constants';
+import { Layout, MainWrapper } from '@/components';
 
 export const MainPage: React.FC = () => {
   const [token, setToken] = useLocalStorage(ID_TOKEN, '');
   const [accessToken] = useLocalStorage(ACCESS_TOKEN, '');
   const history = useHistory();
 
-  useEffect(() => {
-    if (!token) {
-      history.push(paths.LOGIN);
-    }
-  }, [token]);
+  //   useEffect(() => {
+  //     if (!token) {
+  //       history.push(paths.LOGIN);
+  //     }
+  //   }, [token]);
 
   const logoutHandler = async () => {
     try {
@@ -27,5 +27,9 @@ export const MainPage: React.FC = () => {
     }
   };
 
-  return <div>MainPage</div>;
+  return (
+    <Layout>
+      <MainWrapper title="Events" backBtnURL={'/login'}></MainWrapper>
+    </Layout>
+  );
 };

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { BasicInfo, FormWrapper } from '@/components';
+import {
+  BasicInfo,
+  AdditionalInfo,
+  Interests,
+  FormWrapper,
+} from '@/components';
 import { RegisterRequestI } from '@/interfaces';
-import { AdditionalInfo } from '@/components/molecules/RegisterSteps/AdditionalInfo';
-import { Interests } from '@/components/molecules/RegisterSteps/Interests';
 
 export const Register: React.FC = () => {
   const [registerProgress, setRegisterProgress] = useState<number>(0);

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { CustomButton, CustomTextField, useFormStyles } from '@/components';
-import { IconButton, InputAdornment, Typography } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { RegisterRequestI } from '@/interfaces';
 import { Link } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { IconButton, InputAdornment, Typography } from '@material-ui/core';
 import { paths } from '@/routing';
+import { RegisterRequestI } from '@/interfaces';
+import { CustomButton, CustomTextField, useFormStyles } from '@/components';
 
 interface Props {
   registerInfo: RegisterRequestI;

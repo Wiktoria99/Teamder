@@ -5,6 +5,7 @@ export const colors = {
 
   PRIMARY_FONT: '#F2F2F2',
   SECONDARY_FONT: '',
+  BORDER_GRAY: '#3A444C',
 
   WHITE: '#ffffff',
   BLACK: '#000000',
