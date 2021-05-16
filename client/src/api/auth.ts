@@ -11,7 +11,7 @@ import { axiosUnauthorizedConfig, axiosAuthorizedConfig } from '@/api';
 
 export const login = (data: LoginRequestI) => {
   const response: Promise<AxiosResponse<LoginResponseI>> = axios.post(
-    '/accounts/login/',
+    '/login/',
     data,
     axiosUnauthorizedConfig,
   );
@@ -29,9 +29,8 @@ export const logout = (data: LogoutRequestI, idToken: string) => {
 
 export const register = (data: RegisterRequestI) => {
   const response: Promise<AxiosResponse<RegisterResponseI>> = axios.post(
-    '/accounts/signup/',
+    '/register',
     data,
-    {},
   );
   return response;
 };
