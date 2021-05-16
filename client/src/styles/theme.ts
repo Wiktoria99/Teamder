@@ -1,5 +1,4 @@
 import { createMuiTheme } from '@material-ui/core';
-
 import { colors } from './colors';
 
 export const theme = {
@@ -41,11 +40,12 @@ export const theme = {
       },
     },
     palette: {
+      type: 'dark',
       background: {
-        default: colors.WHITE,
+        default: colors.BLACK,
       },
       primary: {
-        main: colors.TEAL_DARK,
+        main: colors.SECONDARY,
         light: colors.DARK_GREY,
       },
       secondary: {
