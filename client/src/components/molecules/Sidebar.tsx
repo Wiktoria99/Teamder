@@ -82,7 +82,7 @@ export const Sidebar = (props: Props) => {
           Profile
         </SideBarButton>
       </NavLink>
-      <NavLink to={paths.DASHBOARD} style={{ textDecoration: 'none' }} >
+      <NavLink to={paths.CREATE_TEAM} style={{ textDecoration: 'none' }} >
       <CustomButton
         type="submit"
         color="secondary"
