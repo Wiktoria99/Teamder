@@ -1,20 +1,12 @@
 import React from 'react';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { CalendarIcon, InterestsIcon, LocationIcon, TeamIcon } from '@/assets';
+import { TeamI } from '@/interfaces';
 import { colors } from '@/styles';
 
-interface Props {}
-
-const team = {
-  host: 'Tomasz Gajda',
-  photoSource: 'https://avatars.githubusercontent.com/u/31045802?v=4',
-  title: 'Hackathon - Webdev and mobile applications! ',
-  date: '24.05',
-  location: 'Kraków',
-  maxSize: 10,
-  curSize: 2,
-  interests: ['Programming', 'Technologies'],
-};
+interface Props {
+  team: TeamI;
+}
 
 const useStyles = makeStyles((theme) => ({
   teamItemContainer: {
@@ -31,8 +23,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
   },
   contentContainer: {
+    width: '100%',
     display: 'flex',
     flexFlow: 'column',
+    position: 'relative',
   },
   hostName: {
     fontWeight: 100,
@@ -80,9 +74,22 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px',
     marginTop: '10px',
   },
+  button: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: colors.SECONDARY,
+    color: colors.BLACK,
+    width: '100px',
+    height: '30px',
+
+    '&:hover': {
+      backgroundColor: colors.SECONDARY_HOV,
+    },
+  },
 }));
 
-export const TeamItem = (props: Props) => {
+export const TeamItem: React.FC<Props> = ({ team }) => {
   const styles = useStyles();
 
   return (
@@ -126,7 +133,7 @@ export const TeamItem = (props: Props) => {
             )}
           </Box>
         </Box>
-        <Button />
+        <Button className={styles.button}>MORE</Button>
       </Box>
     </Box>
   );
