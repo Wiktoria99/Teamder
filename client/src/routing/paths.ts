@@ -3,4 +3,5 @@ export const paths = {
   REGISTER: `/register`,
   FORGOT_PASSWORD: `/forgot_password`,
   DASHBOARD: `/`,
+  CREATE_TEAM: `/createteam`,
 };

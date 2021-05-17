@@ -1,6 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Button } from '@material-ui/core';
 import { SideBarButton, BarWrapper, CustomButton } from '@/components';
+import { NavLink } from 'react-router-dom';
+import { paths } from '@/routing';
 import {
   HomeOutlined,
   GroupOutlined,
@@ -40,38 +42,47 @@ export const Sidebar = (props: Props) => {
   return (
     <BarWrapper>
       <TeamderLogoSidebar />
-      <SideBarButton
-        type="button"
-        color="secondary"
-        startIcon={<HomeOutlined />}
-        className={styles.button}
-      >
-        Home
-      </SideBarButton>
-      <SideBarButton
-        type="button"
-        color="secondary"
-        startIcon={<GroupOutlined />}
-        className={styles.button}
-      >
-        My Teams
-      </SideBarButton>
-      <SideBarButton
-        type="button"
-        color="secondary"
-        startIcon={<EmailOutlined />}
-        className={styles.button}
-      >
-        Notifications
-      </SideBarButton>
-      <SideBarButton
-        type="button"
-        color="secondary"
-        startIcon={<PersonOutlined />}
-        className={styles.button}
-      >
-        Profile
-      </SideBarButton>
+        <NavLink to={paths.DASHBOARD} style={{marginBottom: "5px", marginTop: "40px", textDecoration: 'none' }}>
+          <SideBarButton
+            type="button"
+            color="secondary"
+            disableRipple
+            startIcon={<HomeOutlined />}
+          >
+            Home
+          </SideBarButton>
+        </NavLink>
+      <NavLink to={paths.DASHBOARD} style={{marginBottom: "5px", textDecoration: 'none' }} >
+        <SideBarButton
+          type="button"
+          color="secondary"
+          disableRipple
+          startIcon={<GroupOutlined />}
+        >
+          My Teams
+        </SideBarButton>
+      </NavLink>
+      <NavLink to={paths.DASHBOARD} style={{marginBottom: "5px", textDecoration: 'none' }} >
+        <SideBarButton
+          type="button"
+          color="secondary"
+          disableRipple
+          startIcon={<EmailOutlined />}
+        >
+          Notifications
+        </SideBarButton>
+      </NavLink>
+      <NavLink to={paths.DASHBOARD} style={{ textDecoration: 'none' }} >
+        <SideBarButton
+          type="button"
+          color="secondary"
+          disableRipple
+          startIcon={<PersonOutlined />}
+        >
+          Profile
+        </SideBarButton>
+      </NavLink>
+      <NavLink to={paths.CREATE_TEAM} style={{ textDecoration: 'none' }} >
       <CustomButton
         type="submit"
         color="secondary"
@@ -79,6 +90,7 @@ export const Sidebar = (props: Props) => {
       >
         Create a team
       </CustomButton>
+      </NavLink>
     </BarWrapper>
   );
 };
