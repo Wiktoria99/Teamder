@@ -42,17 +42,27 @@ export const Sidebar = (props: Props) => {
   return (
     <BarWrapper>
       <TeamderLogoSidebar />
-        <NavLink to={paths.DASHBOARD} style={{marginBottom: "5px", marginTop: "40px", textDecoration: 'none' }}>
-          <SideBarButton
-            type="button"
-            color="secondary"
-            disableRipple
-            startIcon={<HomeOutlined />}
-          >
-            Home
-          </SideBarButton>
-        </NavLink>
-      <NavLink to={paths.DASHBOARD} style={{marginBottom: "5px", textDecoration: 'none' }} >
+      <NavLink
+        to={paths.DASHBOARD}
+        style={{
+          marginBottom: '5px',
+          marginTop: '40px',
+          textDecoration: 'none',
+        }}
+      >
+        <SideBarButton
+          type="button"
+          color="secondary"
+          disableRipple
+          startIcon={<HomeOutlined />}
+        >
+          Home
+        </SideBarButton>
+      </NavLink>
+      <NavLink
+        to={paths.DASHBOARD}
+        style={{ marginBottom: '5px', textDecoration: 'none' }}
+      >
         <SideBarButton
           type="button"
           color="secondary"
@@ -62,7 +72,10 @@ export const Sidebar = (props: Props) => {
           My Teams
         </SideBarButton>
       </NavLink>
-      <NavLink to={paths.DASHBOARD} style={{marginBottom: "5px", textDecoration: 'none' }} >
+      <NavLink
+        to={paths.DASHBOARD}
+        style={{ marginBottom: '5px', textDecoration: 'none' }}
+      >
         <SideBarButton
           type="button"
           color="secondary"
@@ -72,7 +85,7 @@ export const Sidebar = (props: Props) => {
           Notifications
         </SideBarButton>
       </NavLink>
-      <NavLink to={paths.DASHBOARD} style={{ textDecoration: 'none' }} >
+      <NavLink to={paths.DASHBOARD} style={{ textDecoration: 'none' }}>
         <SideBarButton
           type="button"
           color="secondary"
@@ -82,14 +95,14 @@ export const Sidebar = (props: Props) => {
           Profile
         </SideBarButton>
       </NavLink>
-      <NavLink to={paths.CREATE_TEAM} style={{ textDecoration: 'none' }} >
-      <CustomButton
-        type="submit"
-        color="secondary"
-        className={styles.buttonYellow}
-      >
-        Create a team
-      </CustomButton>
+      <NavLink to={paths.CREATE_TEAM} style={{ textDecoration: 'none' }}>
+        <CustomButton
+          type="submit"
+          color="secondary"
+          className={styles.buttonYellow}
+        >
+          Create a team
+        </CustomButton>
       </NavLink>
     </BarWrapper>
   );

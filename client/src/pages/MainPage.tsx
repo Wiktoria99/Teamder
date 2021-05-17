@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { logout } from '@/api';
 import { useLocalStorage } from '@/hooks';
 import { ACCESS_TOKEN, ID_TOKEN } from '@/constants';
-import { Layout, MainWrapper } from '@/components';
+import { Layout, MainWrapper, TeamItem } from '@/components';
 
 export const MainPage: React.FC = () => {
   const [token, setToken] = useLocalStorage(ID_TOKEN, '');
@@ -29,7 +29,9 @@ export const MainPage: React.FC = () => {
 
   return (
     <Layout>
-      <MainWrapper title="Events" backBtnURL={'/login'}></MainWrapper>
+      <MainWrapper title="Events" backBtnURL={'/login'}>
+        <TeamItem />
+      </MainWrapper>
     </Layout>
   );
 };

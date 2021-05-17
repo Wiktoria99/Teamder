@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     margin: 'auto',
     width: '100%',
+    minWidth: '1350px',
     backgroundColor: colors.BLACK,
   },
   sidebarContainer: {},

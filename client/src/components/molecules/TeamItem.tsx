@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, makeStyles } from '@material-ui/core';
-import { CalendarIcon, LocationIcon, TeamIcon } from '@/assets';
+import { Box, Button, makeStyles } from '@material-ui/core';
+import { CalendarIcon, InterestsIcon, LocationIcon, TeamIcon } from '@/assets';
+import { colors } from '@/styles';
 
 interface Props {}
 
@@ -16,14 +17,69 @@ const team = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  teamItemContainer: {},
-  avatarContainer: {},
-  contentContainer: {},
-  hostName: {},
-  teamTitle: {},
-  infoBox: {},
-  iconInfo: {},
-  minorInfo: {},
+  teamItemContainer: {
+    display: 'flex',
+    borderBottom: `1px solid ${colors.BORDER_GRAY}`,
+    padding: 40,
+  },
+  avatarContainer: {
+    paddingRight: 20,
+  },
+  photo: {
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+  },
+  contentContainer: {
+    display: 'flex',
+    flexFlow: 'column',
+  },
+  hostName: {
+    fontWeight: 100,
+    fontSize: 16,
+    lineHeight: '22px',
+    margin: 0,
+  },
+  teamTitle: {
+    fontWeight: 600,
+    fontSize: '20px',
+    lineHeight: '125%',
+    margin: 0,
+  },
+  infoBox: {
+    display: 'flex',
+    width: '70%',
+    minWidth: '230px',
+    justifyContent: 'space-between',
+    marginTop: 15,
+  },
+  iconInfo: {
+    display: 'flex',
+  },
+  minorInfo: {
+    fontSize: 16,
+    margin: '0px 0px 0px 7px',
+  },
+  interestsContainer: {
+    display: 'flex',
+    flexFlow: 'column',
+  },
+  interestsLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: '25px',
+  },
+  interestsText: {
+    fontSize: '16px',
+    fontWeight: 600,
+    lineHeight: '125%',
+    margin: 0,
+    marginLeft: '10px',
+  },
+  interestsList: {
+    fontSize: '16px',
+    marginTop: '10px',
+  },
 }));
 
 export const TeamItem = (props: Props) => {
@@ -32,7 +88,13 @@ export const TeamItem = (props: Props) => {
   return (
     <Box className={styles.teamItemContainer}>
       <Box className={styles.avatarContainer}>
-        <img height="100" width="100" src={team.photoSource} alt="avatar" />
+        <img
+          className={styles.photo}
+          height="100"
+          width="100"
+          src={team.photoSource}
+          alt="avatar"
+        />
       </Box>
       <Box className={styles.contentContainer}>
         <p className={styles.hostName}>{team.host}</p>
@@ -53,6 +115,16 @@ export const TeamItem = (props: Props) => {
             </p>
           </Box>
         </Box>
+        <Box className={styles.interestsContainer}>
+          <Box className={styles.interestsLabel}>
+            <InterestsIcon />
+            <p className={styles.interestsText}>Related interests</p>
+          </Box>
+          <Box className={styles.interestsList}>
+            {team.interests.map((interest) => interest)}
+          </Box>
+        </Box>
+        <Button />
       </Box>
     </Box>
   );

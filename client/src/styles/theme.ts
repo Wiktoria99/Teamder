@@ -3,6 +3,15 @@ import { colors } from './colors';
 
 export const theme = {
   default: createMuiTheme({
+    overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          html: {
+            fontVariantNumeric: 'lining-nums',
+          },
+        },
+      },
+    },
     typography: {
       h1: {
         fontWeight: 700,

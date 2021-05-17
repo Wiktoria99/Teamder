@@ -10,7 +10,6 @@ interface BarI extends React.HTMLProps<HTMLDivElement> {
 const useStyles = makeStyles((theme) => ({
   barContainer: {
     width: 200,
-    height: '100vw',
     marginRight: 50,
     marginTop: 25,
     display: 'flex',
