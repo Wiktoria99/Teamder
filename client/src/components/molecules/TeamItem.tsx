@@ -121,7 +121,9 @@ export const TeamItem = (props: Props) => {
             <p className={styles.interestsText}>Related interests</p>
           </Box>
           <Box className={styles.interestsList}>
-            {team.interests.map((interest) => interest)}
+            {team.interests.map((interest, idx) =>
+              idx !== team.interests.length - 1 ? interest + ', ' : interest,
+            )}
           </Box>
         </Box>
         <Button />

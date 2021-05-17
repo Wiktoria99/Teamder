@@ -1,3 +1,3 @@
 export * from './paths';
-export * from './unauthorizedRoutes';
+export * from './routes';
 export * from './Routing';

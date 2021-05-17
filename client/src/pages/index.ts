@@ -3,3 +3,4 @@ export * from './Register';
 export * from './ForgotPassword';
 export * from './MainPage';
 export * from './CreateTeam';
+export * from './Notifications';

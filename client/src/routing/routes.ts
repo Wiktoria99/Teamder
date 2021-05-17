@@ -1,8 +1,14 @@
 import { RouteProps } from 'react-router-dom';
-import { Login, Register, ForgotPassword, CreateTeam } from '@/pages';
+import {
+  Login,
+  Register,
+  ForgotPassword,
+  CreateTeam,
+  Notifications,
+} from '@/pages';
 import { paths } from './paths';
 
-export const unauthorizedRoutes: RouteProps[] = [
+export const routes: RouteProps[] = [
   {
     path: paths.LOGIN,
     component: Login,
@@ -18,5 +24,9 @@ export const unauthorizedRoutes: RouteProps[] = [
   {
     path: paths.CREATE_TEAM,
     component: CreateTeam,
+  },
+  {
+    path: paths.NOTIFICATIONS,
+    component: Notifications,
   },
 ];

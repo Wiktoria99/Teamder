@@ -73,7 +73,7 @@ export const Sidebar = (props: Props) => {
         </SideBarButton>
       </NavLink>
       <NavLink
-        to={paths.DASHBOARD}
+        to={paths.NOTIFICATIONS}
         style={{ marginBottom: '5px', textDecoration: 'none' }}
       >
         <SideBarButton

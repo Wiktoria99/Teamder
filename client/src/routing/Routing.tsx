@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
 import { MainPage } from '@/pages';
-import { unauthorizedRoutes } from './unauthorizedRoutes';
+import { routes } from './routes';
 
 const ScrollToTop = (): null => {
   window.scrollTo(0, 0);
@@ -14,7 +13,7 @@ export const Routing: React.FC = () => {
     <>
       <Route component={ScrollToTop} />
       <Switch>
-        {unauthorizedRoutes.map((routeProps, i) => (
+        {routes.map((routeProps, i) => (
           <Route key={`${routeProps.path}-${i}`} {...routeProps} />
         ))}
         <Route exact={true} component={MainPage} />

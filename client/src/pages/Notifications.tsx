@@ -4,9 +4,8 @@ import { useLocalStorage } from '@/hooks';
 import { ACCESS_TOKEN, ID_TOKEN } from '@/constants';
 import { Layout, MainWrapper } from '@/components';
 
-export const CreateTeam: React.FC = () => {
+export const Notifications: React.FC = () => {
   const [token, setToken] = useLocalStorage(ID_TOKEN, '');
-  const [accessToken] = useLocalStorage(ACCESS_TOKEN, '');
   const history = useHistory();
 
   //   useEffect(() => {
@@ -19,7 +18,7 @@ export const CreateTeam: React.FC = () => {
     <Layout>
       <MainWrapper
         isBackBtn
-        title="Create team"
+        title="Notifications"
         backBtnURL={'/mainpage'}
       ></MainWrapper>
     </Layout>
