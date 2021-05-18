@@ -69,10 +69,29 @@ class User(models.Model):
     instagram_link = models.URLField(max_length=100, null=True, blank = True)
     open_for_invites = models.BooleanField(default=True)
 
+    social_media_URL1 = models.URLField(max_length=100, null=True, blank = True)
+    social_media_URL2 = models.URLField(max_length=100, null=True, blank = True)
+    social_media_URL3 = models.URLField(max_length=100, null=True, blank = True)
+
 
 
     def __str__(self):
         return self.user_name
+
+    def _add_interest(self, interest: Interest):
+        if interest:
+            self.list_of_interests.add(interest[0])
+            #self.save()
+
+    def add_interest_by_ID(self, interest_ID: int):
+        interest = Interest.objects.all().filter(id = interest_ID)
+        self._add_interest(interest)
+
+    def add_interest_by_name(self, interest_name: str):
+        interest = Interest.objects.all().filter(name = interest_name)
+        self._add_interest(interest)
+        
+        
 
 
 
