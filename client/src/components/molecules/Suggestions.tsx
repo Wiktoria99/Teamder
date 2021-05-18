@@ -1,11 +1,19 @@
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { InterestList } from '@/constants';
 import { CustomTextField } from '../atoms';
+import { Link } from 'react-router-dom';
+import { colors } from '@/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     sidebarContainer: {
       marginLeft: 30,
+    },
+    searchbar: {
+      width: '100%',
+      '& .MuiInputBase-root': {
+        fontSize: 20,
+      },
     },
     myTable: {
       color: '#F2F2F2',
@@ -43,6 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'normal',
       margin: '0',
     },
+    link: {
+      color: colors.SECONDARY,
+      textDecoration: 'none',
+    },
   }),
 );
 
@@ -51,7 +63,10 @@ export const Suggestions = () => {
 
   return (
     <Box className={classes.sidebarContainer}>
-      <CustomTextField placeholder="Search Teamder" />
+      <CustomTextField
+        className={classes.searchbar}
+        placeholder="Przeszukaj Teamder..."
+      />
       <table className={classes.myTable}>
         <th className={classes.header}>Proponowane</th>
         {InterestList.map((value) => {
@@ -65,7 +80,11 @@ export const Suggestions = () => {
           );
         })}
         <tr>
-          <td className={classes.different}>Zobacz więcej...</td>
+          <td className={classes.different}>
+            <Link className={classes.link} to="/suggestions">
+              Zobacz więcej...
+            </Link>
+          </td>
         </tr>
       </table>
     </Box>

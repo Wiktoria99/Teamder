@@ -29,7 +29,7 @@ export const MainPage: React.FC = () => {
 
   return (
     <Layout>
-      <MainWrapper title="Events" backBtnURL={'/login'}>
+      <MainWrapper title="Zespoły" backBtnURL={'/login'}>
         <TeamList />
       </MainWrapper>
     </Layout>

@@ -6,3 +6,4 @@ export * from './CreateTeam';
 export * from './Notifications';
 export * from './MyTeams';
 export * from './MyProfile';
+export * from './SuggestionsAll';

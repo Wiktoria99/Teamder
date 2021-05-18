@@ -7,4 +7,5 @@ export const paths = {
   NOTIFICATIONS: '/notifications',
   MY_TEAMS: '/my_teams',
   MY_PROFILE: '/my_profile',
+  SUGGESTIONS: '/suggestions',
 };

@@ -1,8 +1,25 @@
+import { makeStyles } from '@material-ui/core';
 import React from 'react';
 
-export const TeamderLogoSidebar = () => {
+interface Props {
+  onClick: () => void;
+}
+
+const useStyles = makeStyles((theme) => ({
+  svg: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+}));
+
+export const TeamderLogoSidebar: React.FC<Props> = ({ onClick }) => {
+  const styles = useStyles();
+
   return (
     <svg
+      onClick={() => onClick()}
+      className={styles.svg}
       width="172"
       height="32"
       viewBox="0 0 172 32"
