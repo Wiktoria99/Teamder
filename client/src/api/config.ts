@@ -8,7 +8,7 @@ export const axiosAuthorizedConfig = (idToken: string) => {
   return {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${idToken}`,
+      Authorization: `${idToken}`,
     },
   };
 };

@@ -1,7 +1,8 @@
-import React from 'react';
-import { TeamI } from '@/interfaces';
+import React, { useEffect, useState } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import { TeamItem } from './TeamItem';
+import { TeamI } from '@/interfaces';
+import { Loading } from '@/components';
 
 interface Props {}
 
@@ -46,13 +47,29 @@ const listOfTeams: TeamI[] = [
 ];
 
 export const TeamList = (props: Props) => {
+  const [teams, setTeams] = useState([]);
   const styles = useStyles();
+
+  //   useEffect(() => {
+  //     const getTeams = async () => {
+  //       const teamsFromBackend = await getTeamsFromBackend();
+  //       setTeams(teamsFromBackend);
+  //     };
+
+  //     getTeams();
+  //   }, []);
 
   return (
     <Box className={styles.teamList}>
-      {listOfTeams.map((team) => (
-        <TeamItem team={team} />
-      ))}
+      {teams ? (
+        <>
+          {listOfTeams.map((team) => (
+            <TeamItem team={team} />
+          ))}
+        </>
+      ) : (
+        <Loading />
+      )}
     </Box>
   );
 };

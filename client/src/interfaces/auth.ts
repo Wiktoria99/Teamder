@@ -4,8 +4,6 @@ export interface LoginRequestI {
 }
 
 export interface LoginResponseI {
-  id_token: string;
-  refresh_token: string;
   access_token: string;
 }
 

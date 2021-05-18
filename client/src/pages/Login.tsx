@@ -43,8 +43,6 @@ export const Login: React.FC = () => {
     try {
       const { data } = await login(user);
       setAccessToken(data.access_token);
-      setRefreshToken(data.refresh_token);
-      setIdToken(data.id_token);
     } catch (error) {
       console.log(error.response.data.error, 'error');
     }
