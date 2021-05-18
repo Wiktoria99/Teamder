@@ -4,3 +4,5 @@ export * from './ForgotPassword';
 export * from './MainPage';
 export * from './CreateTeam';
 export * from './Notifications';
+export * from './MyTeams';
+export * from './MyProfile';

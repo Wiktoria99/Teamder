@@ -4,7 +4,7 @@ import { useLocalStorage } from '@/hooks';
 import { ACCESS_TOKEN, ID_TOKEN } from '@/constants';
 import { Layout, MainWrapper } from '@/components';
 
-export const Notifications: React.FC = () => {
+export const MyProfile: React.FC = () => {
   const [token, setToken] = useLocalStorage(ID_TOKEN, '');
   const history = useHistory();
 
@@ -18,7 +18,7 @@ export const Notifications: React.FC = () => {
     <Layout>
       <MainWrapper
         isBackBtn
-        title="Powiadomienia"
+        title="Mój profil"
         backBtnURL={'/mainpage'}
       ></MainWrapper>
     </Layout>
