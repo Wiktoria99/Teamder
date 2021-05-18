@@ -12,10 +12,27 @@ username: <username>
 password: <password>
 
 http://127.0.0.1:8000/api/register  POST
-user_name: <username>
-email: <email>
-password: <password>
-password2: <password>
+przykładowe body requesty:
+{
+    "user_name":"test_user99", 
+    "email":"test99@email.com", 
+    "password":"maslo",
+    "password2":"maslo",
+    "name":"Andrzej",
+    "surname":"Duda",
+    "age":69,
+    "bio":"Jestem raperem, walcze z ostrym cieniem mgły.",
+    "social_media_URL1":"https://www.google.com",
+    "social_media_URL2":"https://www.facebook.com/",
+    "social_media_URL3":"https://github.com/Wiktoria99/Teamder/tree/main",
+    "list_of_interests":[1, "muzyka", "TAKIEGO ZAINTERESOWANIE NIE MA", 999999]
+}
+UWAGI:
+-jeszcze nie ma lokalizacji, bo nie zrobiliśmy jej jeszcze na backendzie (można wysyłać ale sie nie zapisze)
+-w linkach social_media na początku muszą być te śmieszne https:// bo jak nie dacie to walidacja nie przejdzie
+    (może kiedyś to zmienie na zwykłego stringa, ale wtedy będzie tam można cokolwiek wpisać)
+-w list_of_interests można wpisać zarówno nazwę zainteresowania jak i jego id (backed łyknie dowolne),
+    w przypadku gdy wpiszemy zainteresowanie którego nie ma zostanie pominięte
 
 http://127.0.0.1:8000/api/getUserInfo   GET
 w headerze zapytania musi byc 

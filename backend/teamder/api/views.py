@@ -74,24 +74,38 @@ def create_team_view(request):
 @permission_classes(())
 def registration_view(request):
 
+    print("\n\n\n\n")
+    print(request.scheme)
+    print(request.body)
+    print("\n\n\n\n")
     if request.method =='POST':
 
-        data = deepcopy(request.data)
         serializer = RegistrationSerializer(data = request.data)
         response_data = {}
 
         if serializer.is_valid():
-            account = serializer.save()
-            
-            user = User()
-            user.user_name = account.user_name
-            user.save()
+            user_serializer = UserSerializer(data = request.data)
 
-            response_data['response'] = "succesfully reistered a new user!"
-            response_data['user_name'] = account.user_name
-            response_data['email'] = account.email
-            token = Token.objects.get(user=account).key
-            response_data['token'] = token
+            if user_serializer.is_valid():
+                user = user_serializer.save()
+                account = serializer.save()
+
+                for interest in request.data['list_of_interests']:
+                    if type(interest) == str:
+                        user.add_interest_by_name(interest)
+                    elif type(interest) == int:
+                        user.add_interest_by_ID(interest)
+
+                user.save()
+
+                response_data['response'] = "succesfully reistered a new user!"
+                response_data['user_name'] = account.user_name
+                response_data['email'] = account.email
+                token = Token.objects.get(user=account).key
+                response_data['token'] = token
+            else:
+                response_data = user_serializer.errors
+                return Response(response_data)
         else:
             response_data = serializer.errors
         return Response(response_data)

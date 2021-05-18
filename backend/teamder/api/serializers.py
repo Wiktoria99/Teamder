@@ -4,7 +4,23 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("user_name", "list_of_interests")
+        #fields = "__all__"
+        fields = ("user_name", "name", "surname", "age", "bio", "social_media_URL1", "social_media_URL2", "social_media_URL3")
+
+    def save(self):
+        user = User(
+                user_name=self.validated_data['user_name'],
+                name=self.validated_data['name'],
+                surname=self.validated_data['surname'],
+                age=self.validated_data['age'],
+                bio=self.validated_data['bio'],
+                social_media_URL1=self.validated_data['social_media_URL1'],
+                social_media_URL2=self.validated_data['social_media_URL2'],
+                social_media_URL3=self.validated_data['social_media_URL3'],
+            )
+        user.save()
+        
+        return user
 
 
 class InterestSerializer(serializers.ModelSerializer):
