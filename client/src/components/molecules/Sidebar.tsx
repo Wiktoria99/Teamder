@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Button, Grid } from '@material-ui/core';
+import { makeStyles, Button, Grid, Box } from '@material-ui/core';
 import { BarWrapper, CustomButton } from '@/components';
 import { NavLink, useHistory } from 'react-router-dom';
 import { paths } from '@/routing';
@@ -45,28 +45,33 @@ export const Sidebar = (props: Props) => {
   return (
     <>
       <BarWrapper>
-        <TeamderLogoSidebar onClick={() => history.push('/')} />
-        <div style={{ marginTop: '45px' }}>
-          {SidebarData.map((item, index) => {
-            return (
-              <SidebarLink to={item.path}>
-                <Grid container direction="row" alignItems="flex-end">
-                  {item.icon}
-                  <SidebarLabel>{item.title}</SidebarLabel>
-                </Grid>
-              </SidebarLink>
-            );
-          })}
-        </div>
-        <NavLink to={paths.CREATE_TEAM} style={{ textDecoration: 'none' }}>
-          <CustomButton
-            type="submit"
-            color="secondary"
-            className={styles.button}
-          >
-            Stwórz zespół
-          </CustomButton>
-        </NavLink>
+        <Box>
+          <TeamderLogoSidebar onClick={() => history.push('/')} />
+          <div style={{ marginTop: '45px' }}>
+            {SidebarData.map((item, index) => {
+              return (
+                <SidebarLink to={item.path}>
+                  <Grid container direction="row" alignItems="flex-end">
+                    {item.icon}
+                    <SidebarLabel>{item.title}</SidebarLabel>
+                  </Grid>
+                </SidebarLink>
+              );
+            })}
+          </div>
+          <NavLink to={paths.CREATE_TEAM} style={{ textDecoration: 'none' }}>
+            <CustomButton
+              type="submit"
+              color="secondary"
+              className={styles.button}
+            >
+              Stwórz zespół
+            </CustomButton>
+          </NavLink>
+        </Box>
+        <CustomButton type="submit" color="secondary" className={styles.button}>
+          WYLOGUJ
+        </CustomButton>
       </BarWrapper>
     </>
   );
