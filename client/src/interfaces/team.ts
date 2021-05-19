@@ -8,3 +8,13 @@ export interface TeamI {
   curSize: number;
   interests: string[];
 }
+
+export interface CreateTeamI {
+  host: string;
+  title: string;
+  date: string;
+  location: string;
+  maxSize: number;
+  description: string;
+  interests: string[];
+}
