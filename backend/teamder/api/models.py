@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 
 from django.apps import apps
 from django.db.models import Max
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from djongo import models
 
@@ -32,7 +33,8 @@ def Team_get_next_ID():
     return get_next_ID_for('Team')
 def Account_get_next_ID():
     return get_next_ID_for('Account')
-
+def Location_get_next_ID():
+    return get_next_ID_for('Location')
 
 # Create your models here.
 
@@ -75,23 +77,28 @@ class User(models.Model):
         return self.user_name
 
 
+class Location(models.Model):
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Location_get_next_ID)
+    address = models.CharField(max_length=100)
+    longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    latitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
+
 
 class Team(models.Model):
-    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Team_get_next_ID)
+    id = models.BigIntegerField(unique=True, primary_key=True, default=Team_get_next_ID)
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=500, blank=True)
+    creation_date = models.DateTimeField(auto_now_add=True, blank=True)
+    expiration_date = models.DateTimeField(null=True, blank=True)
+    blog = models.EmbeddedField(
+        model_container=Location, null=True, blank=True
+    )
     host = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)                                      # TODO    dodać unique = True, czy nie dodać  
-    date = models.DateField()
-    #localizaton =                                                              # TODO
-
-    size = models.IntegerField(null=True, blank = True)
-
-    description = models.CharField(max_length=500, null=True, blank = True)  
-    
-    cost_per_person = models.FloatField(null=True, blank = True)
-    list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.DO_NOTHING, null=True, blank = True)    
-
+    cost_per_person = models.FloatField(null=True, blank=True)
+    list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.DO_NOTHING, null=True, blank = True)
     waiting_people = models.ArrayReferenceField(to=User, on_delete=models.DO_NOTHING, related_name='waiting_people', null=True, blank = True)  
     accepted_people = models.ArrayReferenceField(to=User, on_delete=models.DO_NOTHING, related_name='accepted_people', null=True, blank = True)   
+    size = models.PositiveIntegerField(null=True, blank = True)
 
     def __str__(self):
         return self.name
