@@ -19,7 +19,7 @@ export const MyTeams: React.FC = () => {
       <MainWrapper
         isBackBtn
         title="Moje zespoły"
-        backBtnURL={'/mainpage'}
+        backBtnURL={'/'}
       ></MainWrapper>
     </Layout>
   );

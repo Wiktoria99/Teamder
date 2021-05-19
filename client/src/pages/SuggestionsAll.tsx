@@ -19,7 +19,7 @@ export const SuggestionsAll: React.FC = () => {
       <MainWrapper
         isBackBtn
         title="Zainteresowania"
-        backBtnURL={'/mainpage'}
+        backBtnURL={'/'}
       ></MainWrapper>
     </Layout>
   );

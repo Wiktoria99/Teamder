@@ -19,7 +19,7 @@ export const Notifications: React.FC = () => {
       <MainWrapper
         isBackBtn
         title="Powiadomienia"
-        backBtnURL={'/mainpage'}
+        backBtnURL={'/'}
       ></MainWrapper>
     </Layout>
   );

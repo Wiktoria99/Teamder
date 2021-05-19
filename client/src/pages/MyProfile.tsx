@@ -16,11 +16,7 @@ export const MyProfile: React.FC = () => {
 
   return (
     <Layout>
-      <MainWrapper
-        isBackBtn
-        title="Mój profil"
-        backBtnURL={'/mainpage'}
-      ></MainWrapper>
+      <MainWrapper isBackBtn title="Mój profil" backBtnURL={'/'}></MainWrapper>
     </Layout>
   );
 };
