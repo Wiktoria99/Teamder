@@ -40,7 +40,7 @@ export const SuggestionItem: React.FC<Props> = ({ interest }) => {
   return (
     <Box className={styles.teamItemContainer}>
       <h3 className={styles.interestTitle}>#{interest.name}</h3>
-      <p className={styles.teamsNumber}>{interest.teams_number}</p>
+      <p className={styles.teamsNumber}>{interest.teams_number} Teams</p>
     </Box>
   );
 };
