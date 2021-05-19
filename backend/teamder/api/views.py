@@ -20,12 +20,6 @@ from .models import *
 
 @api_view(['GET',])
 @permission_classes(())
-def get_all_teams(request):
-    return Response(Team.objects.all().values(), status=status.HTTP_200_OK)
-
-
-@api_view(['GET',])
-@permission_classes(())
 def get_all_interests(request):
     return Response(Interest.objects.all().values(), status=status.HTTP_200_OK)
 
@@ -39,9 +33,11 @@ def user_info_view(request):
 
 
 
-@api_view(['POST',])
+@api_view(['POST', 'GET'])
 @permission_classes((IsAuthenticated,))
-def create_team_view(request):
+def manage_teams(request):
+    if request.method =='GET':
+        return Response(Team.objects.all().values(), status=status.HTTP_200_OK)
     if request.method =='POST':
         host = request.user.user_name
 
@@ -67,7 +63,6 @@ def create_team_view(request):
         else:
             response_data = serializer.errors
         return Response(response_data)
-        
 
 
 @api_view(['POST',])
