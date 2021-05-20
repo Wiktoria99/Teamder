@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { makeStyles, Button, Grid, Box } from '@material-ui/core';
 import { BarWrapper, CustomButton } from '@/components';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, BrowserRouter} from 'react-router-dom';
 import { paths } from '@/routing';
 import styled from 'styled-components';
 import { TeamderLogoSidebar } from '@/assets';
 import { SidebarData } from '@/components';
+import { RoundedCorner } from '@material-ui/icons';
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +47,11 @@ export const Sidebar = (props: Props) => {
     <>
       <BarWrapper>
         <Box>
-          <TeamderLogoSidebar onClick={() => history.push('/')} />
+          <TeamderLogoSidebar onClick={() => history.push('/')} />   
           <div style={{ marginTop: '45px' }}>
             {SidebarData.map((item, index) => {
               return (
-                <SidebarLink to={item.path}>
+                <SidebarLink key={item.title} to={item.path}>
                   <Grid container direction="row" alignItems="flex-end">
                     {item.icon}
                     <SidebarLabel>{item.title}</SidebarLabel>
