@@ -10,7 +10,7 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme) => ({
-  teamItemContainer: {
+  suggestionItemContainer: {
     display: 'flex',
     flexFlow: 'column',
     borderBottom: `1px solid ${colors.BORDER_GRAY}`,
@@ -38,7 +38,7 @@ export const SuggestionItem: React.FC<Props> = ({ interest }) => {
   const styles = useStyles();
 
   return (
-    <Box className={styles.teamItemContainer}>
+    <Box className={styles.suggestionItemContainer}>
       <h3 className={styles.interestTitle}>#{interest.name}</h3>
       <p className={styles.teamsNumber}>{interest.teams_number} Teams</p>
     </Box>
