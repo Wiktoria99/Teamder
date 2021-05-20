@@ -149,7 +149,22 @@ exports[`UserInterests matches snapshot 1`] = `
 Array [
   <ul
     className="MuiList-root makeStyles-root-12 MuiList-padding"
-  />,
+  >
+    <li
+      className="MuiListItem-root MuiListItem-gutters"
+      disabled={false}
+    >
+      <div
+        className="MuiListItemText-root"
+      >
+        <span
+          className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+        >
+          
+        </span>
+      </div>
+    </li>
+  </ul>,
   <div
     className="makeStyles-buttonPos-14"
   >

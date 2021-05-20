@@ -18,7 +18,7 @@ it('SocialMedia renders without crashing', () => {
     first: '',
     second: '',
     third: '',
-  }
+  };
   const div = document.createElement('div');
   ReactDOM.render(<SocialMedia links={links}/> , div);
 });
@@ -28,19 +28,19 @@ it('SocialMedia matches snapshot', () => {
     first: '',
     second: '',
     third: '',
-  }
+  };
   const tree = renderer.create(<SocialMedia links={links}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 it('UserInterests renders without crashing', () => {
-  const interests= [];
+  const interests= [''];
   const div = document.createElement('div');
   ReactDOM.render(<UserInterests interests={interests}/> , div);
 });
 
 it('UserInterests matches snapshot', () => {
-  const interests= [];
+  const interests= [''];
   const tree = renderer.create(<UserInterests interests={interests}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
