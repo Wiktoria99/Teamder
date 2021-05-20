@@ -80,7 +80,7 @@ exports[`NotificationItem matches snapshot 1`] = `
       <span
         className="MuiButton-label"
       >
-        Usuń
+        Odrzuć
       </span>
     </button>
   </div>
@@ -174,7 +174,7 @@ exports[`NotificationList matches snapshot 1`] = `
           <span
             className="MuiButton-label"
           >
-            Usuń
+            Odrzuć
           </span>
           <span
             className="MuiTouchRipple-root"
@@ -266,7 +266,7 @@ exports[`NotificationList matches snapshot 1`] = `
           <span
             className="MuiButton-label"
           >
-            Usuń
+            Odrzuć
           </span>
           <span
             className="MuiTouchRipple-root"
