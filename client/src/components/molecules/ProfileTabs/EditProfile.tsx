@@ -13,7 +13,7 @@ interface EditI {
   name: string,
   surname: string,
   city: string,
-  age: number | null,
+  age: number | undefined,
   bio: string,
 }
 
@@ -50,7 +50,7 @@ export const EditProfile: React.FC = () => {
     name: '',
     surname: '',
     city: '',
-    age: null,
+    age: undefined,
     bio: '',
   });
 

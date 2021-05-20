@@ -29,7 +29,7 @@ const info: ProfileI = {
       age: 22,
       city: 'Kraków',
       likes: 47,
-      interests: ['Programming', 'Technologies', 'Technologies', 'Technologies', 'Technologies', 'Technologies', 'Technologies', 'Technologies'],
+      interests: ['Programming', 'Technologies', 'Singing', 'Dancing', 'Games', 'Painting', 'Football', 'Basketball'],
       socialMedia: {
          first: 'https://www.facebook.com/nerooc',
          second: 'https://www.instagram.com/nerooc',
