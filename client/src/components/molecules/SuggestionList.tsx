@@ -51,8 +51,8 @@ export const SuggestionList = (props: Props) => {
 
   return (
     <Box className={styles.interestList}>
-      {listOfInterests.map((interest) => (
-        <SuggestionItem interest={interest} />
+      {listOfInterests.map((interest, idx) => (
+        <SuggestionItem key={idx} interest={interest} />
       ))}
     </Box>
   );

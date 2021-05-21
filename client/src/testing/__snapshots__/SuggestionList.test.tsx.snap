@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuggestionItem matches snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-5 makeStyles-suggestionItemContainer-1"
+>
+  <h3
+    className="makeStyles-interestTitle-2"
+  >
+    #
+    
+  </h3>
+  <p
+    className="makeStyles-teamsNumber-3"
+  >
+    100
+     Teams
+  </p>
+</div>
+`;
+
+exports[`SuggestionList matches snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-16 makeStyles-interestList-6"
+>
+  <div
+    className="MuiBox-root MuiBox-root-17 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      backend
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      944
+       Teams
+    </p>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-18 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      countersttrike
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      552
+       Teams
+    </p>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-19 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      football
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      512
+       Teams
+    </p>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-20 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      music
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      467
+       Teams
+    </p>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-21 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      singing
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      312
+       Teams
+    </p>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-22 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      dancing
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      300
+       Teams
+    </p>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-23 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      games
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      280
+       Teams
+    </p>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-24 makeStyles-suggestionItemContainer-1"
+  >
+    <h3
+      className="makeStyles-interestTitle-2"
+    >
+      #
+      programming
+    </h3>
+    <p
+      className="makeStyles-teamsNumber-3"
+    >
+      126
+       Teams
+    </p>
+  </div>
+</div>
+`;

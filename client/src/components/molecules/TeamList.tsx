@@ -63,8 +63,8 @@ export const TeamList = (props: Props) => {
     <Box className={styles.teamList}>
       {teams ? (
         <>
-          {listOfTeams.map((team) => (
-            <TeamItem team={team} />
+          {listOfTeams.map((team, idx) => (
+            <TeamItem key={idx} team={team} />
           ))}
         </>
       ) : (

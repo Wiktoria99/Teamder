@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationItem matches snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-15"
+>
+  <div
+    className="MuiBox-root MuiBox-root-16 makeStyles-info-2"
+  >
+    <div
+      className="MuiBox-root MuiBox-root-17 makeStyles-avatarContainer-3"
+    >
+      <img
+        alt="avatar"
+        className="makeStyles-photo-4"
+        height="100"
+        src=""
+        width="100"
+      />
+    </div>
+    <div
+      className="MuiBox-root MuiBox-root-18 makeStyles-nameContainer-5"
+    >
+      <p
+        className="makeStyles-name-6"
+      >
+        <span>
+          
+        </span>
+         chce dołączyć do twojego zespołu 
+        <span>
+          
+        </span>
+      </p>
+    </div>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-19 makeStyles-buttonContainer-7"
+  >
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-8"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Akceptuj
+      </span>
+    </button>
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-buttonDelete-9"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Odrzuć
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`NotificationList matches snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-32 makeStyles-notificationList-20"
+>
+  <div>
+    <div
+      className="MuiBox-root MuiBox-root-33"
+    >
+      <div
+        className="MuiBox-root MuiBox-root-34 makeStyles-info-2"
+      >
+        <div
+          className="MuiBox-root MuiBox-root-35 makeStyles-avatarContainer-3"
+        >
+          <img
+            alt="avatar"
+            className="makeStyles-photo-4"
+            height="100"
+            src="https://avatars.githubusercontent.com/u/65246171?s=400&v=4"
+            width="100"
+          />
+        </div>
+        <div
+          className="MuiBox-root MuiBox-root-36 makeStyles-nameContainer-5"
+        >
+          <p
+            className="makeStyles-name-6"
+          >
+            <span>
+              Jan Kowalski
+            </span>
+             chce dołączyć do twojego zespołu 
+            <span>
+              Hackathon - Webdev and mobile applications! 
+            </span>
+          </p>
+        </div>
+      </div>
+      <div
+        className="MuiBox-root MuiBox-root-37 makeStyles-buttonContainer-7"
+      >
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-8"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Akceptuj
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-buttonDelete-9"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Odrzuć
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      className="MuiBox-root MuiBox-root-38"
+    >
+      <div
+        className="MuiBox-root MuiBox-root-39 makeStyles-info-2"
+      >
+        <div
+          className="MuiBox-root MuiBox-root-40 makeStyles-avatarContainer-3"
+        >
+          <img
+            alt="avatar"
+            className="makeStyles-photo-4"
+            height="100"
+            src="https://avatars.githubusercontent.com/u/44270336?v=4"
+            width="100"
+          />
+        </div>
+        <div
+          className="MuiBox-root MuiBox-root-41 makeStyles-nameContainer-5"
+        >
+          <p
+            className="makeStyles-name-6"
+          >
+            <span>
+              Irena Słowik
+            </span>
+             chce dołączyć do twojego zespołu 
+            <span>
+              Festiwal tańca i śpiewu
+            </span>
+          </p>
+        </div>
+      </div>
+      <div
+        className="MuiBox-root MuiBox-root-42 makeStyles-buttonContainer-7"
+      >
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-8"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Akceptuj
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-buttonDelete-9"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Odrzuć
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

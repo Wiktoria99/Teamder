@@ -32,14 +32,3 @@ it('CustomButton matches snapshot', () => {
   const tree = renderer.create(<CustomButton />).toJSON();
   expect(tree).toMatchSnapshot();
 });
-
-// TEST #4
-// it('CustomButton should be in secondary color', () => {
-//   const { getByTestId } = render(
-//     <CustomButton data-testid="custom-button">Test</CustomButton>,
-//   );
-//   expect(getByTestId('custom-button')).toHaveStyle(`color: ${colors.BLACK}`);
-// });
-
-// TESTOWANIE STYLI MOŻLIWE, ALE ZAMIAST ZMIENIONYCH KOLORÓW TESTY DOSTAJĄ
-// ORYGINALNE DOSTARCZANE PRZEZ MATERIAL-UI, WIĘC NIE ZGADZAJĄ SIĘ Z OCZEKIWANYMI
