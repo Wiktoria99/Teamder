@@ -21,8 +21,6 @@ export const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [idToken, setIdToken] = useLocalStorage<string>(ID_TOKEN, '');
-  const [, setAccessToken] = useLocalStorage<string>(ACCESS_TOKEN, '');
-  const [, setRefreshToken] = useLocalStorage<string>(REFRESH_TOKEN, '');
 
   const styles = useFormStyles();
 
@@ -42,7 +40,6 @@ export const Login: React.FC = () => {
 
     try {
       const { data } = await login(user);
-      setAccessToken(data.access_token);
     } catch (error) {
       console.log(error.response.data.error, 'error');
     }

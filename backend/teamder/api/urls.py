@@ -12,6 +12,5 @@ urlpatterns = [
     
     path('interests', views.get_all_interests),
 
-    path('createTeam', views.create_team_view),
-    path('teams', views.get_all_teams),
+    path('teams', views.manage_teams),
 ]
