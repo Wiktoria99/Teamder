@@ -11,7 +11,7 @@ import { axiosUnauthorizedConfig, axiosAuthorizedConfig } from '@/api';
 
 export const login = (data: LoginRequestI) => {
   const response: Promise<AxiosResponse<LoginResponseI>> = axios.post(
-    '/login/',
+    '/login',
     data,
     axiosUnauthorizedConfig,
   );

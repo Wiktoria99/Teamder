@@ -7,7 +7,7 @@ import { login } from '@/api';
 import { paths } from '@/routing';
 import { useLocalStorage } from '@/hooks';
 import { LoginRequestI } from '@/interfaces';
-import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from '@/constants';
+import { TOKEN } from '@/constants';
 import {
   CustomButton,
   CustomTextField,
@@ -20,15 +20,15 @@ export const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [idToken, setIdToken] = useLocalStorage<string>(ID_TOKEN, '');
+  const [token, setToken] = useLocalStorage<string>(TOKEN, '');
 
   const styles = useFormStyles();
 
   useEffect(() => {
-    if (!!idToken) {
+    if (!!token) {
       history.push(paths.DASHBOARD);
     }
-  }, [idToken]);
+  }, [token]);
 
   const loginUser = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,6 +40,7 @@ export const Login: React.FC = () => {
 
     try {
       const { data } = await login(user);
+      setToken(data.token);
     } catch (error) {
       console.log(error.response.data.error, 'error');
     }

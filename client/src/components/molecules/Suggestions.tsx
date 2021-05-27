@@ -69,9 +69,9 @@ export const Suggestions = () => {
       />
       <table className={classes.myTable}>
         <th className={classes.header}>Proponowane</th>
-        {InterestList.map((value) => {
+        {InterestList.map((value, idx) => {
           return (
-            <tr>
+            <tr key={idx}>
               <td className={classes.myRow}>
                 #{value}
                 <p className={classes.sub}>123 zespołów</p>

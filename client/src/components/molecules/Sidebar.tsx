@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { makeStyles, Button, Grid, Box } from '@material-ui/core';
+import React from 'react';
+import { makeStyles, Grid, Box } from '@material-ui/core';
 import { BarWrapper, CustomButton } from '@/components';
-import { NavLink, useHistory, BrowserRouter} from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { paths } from '@/routing';
 import styled from 'styled-components';
 import { TeamderLogoSidebar } from '@/assets';
 import { SidebarData } from '@/components';
-import { RoundedCorner } from '@material-ui/icons';
+import { TOKEN } from '@/constants';
+import { useLocalStorage } from '@/hooks';
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({
@@ -21,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
 const SidebarLink = styled(NavLink)`
   display: flex;
   color: #f2f2f2;
-  alignitems: 'center';
-  flexwrap: 'wrap';
+  align-items: 'center';
+  flex-wrap: 'wrap';
   height: 60px;
   vertical-align: 'middle';
   padding: 0px 0px 15px 0px;
@@ -42,12 +43,23 @@ const SidebarLabel = styled.span`
 export const Sidebar = (props: Props) => {
   const styles = useStyles();
   const history = useHistory();
+  const [, setToken] = useLocalStorage<string>(TOKEN, '');
+
+  const logoutHandler = async () => {
+    try {
+      setToken('');
+      localStorage.removeItem(TOKEN);
+      //await logout({ access_token: accessToken }, token);
+    } catch (error) {
+      console.log('There was an error when logging out!', error);
+    }
+  };
 
   return (
     <>
       <BarWrapper>
         <Box>
-          <TeamderLogoSidebar onClick={() => history.push('/')} />   
+          <TeamderLogoSidebar onClick={() => history.push('/')} />
           <div style={{ marginTop: '45px' }}>
             {SidebarData.map((item, index) => {
               return (
@@ -70,7 +82,12 @@ export const Sidebar = (props: Props) => {
             </CustomButton>
           </NavLink>
         </Box>
-        <CustomButton type="submit" color="secondary" className={styles.button}>
+        <CustomButton
+          type="submit"
+          color="secondary"
+          className={styles.button}
+          onClick={logoutHandler}
+        >
           WYLOGUJ
         </CustomButton>
       </BarWrapper>

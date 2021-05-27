@@ -4,11 +4,11 @@ export interface LoginRequestI {
 }
 
 export interface LoginResponseI {
-  access_token: string;
+  token: string;
 }
 
 export interface LogoutRequestI {
-  access_token: string;
+  token: string;
 }
 
 export interface RegisterRequestI {
