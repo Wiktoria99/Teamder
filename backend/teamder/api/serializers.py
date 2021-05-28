@@ -5,7 +5,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         #fields = "__all__"
-        fields = ("user_name", "name", "surname", "age", "bio", "social_media_URL1", "social_media_URL2", "social_media_URL3")
+        fields = ("user_name", "name", "surname", "age", "bio", "social_media_URL1", "social_media_URL2", "social_media_URL3", "photo_src")
 
     def save(self):
         user = User(
@@ -17,9 +17,27 @@ class UserSerializer(serializers.ModelSerializer):
                 social_media_URL1=self.validated_data['social_media_URL1'],
                 social_media_URL2=self.validated_data['social_media_URL2'],
                 social_media_URL3=self.validated_data['social_media_URL3'],
+                photo_src=self.validated_data['photo_src'],
             )
         user.save()
+        return user
         
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("name", "surname", "age", "bio", "social_media_URL1", "social_media_URL2", "social_media_URL3")#, "photo_src") #narazie bez aktualizacji zdjecia
+
+    def save(self, user: User):
+        user.name=self.validated_data['name']
+        user.surname=self.validated_data['surname']
+        user.age=int(self.validated_data['age'])
+        user.bio=self.validated_data['bio']
+        user.social_media_URL1=self.validated_data['social_media_URL1']
+        user.social_media_URL2=self.validated_data['social_media_URL2']
+        user.social_media_URL3=self.validated_data['social_media_URL3']
+        #user.photo_src=self.validated_data['photo_src'],
+        user.save()
         return user
 
 
