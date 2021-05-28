@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout, MainWrapper, TeamList } from '@/components';
+import { paths } from '@/routing';
+import { useLocalStorage } from '@/hooks';
+import { TOKEN } from '@/constants';
+import { useHistory } from 'react-router';
 
 export const MainPage: React.FC = () => {
-  //   useEffect(() => {
-  //     if (!token) {
-  //       history.push(paths.LOGIN);
-  //     }
-  //   }, [token]);
-
   return (
     <Layout>
-      <MainWrapper title="Zespoły" backBtnURL={'/login'}>
+      <MainWrapper title="Zespoły">
         <TeamList />
       </MainWrapper>
     </Layout>

@@ -49,7 +49,7 @@ export const Sidebar = (props: Props) => {
     try {
       setToken('');
       localStorage.removeItem(TOKEN);
-      //await logout({ access_token: accessToken }, token);
+      history.push('/login');
     } catch (error) {
       console.log('There was an error when logging out!', error);
     }

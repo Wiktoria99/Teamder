@@ -2,3 +2,4 @@ export * from './auth';
 export * from './team';
 export * from './user';
 export * from './notification';
+export * from './interest';

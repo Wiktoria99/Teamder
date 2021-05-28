@@ -1,4 +1,5 @@
 import { useFormStyles } from '@/components';
+import { InterestI } from '@/interfaces';
 import {
   Checkbox,
   createStyles,
@@ -9,7 +10,8 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
-import { InterestList } from '@/constants';
+import { useContext } from 'react';
+import { InterestsContext } from './InterestsProvider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,30 +45,34 @@ const useStyles = makeStyles((theme: Theme) =>
 export const TeamInterests = () => {
   const styles = useFormStyles();
   const classes = useStyles();
-  const funct = () => console.log("Napis")
-
+  const funct = () => console.log('Napis');
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
+  console.log(InterestList);
   return (
     <>
-        <List className={classes.root}> Powiązane zainteresowania:
-          {InterestList.map((value) => {
-            return (
-              <ListItem key={value} dense button onClick={funct}>
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    color="primary"
-                    style={{
-                      transform: "scale(0.6)",
-                    }}
-                    tabIndex={-1}
-                    disableRipple
-                  />
-                </ListItemIcon>
-                <ListItemText primary={value} />
-              </ListItem>
-            );
-          })}
-        </List>
+      <List className={classes.root}>
+        {' '}
+        Powiązane zainteresowania:
+        {InterestList.map((value) => {
+          return (
+            <ListItem key={value.id} dense button onClick={funct}>
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  color="primary"
+                  style={{
+                    transform: 'scale(0.6)',
+                  }}
+                  tabIndex={-1}
+                  disableRipple
+                />
+              </ListItemIcon>
+              <ListItemText primary={value.name} />
+            </ListItem>
+          );
+        })}
+      </List>
     </>
   );
 };

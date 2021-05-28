@@ -22,7 +22,7 @@ export const logout = (data: LogoutRequestI, idToken: string) => {
   const response: Promise<AxiosResponse> = axios.post(
     '/accounts/signout/',
     data,
-    axiosAuthorizedConfig(idToken),
+    axiosAuthorizedConfig(idToken) || axiosUnauthorizedConfig,
   );
   return response;
 };

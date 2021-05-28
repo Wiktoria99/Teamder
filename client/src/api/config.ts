@@ -4,11 +4,19 @@ export const axiosUnauthorizedConfig = {
   },
 };
 
-export const axiosAuthorizedConfig = (idToken: string) => {
+export const axiosAuthorizedConfig = (token: string) => {
+  if (!token) {
+    return null;
+  }
+
+  //deleting quotes from token
+  token = token.replace(/["']/g, '');
+  console.log(`Token ${token}`);
+
   return {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${idToken}`,
+      Authorization: `Token ${token}`,
     },
   };
 };

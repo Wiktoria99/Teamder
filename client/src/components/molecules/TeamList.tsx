@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import { TeamItem } from './TeamItem';
-import { TeamI } from '@/interfaces';
 import { Loading } from '@/components';
+import { getTeams } from '@/api';
+import { TeamI } from '@/interfaces';
 
 interface Props {}
 
@@ -13,57 +14,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const listOfTeams: TeamI[] = [
-  {
-    host: 'Tomasz Gajda',
-    photoSource: 'https://avatars.githubusercontent.com/u/31045802?v=4',
-    title: 'Hackathon - Webdev and mobile applications! ',
-    date: '24.05',
-    location: 'Kraków',
-    maxSize: 10,
-    curSize: 2,
-    interests: ['Programming', 'Technologies'],
-  },
-  {
-    host: 'Tomasz Gajda',
-    photoSource: 'https://avatars.githubusercontent.com/u/31045802?v=4',
-    title: 'Hackathon - Webdev and mobile applications! ',
-    date: '24.05',
-    location: 'Kraków',
-    maxSize: 10,
-    curSize: 2,
-    interests: ['Programming', 'Technologies'],
-  },
-  {
-    host: 'Tomasz Gajda',
-    photoSource: 'https://avatars.githubusercontent.com/u/31045802?v=4',
-    title: 'Hackathon - Webdev and mobile applications! ',
-    date: '24.05',
-    location: 'Kraków',
-    maxSize: 10,
-    curSize: 2,
-    interests: ['Programming', 'Technologies'],
-  },
-];
-
 export const TeamList = (props: Props) => {
-  const [teams, setTeams] = useState([]);
+  const [teams, setTeams] = useState<TeamI[]>([]);
   const styles = useStyles();
 
-  //   useEffect(() => {
-  //     const getTeams = async () => {
-  //       const teamsFromBackend = await getTeamsFromBackend();
-  //       setTeams(teamsFromBackend);
-  //     };
+  useEffect(() => {
+    const getTeamsFnc = async () => {
+      const { data } = await getTeams();
+      console.log(data);
+      setTeams(data);
+    };
 
-  //     getTeams();
-  //   }, []);
+    getTeamsFnc();
+  }, []);
 
   return (
     <Box className={styles.teamList}>
-      {teams ? (
+      {teams.length ? (
         <>
-          {listOfTeams.map((team, idx) => (
+          {teams.map((team, idx) => (
             <TeamItem key={idx} team={team} />
           ))}
         </>

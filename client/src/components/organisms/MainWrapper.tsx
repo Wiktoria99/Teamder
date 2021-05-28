@@ -1,8 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { colors } from '@/styles';
 import { ArrowBack } from '@material-ui/icons';
 import { Box, makeStyles } from '@material-ui/core';
+import { useLocalStorage } from '@/hooks';
+import { TOKEN } from '@/constants';
+import { paths } from '@/routing';
 
 interface MainWrapperI {
   isBackBtn?: boolean;
@@ -52,6 +55,15 @@ export const MainWrapper: React.FC<MainWrapperI> = ({
   title,
 }) => {
   const styles = useStyles();
+  const history = useHistory();
+  const [token] = useLocalStorage<string>(TOKEN, '');
+
+  useEffect(() => {
+    if (!token) {
+      history.push(paths.LOGIN);
+      console.log('wtf');
+    }
+  }, [token]);
 
   return (
     <>
@@ -61,7 +73,7 @@ export const MainWrapper: React.FC<MainWrapperI> = ({
             <ArrowBack />
           </Link>
         ) : (
-          <h3 className={styles.welcome}>Hello there!</h3>
+          <h3 className={styles.welcome}>Witaj!</h3>
         )}
         <h3 className={styles.title}>{title}</h3>
       </Box>

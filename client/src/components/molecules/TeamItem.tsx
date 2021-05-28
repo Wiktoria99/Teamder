@@ -95,42 +95,36 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
   return (
     <Box className={styles.teamItemContainer}>
       <Box className={styles.avatarContainer}>
-        <img
-          className={styles.photo}
-          height="100"
-          width="100"
-          src={team.photoSource}
-          alt="avatar"
-        />
+        <img className={styles.photo} height="100" width="100" alt="avatar" />
       </Box>
       <Box className={styles.contentContainer}>
         <p className={styles.hostName}>{team.host}</p>
-        <h3 className={styles.teamTitle}>{team.title}</h3>
+        <h3 className={styles.teamTitle}>{team.name}</h3>
         <Box className={styles.infoBox}>
           <Box className={styles.iconInfo}>
             <CalendarIcon />
-            <p className={styles.minorInfo}>{team.date}</p>
+            <p className={styles.minorInfo}>{team.expiration_date}</p>
           </Box>
           <Box className={styles.iconInfo}>
             <LocationIcon />
-            <p className={styles.minorInfo}>{team.location}</p>
+            <p className={styles.minorInfo}>Kraków</p>
           </Box>
           <Box className={styles.iconInfo}>
             <TeamIcon />
             <p className={styles.minorInfo}>
-              {team.curSize}/{team.maxSize}
+              {team.accepted_people_id?.length}/{team.size}
             </p>
           </Box>
         </Box>
         <Box className={styles.interestsContainer}>
           <Box className={styles.interestsLabel}>
             <InterestsIcon />
-            <p className={styles.interestsText}>Related interests</p>
+            <p className={styles.interestsText}>Zainteresowania</p>
           </Box>
           <Box className={styles.interestsList}>
-            {team.interests.map((interest, idx) =>
+            {/* {team.interests.map((interest, idx) =>
               idx !== team.interests.length - 1 ? interest + ', ' : interest,
-            )}
+            )} */}
           </Box>
         </Box>
         <Button className={styles.button}>MORE</Button>
