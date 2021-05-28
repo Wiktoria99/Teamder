@@ -33,10 +33,6 @@ export const Register: React.FC = () => {
     updateProgressState: setRegisterProgress,
   };
 
-  useEffect(() => {
-    console.log(registerInfo);
-  }, [registerInfo]);
-
   return (
     <>
       <FormWrapper title={titles[registerProgress]}>

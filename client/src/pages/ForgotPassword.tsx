@@ -27,7 +27,6 @@ export const ForgotPassword: React.FC = () => {
 
     try {
       const { data } = await forgotPassword(user);
-      console.log(data);
     } catch (error) {
       console.log(error.response.data.error, 'error');
     }

@@ -11,7 +11,6 @@ export const axiosAuthorizedConfig = (token: string) => {
 
   //deleting quotes from token
   token = token.replace(/["']/g, '');
-  console.log(`Token ${token}`);
 
   return {
     headers: {

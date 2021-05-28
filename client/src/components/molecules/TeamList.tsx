@@ -21,7 +21,6 @@ export const TeamList = (props: Props) => {
   useEffect(() => {
     const getTeamsFnc = async () => {
       const { data } = await getTeams();
-      console.log(data);
       setTeams(data);
     };
 

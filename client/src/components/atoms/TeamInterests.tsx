@@ -48,7 +48,6 @@ export const TeamInterests = () => {
   const funct = () => console.log('Napis');
   //@ts-ignore
   const InterestList: InterestI[] = useContext(InterestsContext);
-  console.log(InterestList);
   return (
     <>
       <List className={classes.root}>

@@ -61,7 +61,6 @@ export const MainWrapper: React.FC<MainWrapperI> = ({
   useEffect(() => {
     if (!token) {
       history.push(paths.LOGIN);
-      console.log('wtf');
     }
   }, [token]);
 
