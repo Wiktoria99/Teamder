@@ -17,6 +17,18 @@ from .models import *
 
 # Create your views here.
 
+@api_view(['GET'])
+@permission_classes(())
+def get_team_by_ID_view(request, teamID):
+    if request.method =='GET':
+        team = Team.objects.all().filter(id = teamID)
+        if team:
+            return Response(team.values()[0], status=status.HTTP_200_OK)
+        else:
+            response_data = {}
+            response_data['response'] = f"ERROR! Team with id: {teamID} does not exist"
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET',])
 @permission_classes(())
