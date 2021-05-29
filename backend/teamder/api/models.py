@@ -35,6 +35,8 @@ def Account_get_next_ID():
     return get_next_ID_for('Account')
 def Location_get_next_ID():
     return get_next_ID_for('Location')
+def TeamID_get_next_ID():
+    return get_next_ID_for('TeamID')
 
 # Create your models here.
 
@@ -47,6 +49,27 @@ class Interest(models.Model):
         return self.name
 
 
+class Location(models.Model):
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Location_get_next_ID)
+    address = models.CharField(max_length=100)
+    longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    latitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
+
+    def __str__(self):
+        return self.address
+
+class TeamID(models.Model): #XDDD Django jest gównem 
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=TeamID_get_next_ID)
+    team_id = models.IntegerField()
+
+    @staticmethod
+    def create(team_id: int):
+        id = TeamID(team_id = team_id)
+        id.save()
+        return id
+
+
+
 class User(models.Model):
     id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=User_get_next_ID)
 
@@ -57,25 +80,27 @@ class User(models.Model):
     surname = models.CharField(max_length=50, null=True, blank = True)
     age = models.IntegerField(null=True, blank = True)
 
-    telephone_number = models.CharField(max_length=50, null=True, blank = True)
+    #telephone_number = models.CharField(max_length=50, null=True, blank = True)
 
-    location = models.CharField(max_length=50, null=True, blank = True)              # TODO
+    location = models.EmbeddedField(
+        model_container=Location, null=True, blank=True
+    )
 
-    percent_rating = models.FloatField(null=True, blank = True)
-    
+    my_teams = models.ArrayReferenceField(to=TeamID, on_delete=models.DO_NOTHING, null=True, blank = True)
+     
     #ratings                                                            # TODO
             #ratings = fields.ListField(fields.EmbeddedDocumentField(Rate))
     
     bio = models.CharField(max_length=500, null=True, blank = True)
-    facebook_link = models.URLField(max_length=100, null=True, blank = True)
-    instagram_link = models.URLField(max_length=100, null=True, blank = True)
-    open_for_invites = models.BooleanField(default=True)
+    #facebook_link = models.URLField(max_length=100, null=True, blank = True)
+    #instagram_link = models.URLField(max_length=100, null=True, blank = True)
+    #open_for_invites = models.BooleanField(default=True)
 
-    social_media_URL1 = models.URLField(max_length=100, null=True, blank = True)
-    social_media_URL2 = models.URLField(max_length=100, null=True, blank = True)
-    social_media_URL3 = models.URLField(max_length=100, null=True, blank = True)
+    social_media_URL1 = models.CharField(max_length=100, blank = True)
+    social_media_URL2 = models.CharField(max_length=100, blank = True)
+    social_media_URL3 = models.CharField(max_length=100, blank = True)
 
-
+    photo_src = models.CharField(max_length=100, blank = True)
 
     def __str__(self):
         return self.user_name
@@ -92,15 +117,9 @@ class User(models.Model):
     def add_interest_by_name(self, interest_name: str):
         interest = Interest.objects.all().filter(name = interest_name)
         self._add_interest(interest)
-        
-        
 
-
-class Location(models.Model):
-    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Location_get_next_ID)
-    address = models.CharField(max_length=100)
-    longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
-    latitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    def add_team_by_ID(self, team_ID: int):
+        self.my_teams.add(TeamID.create(team_ID))
 
 
 class Team(models.Model):
