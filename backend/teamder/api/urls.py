@@ -13,8 +13,6 @@ urlpatterns = [
 
     path('team_by_ID/<int:teamID>/', views.get_team_by_ID_view),
 
-    path('team_by_ID/<int:teamID>/', views.get_team_by_ID_view),
-
     
     path('interests', views.get_all_interests),
 
