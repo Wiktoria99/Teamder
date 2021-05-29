@@ -12,3 +12,12 @@ export const getTeams = () => {
   );
   return response;
 };
+
+export const getTeamToJoin = (id: string) => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<TeamI>> = axios.get(
+    '/team_by_ID/' + id,
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};

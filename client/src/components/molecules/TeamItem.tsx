@@ -3,6 +3,7 @@ import { Box, Button, makeStyles } from '@material-ui/core';
 import { CalendarIcon, InterestsIcon, LocationIcon, TeamIcon } from '@/assets';
 import { TeamI } from '@/interfaces';
 import { colors } from '@/styles';
+import { useHistory } from 'react-router';
 
 interface Props {
   team: TeamI;
@@ -91,6 +92,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const TeamItem: React.FC<Props> = ({ team }) => {
   const styles = useStyles();
+  const history = useHistory();
+  const teamSelectedHandler = (id: number) => {
+    history.push('/jointeam/' + id);
+  };
 
   return (
     <Box className={styles.teamItemContainer}>
@@ -127,7 +132,7 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
             )} */}
           </Box>
         </Box>
-        <Button className={styles.button}>MORE</Button>
+        <Button className={styles.button} onClick={() => teamSelectedHandler(team.id)}>MORE</Button>
       </Box>
     </Box>
   );

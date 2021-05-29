@@ -8,4 +8,5 @@ export const paths = {
   MY_TEAMS: '/my_teams',
   MY_PROFILE: '/my_profile',
   SUGGESTIONS: '/suggestions',
+  JOINTEAM: '/jointeam/:id',
 };

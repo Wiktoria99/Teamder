@@ -7,3 +7,4 @@ export * from './Notifications';
 export * from './MyTeams';
 export * from './MyProfile';
 export * from './SuggestionsAll';
+export * from './JoinTeam';

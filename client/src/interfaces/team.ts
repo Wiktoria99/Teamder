@@ -1,4 +1,5 @@
 export interface TeamI {
+  id: number,
   host?: string;
   cost_per_person?: number;
   description?: string;

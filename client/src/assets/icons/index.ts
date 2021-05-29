@@ -9,3 +9,8 @@ export * from './FacebookIcon';
 export * from './InstagramIcon';
 export * from './LikeIcon';
 export * from './TwitterIcon';
+export * from './DescriptionIconY';
+export * from './LocationIconY';
+export * from './CalendarIconY';
+export * from './InterestsIconY';
+export * from './TeamIconY';
