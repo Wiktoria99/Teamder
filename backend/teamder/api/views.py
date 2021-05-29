@@ -48,13 +48,18 @@ def get_user_info(user_name: str):
 @api_view(['GET',])
 @permission_classes(())
 def user_info_view(request, user_name):
-    data = get_user_info(user_name)
-    if request.user.is_anonymous:
-        data['yourRate'] = None 
+    if User.objects.filter(user_name=user_name):
+        data = get_user_info(user_name)
+        if request.user.is_anonymous:
+            data['yourRate'] = None 
+        else:
+            currUser = User.objects.filter(user_name=request.user.user_name)[0]
+            data['yourRate'] = User.objects.filter(user_name=user_name)[0].check_if_user_was_rated_by(currUser)
+        return Response(data, status=status.HTTP_200_OK)
     else:
-        currUser = User.objects.filter(user_name=request.user.user_name)[0]
-        data['yourRate'] = User.objects.filter(user_name=user_name)[0].check_if_user_was_rated_by(currUser)
-    return Response(data, status=status.HTTP_200_OK)
+        response_data = {}
+        response_data['ERROR'] = f"User with this user_name does not exist"
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
