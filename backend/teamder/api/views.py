@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django import core
 
 from rest_framework import generics, status
+from rest_framework import response
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -40,12 +41,41 @@ def get_all_interests(request):
 def get_user_info(user_name: str):
     user_info = User.objects.filter(user_name=user_name).values()[0]
     del user_info['my_teams_id']
+    del user_info['rating_id']
+    user_info['rating'] = User.objects.filter(user_name=user_name)[0].get_user_rating()
     return user_info
 
 @api_view(['GET',])
 @permission_classes(())
 def user_info_view(request, user_name):
-    return Response(get_user_info(user_name), status=status.HTTP_200_OK)
+    data = get_user_info(user_name)
+    if request.user.is_anonymous:
+        data['yourRate'] = None 
+    else:
+        currUser = User.objects.filter(user_name=request.user.user_name)[0]
+        data['yourRate'] = User.objects.filter(user_name=user_name)[0].check_if_user_was_rated_by(currUser)
+    return Response(data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def rate_user_view(request):
+    currUser = User.objects.filter(user_name=request.user.user_name)[0]
+    user_to_be_rated = User.objects.filter(user_name=request.data['user_name'])[0]
+    if int(request.data['rate']) == 1:
+        user_to_be_rated.add_UpVote_from(currUser)
+    elif int(request.data['rate']) == -1:
+        user_to_be_rated.add_DownVote_from(currUser)
+    elif int(request.data['rate']) == 0:
+        user_to_be_rated.remove_rate_from(currUser)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    response_data = {}
+    response_data['yourRate'] = request.data['rate']
+    response_data['rating'] = user_to_be_rated.get_user_rating()
+    return Response(response_data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated,))

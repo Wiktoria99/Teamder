@@ -1,3 +1,4 @@
+from warnings import resetwarnings
 from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
@@ -37,6 +38,8 @@ def Location_get_next_ID():
     return get_next_ID_for('Location')
 def TeamID_get_next_ID():
     return get_next_ID_for('TeamID')
+def Rating_get_next_ID():
+    return get_next_ID_for('Rating')
 
 # Create your models here.
 
@@ -84,9 +87,8 @@ class User(models.Model):
 
     my_teams = models.ArrayReferenceField(to=TeamID, on_delete=models.DO_NOTHING, null=True, blank = True)
      
-    #ratings                                                            # TODO
-    #ratings = 
-    
+    rating_id = models.BigIntegerField(null=True) 
+
     bio = models.CharField(max_length=500, null=True, blank = True)
 
     social_media_URL1 = models.CharField(max_length=100, blank = True)
@@ -111,8 +113,66 @@ class User(models.Model):
         interest = Interest.objects.all().filter(name = interest_name)
         self._add_interest(interest)
 
+    def _get_rating_and_create_if_does_not_exist(self):
+        rating = None
+        if self.rating_id:
+            rating = Rating.objects.filter(id = self.rating_id)[0]
+        else:
+            rating = Rating()
+            rating.save()
+            self.rating_id = rating.id
+            self.save()
+        return rating
+
+    def check_if_user_was_rated_by(self, user):     # 0 - nie ocenił, 1 - łapka w góre, -1 - łapka w dół
+        rating = self._get_rating_and_create_if_does_not_exist()
+        if rating.users_UpVote.filter(user_name = user.user_name):
+            return 1
+        elif rating.users_DownVote.filter(user_name = user.user_name):
+            return -1
+        else:
+            return 0
+
+    def remove_rate_from(self, user):
+        rating = self._get_rating_and_create_if_does_not_exist()
+        rating.users_DownVote.remove(user)
+        rating.users_UpVote.remove(user)
+        rating.save()
+
+    def add_UpVote_from(self, user):
+        user_vote = self.check_if_user_was_rated_by(user)
+        rating = Rating.objects.filter(id = self.rating_id)[0]
+        if user_vote == -1:
+            rating.users_DownVote.remove(user)
+            rating.users_UpVote.add(user)
+        elif user_vote == 0:
+            rating.users_UpVote.add(user)
+        rating.save()
+
+    def add_DownVote_from(self, user):
+        user_vote = self.check_if_user_was_rated_by(user)
+        rating = Rating.objects.filter(id = self.rating_id)[0]
+        if user_vote == 1:
+            rating.users_UpVote.remove(user)
+            rating.users_DownVote.add(user)
+        elif user_vote == 0:
+            rating.users_DownVote.add(user)
+        rating.save()
+
+    def get_user_rating(self):
+        rating = self._get_rating_and_create_if_does_not_exist()
+        return len(rating.users_UpVote.values()) - len(rating.users_DownVote.values())
+        
     def add_team_by_ID(self, team_ID: int):
         self.my_teams.add(TeamID.create(team_ID))
+        self.save()
+
+
+class Rating(models.Model):
+    id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=Rating_get_next_ID)
+    users_UpVote = models.ArrayReferenceField(to = User, on_delete=models.DO_NOTHING, related_name='users_UpVote', blank = True)
+    users_DownVote = models.ArrayReferenceField(to = User, on_delete=models.DO_NOTHING, related_name='users_DownVote', blank = True)
+    
 
 
 class Team(models.Model):
