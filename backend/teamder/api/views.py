@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import serializers
 
 from .serializers import *
 
@@ -80,7 +80,10 @@ def my_profile_view(request):
             response_data['response'] = "succesfully updated user data!"
             return Response(response_data, status=status.HTTP_200_OK)
         else:
-            response_data = user_serializer.errors
+            #response_data = user_serializer.errors
+            response_data["Errors"] = []
+            for value in user_serializer.values():
+                response_data["Errors"].append(value)
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -129,10 +132,14 @@ def registration_view(request):
 
         if serializer.is_valid():
             user_serializer = UserSerializer(data = request.data)
-
             if user_serializer.is_valid():
+                try:
+                    account = serializer.save()
+                except Exception as expt:
+                    response_data["Errors"] = [str(expt)]
+                    return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
                 user = user_serializer.save()
-                account = serializer.save()
 
                 for interest in request.data['list_of_interests']:
                     if type(interest) == str:
@@ -162,8 +169,16 @@ def registration_view(request):
                 response_data['token'] = token
                 return Response(response_data, status=status.HTTP_200_OK)
             else:
-                response_data = user_serializer.errors
+                #response_data = user_serializer.errors
+                response_data["Errors"] = []
+                for value in user_serializer.errors.values():
+                    for i in value:
+                        response_data["Errors"].append(i)
                 return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
         else:
-            response_data = serializer.errors
+            #response_data = serializer.errors
+            response_data["Errors"] = []
+            for value in serializer.errors.values():
+                for i in value:
+                    response_data["Errors"].append(i)
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)

@@ -80,21 +80,14 @@ class User(models.Model):
     surname = models.CharField(max_length=50, null=True, blank = True)
     age = models.IntegerField(null=True, blank = True)
 
-    #telephone_number = models.CharField(max_length=50, null=True, blank = True)
-
-    location = models.EmbeddedField(
-        model_container=Location, null=True, blank=True
-    )
+    location = models.CharField(max_length=50, blank = True)
 
     my_teams = models.ArrayReferenceField(to=TeamID, on_delete=models.DO_NOTHING, null=True, blank = True)
      
     #ratings                                                            # TODO
-            #ratings = fields.ListField(fields.EmbeddedDocumentField(Rate))
+    #ratings = 
     
     bio = models.CharField(max_length=500, null=True, blank = True)
-    #facebook_link = models.URLField(max_length=100, null=True, blank = True)
-    #instagram_link = models.URLField(max_length=100, null=True, blank = True)
-    #open_for_invites = models.BooleanField(default=True)
 
     social_media_URL1 = models.CharField(max_length=100, blank = True)
     social_media_URL2 = models.CharField(max_length=100, blank = True)
