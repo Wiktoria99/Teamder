@@ -8,4 +8,5 @@ admin.site.register(User)
 admin.site.register(Interest)
 admin.site.register(Team)
 admin.site.register(Location)
+admin.site.register(Rating)
 
