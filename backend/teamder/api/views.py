@@ -69,14 +69,6 @@ def my_profile_view(request):
 
             user.save()
 
-            #location                                           TODO
-            location = Location(address = request.data["location"],
-                                    longitude = None,
-                                    latitude = None )
-            location.save()
-            user.location = location
-            #user.save()
-
             response_data['response'] = "succesfully updated user data!"
             return Response(response_data, status=status.HTTP_200_OK)
         else:
@@ -148,18 +140,6 @@ def registration_view(request):
                         user.add_interest_by_ID(interest)
 
                 user.save()
-
-                #location                                           TODO
-                location = Location(address = request.data["location"],
-                                    longitude = None,
-                                    latitude = None )
-                #location.save()
-                user.location = Location.objects.create(
-                                    address = request.data["location"],
-                                    longitude = None,
-                                    latitude = None 
-                )
-                #user.save()
 
                 response_data['response'] = "succesfully reistered a new user!"
                 response_data['user_name'] = account.user_name

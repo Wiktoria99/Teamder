@@ -58,6 +58,7 @@ class Location(models.Model):
     def __str__(self):
         return self.address
 
+
 class TeamID(models.Model): #XDDD Django jest gównem 
     id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=TeamID_get_next_ID)
     team_id = models.IntegerField()
@@ -67,7 +68,6 @@ class TeamID(models.Model): #XDDD Django jest gównem
         id = TeamID(team_id = team_id)
         id.save()
         return id
-
 
 
 class User(models.Model):
