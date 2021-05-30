@@ -25,7 +25,11 @@ export const Register: React.FC = () => {
     },
     interests: [],
   });
-  const titles = ['Basic information', 'Additional information', 'Interests'];
+  const titles = [
+    'Podstawowe informacje',
+    'Dodatkowe informacje',
+    'Zainteresowania',
+  ];
 
   const ChildProps = {
     registerInfo: registerInfo,

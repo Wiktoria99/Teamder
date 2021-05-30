@@ -26,7 +26,7 @@ export const AdditionalInfo: React.FC<Props> = ({
       <form onSubmit={handleClick} className={styles.form}>
         <CustomTextField
           multiline
-          label="Bio"
+          label="Biogram"
           variant="standard"
           color="secondary"
           onChange={(e) =>
@@ -86,14 +86,14 @@ export const AdditionalInfo: React.FC<Props> = ({
           variant="contained"
           className={styles.button}
         >
-          <Typography variant="button">Continue</Typography>
+          <Typography variant="button">Kontynuuj</Typography>
         </CustomButton>
       </form>
       <div
         onClick={() => updateProgressState(0)}
         className={styles.formLinkDisclaimer}
       >
-        Go <span>back</span>
+        <span>Powrót</span>
       </div>
     </>
   );

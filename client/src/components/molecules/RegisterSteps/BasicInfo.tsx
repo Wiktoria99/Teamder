@@ -44,7 +44,7 @@ export const BasicInfo: React.FC<Props> = ({
           <CustomTextField
             required
             style={{ width: '48%' }}
-            label="Name"
+            label="Imię"
             variant="standard"
             color="secondary"
             onChange={(e) =>
@@ -56,7 +56,7 @@ export const BasicInfo: React.FC<Props> = ({
           <CustomTextField
             required
             style={{ width: '48%' }}
-            label="Surname"
+            label="Nazwisko"
             variant="standard"
             color="secondary"
             onChange={(e) =>
@@ -83,7 +83,7 @@ export const BasicInfo: React.FC<Props> = ({
 
         <CustomTextField
           required
-          label="Password"
+          label="Hasło"
           variant="standard"
           type={showPassword ? 'text' : 'password'}
           onChange={(e) =>
@@ -112,7 +112,7 @@ export const BasicInfo: React.FC<Props> = ({
           <CustomTextField
             required
             style={{ width: '48%' }}
-            label="City"
+            label="Miasto"
             variant="standard"
             color="secondary"
             onChange={(e) =>
@@ -124,7 +124,7 @@ export const BasicInfo: React.FC<Props> = ({
           <CustomTextField
             required
             style={{ width: '48%' }}
-            label="Day of birth"
+            label="Data urodzenia"
             variant="standard"
             color="secondary"
             onChange={(e) =>
@@ -143,11 +143,11 @@ export const BasicInfo: React.FC<Props> = ({
           variant="contained"
           className={styles.button}
         >
-          <Typography variant="button">Continue</Typography>
+          <Typography variant="button">Kontynuuj</Typography>
         </CustomButton>
       </form>
       <Link to={paths.LOGIN} className={styles.formLinkDisclaimer}>
-        Go back to <span>login</span>
+        Powrót do <span>logowania</span>
       </Link>
     </>
   );

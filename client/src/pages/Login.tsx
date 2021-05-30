@@ -42,15 +42,15 @@ export const Login: React.FC = () => {
     try {
       const { data } = await login(user);
       setToken(data.token);
-      toast.success('Logged in successfully!');
+      toast.success('Zalogowano pomyślnie!');
     } catch (error) {
-      toast.error('There has been an error with logging!');
+      toast.error('Pojawił się problem przy logowaniu!');
     }
   };
 
   return (
     <>
-      <FormWrapper title="Welcome, login to your account!">
+      <FormWrapper title="Logowanie!">
         <form onSubmit={loginUser} className={styles.form}>
           <CustomTextField
             label="Login"
@@ -60,7 +60,7 @@ export const Login: React.FC = () => {
             value={username}
           />
           <CustomTextField
-            label="Password"
+            label="Hasło"
             variant="standard"
             type={showPassword ? 'text' : 'password'}
             onChange={(e) => setPassword(e.currentTarget.value)}
@@ -81,7 +81,7 @@ export const Login: React.FC = () => {
           />
 
           <Link to={paths.FORGOT_PASSWORD} className={styles.formLink}>
-            Forgot password?
+            Nie pamiętasz hasła?
           </Link>
 
           <CustomButton
@@ -90,11 +90,11 @@ export const Login: React.FC = () => {
             variant="contained"
             className={styles.button}
           >
-            <Typography variant="button">Login now</Typography>
+            <Typography variant="button">Zaloguj</Typography>
           </CustomButton>
         </form>
         <Link to={paths.REGISTER} className={styles.formLinkDisclaimer}>
-          Don’t have an account yet? <span>Sign up!</span>
+          Nie masz jeszcze konta? <span>Zarejestruj się!</span>
         </Link>
       </FormWrapper>
     </>

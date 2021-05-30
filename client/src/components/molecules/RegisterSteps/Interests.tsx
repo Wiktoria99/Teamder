@@ -101,14 +101,14 @@ export const Interests: React.FC<Props> = ({
           variant="contained"
           className={styles.button}
         >
-          <Typography variant="button">Register!</Typography>
+          <Typography variant="button">Zarejestruj!</Typography>
         </CustomButton>
       </form>
       <div
         onClick={() => updateProgressState(1)}
         className={styles.formLinkDisclaimer}
       >
-        Go <span>back</span>
+        <span>Powrót</span>
       </div>
     </>
   );
