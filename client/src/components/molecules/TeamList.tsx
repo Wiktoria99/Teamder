@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Box, makeStyles } from '@material-ui/core';
-import { TeamItem } from './TeamItem';
 import { Loading } from '@/components';
 import { getTeams } from '@/api';
 import { TeamI } from '@/interfaces';
+import { TeamItem } from './TeamItem';
 
 interface Props {}
 
@@ -24,7 +25,11 @@ export const TeamList = (props: Props) => {
       setTeams(data);
     };
 
-    getTeamsFnc();
+    try {
+      getTeamsFnc();
+    } catch (error) {
+      toast.error('There has been an error with logging!');
+    }
   }, []);
 
   return (

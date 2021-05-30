@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { Typography, IconButton, InputAdornment } from '@material-ui/core';
 import { login } from '@/api';
@@ -41,8 +42,9 @@ export const Login: React.FC = () => {
     try {
       const { data } = await login(user);
       setToken(data.token);
+      toast.success('Logged in successfully!');
     } catch (error) {
-      console.log(error.response.data.error, 'error');
+      toast.error('There has been an error with logging!');
     }
   };
 
