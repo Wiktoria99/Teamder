@@ -28,7 +28,7 @@ export const TeamList = (props: Props) => {
     try {
       getTeamsFnc();
     } catch (error) {
-      toast.error('There has been an error with logging!');
+      toast.error('Nie udało się pobrać zespołów!');
     }
   }, []);
 

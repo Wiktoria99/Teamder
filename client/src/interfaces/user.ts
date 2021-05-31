@@ -14,3 +14,20 @@ export interface ProfileI {
   social_media_URL3: string;
   list_of_interests_id: number[];
 }
+
+export interface EditI {
+  name: string;
+  surname: string;
+  location: string;
+  age: number | null;
+  photo_src: string;
+  bio: string;
+  social_media_URL1: string;
+  social_media_URL2: string;
+  social_media_URL3: string;
+  list_of_interests: number[];
+}
+
+export interface EditResponseI {
+  response: string;
+}

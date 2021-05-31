@@ -141,15 +141,15 @@ export const ProfileInfo = (props: Props) => {
   const styles = useStyles();
 
   useEffect(() => {
-    const getTeamsFnc = async () => {
+    const getProfileFnc = async () => {
       const { data } = await getMyProfile();
       setProfile(data);
     };
 
     try {
-      getTeamsFnc();
+      getProfileFnc();
     } catch (error) {
-      toast.error('There has been an error with logging!');
+      toast.error('Nie udało się pobrać profilu!');
     }
   }, []);
 
@@ -224,7 +224,7 @@ export const ProfileInfo = (props: Props) => {
                 />
               </TabPanel>
               <TabPanel value={value} index={2}>
-                <EditProfile />
+                <EditProfile profile={profile} />
               </TabPanel>
             </Box>
           </Box>

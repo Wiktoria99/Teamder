@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { CustomButton, CustomTextField, useFormStyles } from '@/components';
 import {
   Box,
@@ -8,13 +8,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { colors } from '@/styles';
+import { ProfileI, EditI } from '@/interfaces';
+import { editMyProfile } from '@/api';
+import { toast } from 'react-toastify';
 
-interface EditI {
-  name: string,
-  surname: string,
-  city: string,
-  age: number | undefined,
-  bio: string,
+interface Props {
+  profile: ProfileI;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,24 +43,37 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const EditProfile: React.FC = () => {
+export const EditProfile: React.FC<Props> = ({ profile }) => {
   const styles = useStyles();
   const [editInfo, setEditInfo] = useState<EditI>({
-    name: '',
-    surname: '',
-    city: '',
-    age: undefined,
-    bio: '',
+    name: profile.name,
+    surname: profile.surname,
+    location: profile.location,
+    age: profile.age,
+    bio: profile.bio,
+    photo_src: profile.photo_src,
+    social_media_URL1: profile.social_media_URL1,
+    social_media_URL2: profile.social_media_URL2,
+    social_media_URL3: profile.social_media_URL3,
+    list_of_interests: profile.list_of_interests_id,
   });
 
-  const handleClick = (e: any) => {
+  const handleClick = async (e: any) => {
     e.preventDefault();
-    //EDIT 
+
+    try {
+      const { data } = await editMyProfile(editInfo);
+      console.log(data);
+      toast.success('Profil został zedytowany pomyślnie!');
+      window.location.reload();
+    } catch (error) {
+      toast.error('Nie udało się edytować profilu!');
+    }
   };
 
   return (
     <>
-        <Box className={styles.root}>
+      <Box className={styles.root}>
         <form onSubmit={handleClick} className={styles.form}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <CustomTextField
@@ -69,16 +81,20 @@ export const EditProfile: React.FC = () => {
               label="Imię"
               variant="standard"
               color="secondary"
-              onChange={(e) => setEditInfo({...editInfo, name: e.currentTarget.value})}
+              onChange={(e) =>
+                setEditInfo({ ...editInfo, name: e.currentTarget.value })
+              }
               value={editInfo.name}
             />
-            
+
             <CustomTextField
               style={{ width: '46%' }}
               label="Nazwisko"
               variant="standard"
               color="secondary"
-              onChange={(e) => setEditInfo({...editInfo, surname: e.currentTarget.value})}
+              onChange={(e) =>
+                setEditInfo({ ...editInfo, surname: e.currentTarget.value })
+              }
               value={editInfo.surname}
             />
           </div>
@@ -88,16 +104,20 @@ export const EditProfile: React.FC = () => {
               label="Miejscowość"
               variant="standard"
               color="secondary"
-              onChange={(e) => setEditInfo({...editInfo, city: e.currentTarget.value})}
-              value={editInfo.city}
+              onChange={(e) =>
+                setEditInfo({ ...editInfo, location: e.currentTarget.value })
+              }
+              value={editInfo.location}
             />
-            
+
             <CustomTextField
               style={{ width: '36%' }}
               label="Wiek"
               variant="standard"
               color="secondary"
-              onChange={(e) => setEditInfo({...editInfo, age: Number(e.currentTarget.value)})}
+              onChange={(e) =>
+                setEditInfo({ ...editInfo, age: Number(e.currentTarget.value) })
+              }
               value={editInfo.age}
             />
           </div>
@@ -107,21 +127,24 @@ export const EditProfile: React.FC = () => {
             color="secondary"
             multiline
             rowsMax={4}
-            onChange={(e) => setEditInfo({...editInfo, bio: e.currentTarget.value})}
+            onChange={(e) =>
+              setEditInfo({ ...editInfo, bio: e.currentTarget.value })
+            }
             value={editInfo.bio}
-          /> 
-          </form>
-        </Box>
-        <div className={styles.buttonPos} >
-          <CustomButton 
-            type="submit"
-            color="secondary"
-            variant="contained"
-            className={styles.button}
-          >
-            <Typography variant="button">Zatwierdź</Typography>
-          </CustomButton>
-          </div>
+          />
+        </form>
+      </Box>
+      <div className={styles.buttonPos}>
+        <CustomButton
+          type="submit"
+          color="secondary"
+          variant="contained"
+          className={styles.button}
+          onClick={(e) => handleClick(e)}
+        >
+          <Typography variant="button">Zatwierdź</Typography>
+        </CustomButton>
+      </div>
     </>
   );
 };
