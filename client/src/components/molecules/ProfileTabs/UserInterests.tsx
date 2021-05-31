@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { CustomButton } from '@/components';
 import {
   createStyles,
@@ -10,10 +10,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { colors } from '@/styles';
+import { InterestI } from '@/interfaces';
+import { InterestsContext } from '@/components/atoms';
 
 interface Props {
-    interests: string[];
-  }
+  interests: number[];
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,25 +55,26 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-
-export const UserInterests: React.FC<Props> = ({interests}) => {
+export const UserInterests: React.FC<Props> = ({ interests }) => {
   const styles = useStyles();
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
 
   return (
     <>
-        <List className={styles.root}>
-          {interests.map((value) => {
-            return (
-              <ListItem key={value} >
-
-                <ListItemText primary={value} />
-              </ListItem>
-            );
-          })}
-        </List>
-        <div className={styles.buttonPos} >
-        <CustomButton 
+      <List className={styles.root}>
+        {interests.map((value) => {
+          return (
+            <ListItem key={value}>
+              <ListItemText
+                primary={InterestList.find((x) => x.id === value)!.name}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+      <div className={styles.buttonPos}>
+        <CustomButton
           type="submit"
           color="secondary"
           variant="contained"
@@ -79,7 +82,7 @@ export const UserInterests: React.FC<Props> = ({interests}) => {
         >
           <Typography variant="button">Edytuj</Typography>
         </CustomButton>
-        </div>
+      </div>
     </>
   );
 };

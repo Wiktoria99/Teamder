@@ -14,12 +14,12 @@ import {
 import { colors } from '@/styles';
 
 interface Props {
-    links: {
-        first: string;
-        second: string;
-        third: string;
-      }
-  }
+  links: {
+    first: string;
+    second: string;
+    third: string;
+  };
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,41 +41,40 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: 30,
     },
     linkFont: {
-      "& span": {
+      '& span': {
         fontSize: 18,
-    }
-    }
+      },
+    },
   }),
 );
 
-
-export const SocialMedia: React.FC<Props> = ({links}) => {
+export const SocialMedia: React.FC<Props> = ({ links }) => {
   const styles = useStyles();
 
   return (
     <>
-        <List className={styles.root}>
-        <ListItem >
-            <ListItemIcon>
-              <FacebookIcon />
-            </ListItemIcon>
-            <ListItemText primary={links.first} className={styles.linkFont}/>
+      <List className={styles.root}>
+        <ListItem>
+          <ListItemIcon>
+            <FacebookIcon />
+          </ListItemIcon>
+          <ListItemText primary={links.first} className={styles.linkFont} />
         </ListItem>
-        <ListItem >
-            <ListItemIcon>
-              <InstagramIcon />
-             </ListItemIcon>
-            <ListItemText primary={links.second} className={styles.linkFont}/>
+        <ListItem>
+          <ListItemIcon>
+            <InstagramIcon />
+          </ListItemIcon>
+          <ListItemText primary={links.second} className={styles.linkFont} />
         </ListItem>
-        <ListItem  >
-            <ListItemIcon>
-              <TwitterIcon />
-             </ListItemIcon>
-            <ListItemText primary={links.third} className={styles.linkFont}/>
+        <ListItem>
+          <ListItemIcon>
+            <TwitterIcon />
+          </ListItemIcon>
+          <ListItemText primary={links.third} className={styles.linkFont} />
         </ListItem>
-        </List>
-        <div className={styles.buttonPos} >
-        <CustomButton 
+      </List>
+      <div className={styles.buttonPos}>
+        <CustomButton
           type="submit"
           color="secondary"
           variant="contained"
@@ -83,7 +82,7 @@ export const SocialMedia: React.FC<Props> = ({links}) => {
         >
           <Typography variant="button">Edytuj</Typography>
         </CustomButton>
-        </div>
+      </div>
     </>
   );
 };

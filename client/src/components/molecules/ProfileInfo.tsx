@@ -13,6 +13,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { UserInterests, SocialMedia, EditProfile } from '@/components';
 import { colors } from '@/styles';
+import { getMyProfile } from '@/api';
+import { toast } from 'react-toastify';
+import { Loading } from '../atoms';
 
 interface Props {
   info?: ProfileI;
@@ -25,29 +28,20 @@ interface TabPanelProps {
 }
 
 const info: ProfileI = {
+  id: 3,
+  email: 'nerooc@vp.pl',
   name: 'Tomasz',
   surname: 'Gajda',
-  username: '@nerooc',
-  photoSource: 'https://avatars.githubusercontent.com/u/31045802?v=4',
+  user_name: '@nerooc',
+  photo_src: 'https://avatars.githubusercontent.com/u/31045802?v=4',
   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo fringilla sem a condimentum. Praesent feugiat efficitur tellus non blandit. Etiam iaculis sollicitudin gravida.',
   age: 20,
-  city: 'Kraków',
-  likes: 47,
-  interests: [
-    'Programming',
-    'Technologies',
-    'Singing',
-    'Dancing',
-    'Games',
-    'Painting',
-    'Football',
-    'Basketball',
-  ],
-  socialMedia: {
-    first: 'https://www.facebook.com/nerooc',
-    second: 'https://www.instagram.com/nerooc',
-    third: 'https://www.twitter.com/nerooc',
-  },
+  location: 'Kraków',
+  rating: 47,
+  list_of_interests_id: [1, 3, 5],
+  social_media_URL1: 'google.com',
+  social_media_URL2: 'facebook.com/',
+  social_media_URL3: 'github.com/Wiktoria99/Teamder/tree/main',
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -142,74 +136,100 @@ function a11yProps(index: number) {
 }
 
 export const ProfileInfo = (props: Props) => {
-  const styles = useStyles();
   const [value, setValue] = useState(0);
+  const [profile, setProfile] = useState<ProfileI>();
+  const styles = useStyles();
+
+  useEffect(() => {
+    const getTeamsFnc = async () => {
+      const { data } = await getMyProfile();
+      setProfile(data);
+    };
+
+    try {
+      getTeamsFnc();
+    } catch (error) {
+      toast.error('There has been an error with logging!');
+    }
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
   return (
-    <Box>
-      <Box className={styles.basicInfoContainer}>
-        <Box className={styles.avatarContainer}>
-          <img
-            className={styles.photo}
-            height="100"
-            width="100"
-            src={info.photoSource}
-            alt="avatar"
-          />
-        </Box>
-        <Box className={styles.nameContainer}>
-          <p className={styles.name}>
-            {info.name} {info.surname}
-          </p>
-          <p className={styles.defaultFont}>{info.username}</p>
-        </Box>
-      </Box>
-      <Box className={styles.bioContainer}>
-        <p className={styles.defaultFont}>{info.bio}</p>
-        <Box className={styles.iconBox}>
-          <Box className={styles.iconInfo}>
-            <CityIcon />
-            <p className={styles.iconCaption}> {info.city}</p>
-          </Box>
-          <Box className={styles.iconInfo}>
-            <BirthdayIcon />
-            <p className={styles.iconCaption}> {info.age}</p>
-          </Box>
-          <Box className={styles.iconInfo}>
-            <LikeIcon />
-            <p className={styles.iconCaption}> {info.likes}</p>
-          </Box>
-        </Box>
-      </Box>
-      <Box className={styles.tabsContainer}>
-        <AppBar position="static" color="secondary">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            variant="fullWidth"
-            indicatorColor="primary"
-          >
-            <AntTab label="Zainteresowania" {...a11yProps(0)} />
-            <AntTab label="Social media" {...a11yProps(1)} />
-            <AntTab label="Edytuj profil" {...a11yProps(2)} />
-          </Tabs>
-        </AppBar>
+    <>
+      {!profile ? (
+        <Loading />
+      ) : (
         <Box>
-          <TabPanel value={value} index={0}>
-            <UserInterests interests={info.interests} />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <SocialMedia links={info.socialMedia} />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <EditProfile />
-          </TabPanel>
+          <Box className={styles.basicInfoContainer}>
+            <Box className={styles.avatarContainer}>
+              <img
+                className={styles.photo}
+                height="100"
+                width="100"
+                src={profile.photo_src}
+                alt="avatar"
+              />
+            </Box>
+            <Box className={styles.nameContainer}>
+              <p className={styles.name}>
+                {profile.name} {profile.surname}
+              </p>
+              <p className={styles.defaultFont}>{profile.user_name}</p>
+            </Box>
+          </Box>
+          <Box className={styles.bioContainer}>
+            <p className={styles.defaultFont}>{profile.bio}</p>
+            <Box className={styles.iconBox}>
+              <Box className={styles.iconInfo}>
+                <CityIcon />
+                <p className={styles.iconCaption}> {profile.location}</p>
+              </Box>
+              <Box className={styles.iconInfo}>
+                <BirthdayIcon />
+                <p className={styles.iconCaption}> {profile.age}</p>
+              </Box>
+              <Box className={styles.iconInfo}>
+                <LikeIcon />
+                <p className={styles.iconCaption}> {profile.rating}</p>
+              </Box>
+            </Box>
+          </Box>
+          <Box className={styles.tabsContainer}>
+            <AppBar position="static" color="secondary">
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                indicatorColor="primary"
+              >
+                <AntTab label="Zainteresowania" {...a11yProps(0)} />
+                <AntTab label="Social media" {...a11yProps(1)} />
+                <AntTab label="Edytuj profil" {...a11yProps(2)} />
+              </Tabs>
+            </AppBar>
+            <Box>
+              <TabPanel value={value} index={0}>
+                <UserInterests interests={profile.list_of_interests_id} />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <SocialMedia
+                  links={{
+                    first: profile.social_media_URL1,
+                    second: profile.social_media_URL2,
+                    third: profile.social_media_URL3,
+                  }}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <EditProfile />
+              </TabPanel>
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Box>
+      )}
+    </>
   );
 };
