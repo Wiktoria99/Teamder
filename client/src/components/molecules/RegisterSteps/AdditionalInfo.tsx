@@ -41,13 +41,10 @@ export const AdditionalInfo: React.FC<Props> = ({
           onChange={(e) =>
             setRegisterInfo({
               ...registerInfo,
-              socialMedia: {
-                ...registerInfo.socialMedia,
-                first: e.currentTarget.value,
-              },
+              social_media_URL1: e.currentTarget.value,
             })
           }
-          value={registerInfo.socialMedia.first}
+          value={registerInfo.social_media_URL1}
         />
         <CustomTextField
           label="Social Media URL #2"
@@ -56,13 +53,10 @@ export const AdditionalInfo: React.FC<Props> = ({
           onChange={(e) =>
             setRegisterInfo({
               ...registerInfo,
-              socialMedia: {
-                ...registerInfo.socialMedia,
-                second: e.currentTarget.value,
-              },
+              social_media_URL2: e.currentTarget.value,
             })
           }
-          value={registerInfo.socialMedia.second}
+          value={registerInfo.social_media_URL2}
         />
 
         <CustomTextField
@@ -72,13 +66,23 @@ export const AdditionalInfo: React.FC<Props> = ({
           onChange={(e) =>
             setRegisterInfo({
               ...registerInfo,
-              socialMedia: {
-                ...registerInfo.socialMedia,
-                third: e.currentTarget.value,
-              },
+              social_media_URL3: e.currentTarget.value,
             })
           }
-          value={registerInfo.socialMedia.third}
+          value={registerInfo.social_media_URL3}
+        />
+
+        <CustomTextField
+          label="Photo source file"
+          variant="standard"
+          color="secondary"
+          onChange={(e) =>
+            setRegisterInfo({
+              ...registerInfo,
+              photo_src: e.currentTarget.value,
+            })
+          }
+          value={registerInfo.photo_src}
         />
         <CustomButton
           type="submit"

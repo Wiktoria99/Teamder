@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   loader: {
-    margin: '0 auto',
+    margin: '30px auto',
     height: '42px',
     width: '42px',
     border: `4px solid ${colors.DARK_GREY}`,

@@ -1,5 +1,7 @@
-import React from 'react';
-import { CustomButton, useFormStyles } from '@/components';
+import React, { useContext, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router';
+import { CustomButton, InterestsContext, useFormStyles } from '@/components';
 import {
   Checkbox,
   createStyles,
@@ -11,8 +13,12 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { InterestList } from '@/constants';
-import { RegisterRequestI } from '@/interfaces';
+import { InterestI, RegisterRequestI } from '@/interfaces';
+import { register } from '@/api';
+import { useLocalStorage } from '@/hooks';
+import { TOKEN } from '@/constants';
+
+import { paths } from '@/routing';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,24 +60,40 @@ export const Interests: React.FC<Props> = ({
   setRegisterInfo,
   updateProgressState,
 }) => {
+  const [token, setToken] = useLocalStorage<string>(TOKEN, '');
+
+  const history = useHistory();
   const styles = useFormStyles();
   const classes = useStyles();
 
-  const handleClick = (e: any) => {
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
+
+  const handleClick = async (e: any) => {
     e.preventDefault();
-    //REGISTER API CALL
-    //REROUTE
+
+    try {
+      const { data } = await register(registerInfo);
+      setToken(data.token);
+      toast.success('Zarejestrowano pomyślnie!');
+    } catch (error) {
+      toast.error(error.response.data.Errors[0]);
+    }
   };
 
+  useEffect(() => {
+    if (!!token) {
+      history.push(paths.DASHBOARD);
+    }
+  }, [token]);
+
   const handleToggle = (value: string) => () => {
-    let interestsNew = registerInfo.interests;
+    let interestsNew = registerInfo.list_of_interests;
     interestsNew = interestsNew.includes(value)
       ? interestsNew.filter((el) => el !== value)
       : [...interestsNew, value];
 
-    console.log(interestsNew);
-
-    setRegisterInfo({ ...registerInfo, interests: interestsNew });
+    setRegisterInfo({ ...registerInfo, list_of_interests: interestsNew });
   };
 
   return (
@@ -80,17 +102,24 @@ export const Interests: React.FC<Props> = ({
         <List className={classes.root}>
           {InterestList.map((value) => {
             return (
-              <ListItem key={value} dense button onClick={handleToggle(value)}>
+              <ListItem
+                key={value.id}
+                dense
+                button
+                onClick={handleToggle(value.name)}
+              >
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
                     color="primary"
-                    checked={registerInfo.interests.includes(value)}
+                    checked={registerInfo.list_of_interests.includes(
+                      value.name,
+                    )}
                     tabIndex={-1}
                     disableRipple
                   />
                 </ListItemIcon>
-                <ListItemText primary={value} />
+                <ListItemText primary={value.name} />
               </ListItem>
             );
           })}

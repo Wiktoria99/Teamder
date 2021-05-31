@@ -12,24 +12,25 @@ export interface LogoutRequestI {
 }
 
 export interface RegisterRequestI {
-  login: string;
+  user_name: string;
   password: string;
+  password2: string;
   name: string;
   surname: string;
   email: string;
-  city: string;
-  dayOfBirth: number | null;
+  location: string;
+  age: number | null;
+  photo_src: string;
   bio: string;
-  socialMedia: {
-    first: string;
-    second: string;
-    third: string;
-  };
-  interests: string[];
+  social_media_URL1: string;
+  social_media_URL2: string;
+  social_media_URL3: string;
+  list_of_interests: string[];
 }
 
 export interface RegisterResponseI {
-  id_token: string;
-  refresh_token: string;
-  access_token: string;
+  response: string;
+  user_name: string;
+  email: string;
+  token: string;
 }

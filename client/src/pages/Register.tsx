@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   BasicInfo,
   AdditionalInfo,
@@ -10,20 +10,20 @@ import { RegisterRequestI } from '@/interfaces';
 export const Register: React.FC = () => {
   const [registerProgress, setRegisterProgress] = useState<number>(0);
   const [registerInfo, setRegisterInfo] = useState<RegisterRequestI>({
-    login: '',
+    user_name: '',
     email: '',
     name: '',
     surname: '',
     password: '',
-    city: '',
-    dayOfBirth: null,
+    password2: '',
+    location: '',
+    age: null,
     bio: '',
-    socialMedia: {
-      first: '',
-      second: '',
-      third: '',
-    },
-    interests: [],
+    photo_src: '',
+    social_media_URL1: '',
+    social_media_URL2: '',
+    social_media_URL3: '',
+    list_of_interests: [],
   });
   const titles = [
     'Podstawowe informacje',

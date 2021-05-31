@@ -35,9 +35,12 @@ export const BasicInfo: React.FC<Props> = ({
           variant="standard"
           color="secondary"
           onChange={(e) =>
-            setRegisterInfo({ ...registerInfo, login: e.currentTarget.value })
+            setRegisterInfo({
+              ...registerInfo,
+              user_name: e.currentTarget.value,
+            })
           }
-          value={registerInfo.login}
+          value={registerInfo.user_name}
         />
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -80,60 +83,93 @@ export const BasicInfo: React.FC<Props> = ({
           }
           value={registerInfo.email}
         />
-
-        <CustomTextField
-          required
-          label="Hasło"
-          variant="standard"
-          type={showPassword ? 'text' : 'password'}
-          onChange={(e) =>
-            setRegisterInfo({
-              ...registerInfo,
-              password: e.currentTarget.value,
-            })
-          }
-          value={registerInfo.password}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => setShowPassword(!showPassword)}
-                  onMouseDown={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <CustomTextField
             required
             style={{ width: '48%' }}
-            label="Miasto"
+            label="Hasło"
             variant="standard"
-            color="secondary"
+            type={showPassword ? 'text' : 'password'}
             onChange={(e) =>
-              setRegisterInfo({ ...registerInfo, city: e.currentTarget.value })
+              setRegisterInfo({
+                ...registerInfo,
+                password: e.currentTarget.value,
+              })
             }
-            value={registerInfo.city}
+            value={registerInfo.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <CustomTextField
             required
             style={{ width: '48%' }}
-            label="Data urodzenia"
+            label="Powtórz hasło"
+            variant="standard"
+            type={showPassword ? 'text' : 'password'}
+            onChange={(e) =>
+              setRegisterInfo({
+                ...registerInfo,
+                password2: e.currentTarget.value,
+              })
+            }
+            value={registerInfo.password2}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <CustomTextField
+            required
+            style={{ width: '48%' }}
+            label="Lokalizacja"
             variant="standard"
             color="secondary"
             onChange={(e) =>
               setRegisterInfo({
                 ...registerInfo,
-                dayOfBirth: e.currentTarget.value,
+                location: e.currentTarget.value,
               })
             }
-            value={registerInfo.dayOfBirth}
+            value={registerInfo.location}
+          />
+
+          <CustomTextField
+            required
+            style={{ width: '48%' }}
+            label="Wiek"
+            variant="standard"
+            color="secondary"
+            onChange={(e) =>
+              setRegisterInfo({
+                ...registerInfo,
+                age: e.currentTarget.value,
+              })
+            }
+            value={registerInfo.age}
           />
         </div>
 

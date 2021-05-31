@@ -31,6 +31,7 @@ export const register = (data: RegisterRequestI) => {
   const response: Promise<AxiosResponse<RegisterResponseI>> = axios.post(
     '/register',
     data,
+    axiosUnauthorizedConfig,
   );
   return response;
 };
