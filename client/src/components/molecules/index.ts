@@ -12,4 +12,3 @@ export * from './ProfileTabs';
 export * from './NotificationItem';
 export * from './NotificationList';
 export * from './JoinTeamItem';
-

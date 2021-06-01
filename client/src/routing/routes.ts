@@ -7,6 +7,7 @@ import {
   Notifications,
   MyProfile,
   MyTeams,
+  MyArchivedTeams,
   SuggestionsAll,
   JoinTeam,
 } from '@/pages';
@@ -36,6 +37,10 @@ export const routes: RouteProps[] = [
   {
     path: paths.MY_TEAMS,
     component: MyTeams,
+  },
+  {
+    path: paths.MY_ARCHIVED_TEAMS,
+    component: MyArchivedTeams,
   },
   {
     path: paths.MY_PROFILE,

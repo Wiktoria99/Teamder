@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
   makeStyles,
+  withStyles,
+  Theme,
+  createStyles,
   Button,
   Box,
+  Tab,
 } from '@material-ui/core/';
 import { colors } from '@/styles';
 import { useHistory } from 'react-router';
 import { Layout, MainWrapper } from '@/components';
 import { paths } from '@/routing';
+
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -40,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-export const MyTeams: React.FC = () => {
+export const MyArchivedTeams: React.FC = () => {
   const styles = useStyles();
   const history = useHistory();
 
@@ -55,11 +59,11 @@ export const MyTeams: React.FC = () => {
         ></MainWrapper>
         <Box>
           <Box className={styles.buttonContainer}>
-              <Button className={styles.active} >Aktualne</Button>
-              <Button className={styles.disable} onClick={() =>history.push(paths.MY_ARCHIVED_TEAMS)}>Zakończone</Button>
+              <Button className={styles.disable} onClick={() =>history.push(paths.MY_TEAMS)}>Aktualne</Button>
+              <Button className={styles.active}>Zakończone</Button>
           </Box>
         </Box>
-        My Teams
+        ArchivedTeams
     </Layout>
     </>
   );

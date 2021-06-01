@@ -6,6 +6,7 @@ export const paths = {
   CREATE_TEAM: '/create_team',
   NOTIFICATIONS: '/notifications',
   MY_TEAMS: '/my_teams',
+  MY_ARCHIVED_TEAMS: '/my_archived_teams',
   MY_PROFILE: '/my_profile',
   SUGGESTIONS: '/suggestions',
   JOINTEAM: '/jointeam/:id',
