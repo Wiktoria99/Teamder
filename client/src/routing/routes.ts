@@ -10,6 +10,7 @@ import {
   MyArchivedTeams,
   SuggestionsAll,
   JoinTeam,
+  TeamPage,
 } from '@/pages';
 import { paths } from './paths';
 
@@ -37,6 +38,10 @@ export const routes: RouteProps[] = [
   {
     path: paths.MY_TEAMS,
     component: MyTeams,
+  },
+  {
+    path: paths.MY_TEAM,
+    component: TeamPage,
   },
   {
     path: paths.MY_ARCHIVED_TEAMS,

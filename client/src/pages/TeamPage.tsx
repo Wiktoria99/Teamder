@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   makeStyles,
   Button,
@@ -6,8 +6,19 @@ import {
 } from '@material-ui/core/';
 import { colors } from '@/styles';
 import { useHistory } from 'react-router';
-import { Layout, MainWrapper, CurrentTeamsList } from '@/components';
+import { Layout, MainWrapper, CurrentTeam } from '@/components';
 import { paths } from '@/routing';
+import { useParams } from 'react-router';
+import { Loading } from '@/components';
+// zamienić kiedyś na currentteam 
+import { getTeamToJoin } from '@/api';
+import { TeamI } from '@/interfaces';
+
+interface Props {}
+
+interface Params {
+  id: string;
+}
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -41,9 +52,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MyTeams: React.FC = () => {
+export const TeamPage = (props: Props) => {
   const styles = useStyles();
   const history = useHistory();
+
+  const [team, setTeam] = useState<TeamI>();
+  const params: Params = useParams();
+
+  useEffect(() => {
+  const getTeamFnc = async () => {
+    const { data } = await getTeamToJoin(params.id);
+    setTeam(data);
+  };
+
+  getTeamFnc();
+  }, []);
 
   return (
     <>
@@ -51,7 +74,7 @@ export const MyTeams: React.FC = () => {
         <MainWrapper
             isBackBtn
             title="Moje zespoły"
-            backBtnURL={'/'}
+            backBtnURL={paths.MY_TEAMS}
         ></MainWrapper>
         <Box>
           <Box className={styles.buttonContainer}>
@@ -59,7 +82,11 @@ export const MyTeams: React.FC = () => {
               <Button className={styles.disable} onClick={() =>history.push(paths.MY_ARCHIVED_TEAMS)}>Zakończone</Button>
           </Box>
         </Box>
-        <CurrentTeamsList />
+        {team ? (
+        <CurrentTeam team={team} />
+        ) : (
+        <Loading />
+      )}
     </Layout>
     </>
   );

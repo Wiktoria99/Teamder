@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   makeStyles,
-  withStyles,
-  Theme,
-  createStyles,
   Button,
   Box,
-  Tab,
 } from '@material-ui/core/';
 import { colors } from '@/styles';
 import { useHistory } from 'react-router';

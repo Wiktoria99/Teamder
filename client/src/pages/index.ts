@@ -9,3 +9,4 @@ export * from './MyArchivedTeams';
 export * from './MyProfile';
 export * from './SuggestionsAll';
 export * from './JoinTeam';
+export * from './TeamPage';
