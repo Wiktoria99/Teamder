@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
   teamList: {
     display: 'flex',
     flexFlow: 'column',
+    height: 'calc(100% - 100px)',
+    overflowY: 'scroll',
   },
 }));
 
