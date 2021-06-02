@@ -166,7 +166,13 @@ def registration_view(request):
                     response_data["Errors"] = [str(expt)]
                     return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-                user = user_serializer.save()
+                try:
+                    user = user_serializer.save()
+                except Exception as expt:
+                    account.delete()
+                    response_data["Errors"] = [str(expt) + "is missing!"]
+                    return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+                
 
                 for interest in request.data['list_of_interests']:
                     if type(interest) == str:
