@@ -132,6 +132,17 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
             }
             value={editInfo.bio}
           />
+          <CustomTextField
+            label="Zdjęcie"
+            variant="standard"
+            color="secondary"
+            multiline
+            rowsMax={4}
+            onChange={(e) =>
+              setEditInfo({ ...editInfo, photo_src: e.currentTarget.value })
+            }
+            value={editInfo.photo_src}
+          />
         </form>
       </Box>
       <div className={styles.buttonPos}>

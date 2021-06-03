@@ -1,5 +1,5 @@
 export interface TeamI {
-  id: number,
+  id: number;
   host?: string;
   cost_per_person?: number;
   description?: string;
@@ -14,11 +14,15 @@ export interface TeamI {
 }
 
 export interface CreateTeamI {
-  host: string;
-  title: string;
-  date: string;
-  location: string;
-  maxSize: number;
+  name: string;
   description: string;
+  expiration_date: Date;
+  location: {
+    address: string;
+    longitude: number;
+    latitude: number;
+  };
+  cost_per_person: number;
+  size: number;
   interests: string[];
 }

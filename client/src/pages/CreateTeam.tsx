@@ -6,26 +6,28 @@ import {
   CustomButton,
   CustomTextField,
   useFormStyles,
-  BarWrapper,
   TeamInterests,
 } from '@/components';
 import { CreateTeamI } from '@/interfaces';
 
 export const CreateTeam: React.FC = () => {
   const [teamInfo, setTeamInfo] = useState<CreateTeamI>({
-    host: 'Host Name',
-    title: '',
-    date: '',
-    location: '',
-    maxSize: 5,
+    name: '',
     description: '',
+    expiration_date: new Date(),
+    location: {
+      address: '',
+      longitude: 0,
+      latitude: 0,
+    },
+    size: 10,
     interests: [],
+    cost_per_person: 0,
   });
+
   const styles = useFormStyles();
   const createTeam = () => {
-    console.log(
-      'Test klikania createTeam ' + teamInfo.title + ' ' + teamInfo.date,
-    );
+    console.log('Test klikania createTeam ');
   };
 
   return (
@@ -42,28 +44,42 @@ export const CreateTeam: React.FC = () => {
             variant="standard"
             color="secondary"
             onChange={(e) =>
-              setTeamInfo({ ...teamInfo, title: e.currentTarget.value })
+              setTeamInfo({ ...teamInfo, name: e.currentTarget.value })
             }
-            value={teamInfo.title}
+            value={teamInfo.name}
           />
           <CustomTextField
+            id="datetime-local"
             label="Data i czas"
-            variant="standard"
-            color="secondary"
+            type="datetime-local"
+            InputLabelProps={{
+              shrink: true,
+            }}
             onChange={(e) =>
-              setTeamInfo({ ...teamInfo, date: e.currentTarget.value })
+              setTeamInfo({
+                ...teamInfo,
+                //@ts-ignore
+                expiration_date: e.target.value,
+              })
             }
-            value={teamInfo.date}
+            value={teamInfo.expiration_date}
           />
+
           <Box display="flex">
             <CustomTextField
               label="Lokalizacja"
               variant="standard"
               color="secondary"
               onChange={(e) =>
-                setTeamInfo({ ...teamInfo, location: e.currentTarget.value })
+                setTeamInfo({
+                  ...teamInfo,
+                  location: {
+                    ...teamInfo.location,
+                    address: e.currentTarget.value,
+                  },
+                })
               }
-              value={teamInfo.location}
+              value={teamInfo.location.address}
             />
             <Box marginLeft="15%">
               <CustomTextField
@@ -73,13 +89,29 @@ export const CreateTeam: React.FC = () => {
                 onChange={(e) =>
                   setTeamInfo({
                     ...teamInfo,
-                    maxSize: Number(e.currentTarget.value),
+                    size: Number(e.currentTarget.value),
                   })
                 }
-                value={teamInfo.maxSize}
+                value={teamInfo.size}
               />
             </Box>
           </Box>
+
+          <CustomTextField
+            label="Cena za osobę"
+            variant="standard"
+            color="secondary"
+            multiline
+            rowsMax={4}
+            onChange={(e) =>
+              setTeamInfo({
+                ...teamInfo,
+                cost_per_person: Number(e.currentTarget.value),
+              })
+            }
+            value={teamInfo.cost_per_person}
+          />
+
           <CustomTextField
             label="Opis"
             variant="standard"
