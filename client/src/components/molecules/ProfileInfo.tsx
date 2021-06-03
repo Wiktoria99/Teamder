@@ -212,16 +212,10 @@ export const ProfileInfo = (props: Props) => {
             </AppBar>
             <Box>
               <TabPanel value={value} index={0}>
-                <UserInterests interests={profile.list_of_interests_id} />
+                <UserInterests profile={profile} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <SocialMedia
-                  links={{
-                    first: profile.social_media_URL1,
-                    second: profile.social_media_URL2,
-                    third: profile.social_media_URL3,
-                  }}
-                />
+                <SocialMedia profile={profile} />
               </TabPanel>
               <TabPanel value={value} index={2}>
                 <EditProfile profile={profile} />
