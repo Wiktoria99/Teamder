@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       width: '100%',
     },
+    textfield: {
+      margin: '10px 0',
+    },
   }),
 );
 
@@ -63,7 +66,6 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
 
     try {
       const { data } = await editMyProfile(editInfo);
-      console.log(data);
       toast.success('Profil został zedytowany pomyślnie!');
       window.location.reload();
     } catch (error) {
@@ -81,6 +83,7 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
               label="Imię"
               variant="standard"
               color="secondary"
+              className={styles.textfield}
               onChange={(e) =>
                 setEditInfo({ ...editInfo, name: e.currentTarget.value })
               }
@@ -92,6 +95,7 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
               label="Nazwisko"
               variant="standard"
               color="secondary"
+              className={styles.textfield}
               onChange={(e) =>
                 setEditInfo({ ...editInfo, surname: e.currentTarget.value })
               }
@@ -104,6 +108,7 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
               label="Miejscowość"
               variant="standard"
               color="secondary"
+              className={styles.textfield}
               onChange={(e) =>
                 setEditInfo({ ...editInfo, location: e.currentTarget.value })
               }
@@ -115,6 +120,7 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
               label="Wiek"
               variant="standard"
               color="secondary"
+              className={styles.textfield}
               onChange={(e) =>
                 setEditInfo({ ...editInfo, age: Number(e.currentTarget.value) })
               }
@@ -125,6 +131,7 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
             label="Opis"
             variant="standard"
             color="secondary"
+            className={styles.textfield}
             multiline
             rowsMax={4}
             onChange={(e) =>
@@ -136,6 +143,7 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
             label="Zdjęcie"
             variant="standard"
             color="secondary"
+            className={styles.textfield}
             multiline
             rowsMax={4}
             onChange={(e) =>
@@ -149,8 +157,8 @@ export const EditProfile: React.FC<Props> = ({ profile }) => {
         <CustomButton
           type="submit"
           color="secondary"
+          className={styles.textfield}
           variant="contained"
-          className={styles.button}
           onClick={(e) => handleClick(e)}
         >
           <Typography variant="button">Zatwierdź</Typography>
