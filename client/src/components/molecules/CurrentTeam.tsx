@@ -1,5 +1,5 @@
-import React from 'react';
-import { TeamI } from '@/interfaces';
+import React, { useContext } from 'react';
+import { InterestI, TeamI } from '@/interfaces';
 import { Box, makeStyles } from '@material-ui/core';
 import { colors } from '@/styles';
 import {
@@ -8,6 +8,7 @@ import {
   LocationIconY,
   TeamIconY,
 } from '@/assets';
+import { InterestsContext } from '../atoms';
 
 interface Props {
   team: TeamI;
@@ -117,6 +118,9 @@ const useStyles = makeStyles((theme) => ({
 export const CurrentTeam: React.FC<Props> = ({ team }) => {
   const styles = useStyles();
 
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
+
   return (
     <Box className={styles.teamItemContainer}>
       <Box className={styles.avatarContainer}>
@@ -147,9 +151,16 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
             <p className={styles.interestsText}>Zainteresowania</p>
           </Box>
           <Box className={styles.interestsList}>
-            {/* {team.interests.map((interest, idx) =>
-            idx !== team.interests.length - 1 ? interest + ', ' : interest,
-          )} */}
+            {team.list_of_interests_id!.map((interest_id, idx) => {
+              const interest = InterestList.find(
+                (x) => x.id === interest_id,
+              )!.name;
+              console.log(interest_id, interest);
+
+              return idx !== team.list_of_interests_id!.length - 1
+                ? interest + ', '
+                : interest;
+            })}
           </Box>
         </Box>
         <Box className={styles.descriptionContainer}>

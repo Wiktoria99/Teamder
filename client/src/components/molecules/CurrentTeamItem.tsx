@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { CalendarIcon, InterestsIcon, LocationIcon, TeamIcon } from '@/assets';
-import { TeamI } from '@/interfaces';
+import { InterestI, TeamI } from '@/interfaces';
 import { colors } from '@/styles';
 import { useHistory } from 'react-router';
+import { InterestsContext } from '../atoms';
 
 interface Props {
   team: TeamI;
@@ -97,6 +98,9 @@ export const CurrentTeamItem: React.FC<Props> = ({ team }) => {
     history.push('/my_team/' + id);
   };
 
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
+
   return (
     <Box className={styles.teamItemContainer}>
       <Box className={styles.avatarContainer}>
@@ -127,12 +131,24 @@ export const CurrentTeamItem: React.FC<Props> = ({ team }) => {
             <p className={styles.interestsText}>Zainteresowania</p>
           </Box>
           <Box className={styles.interestsList}>
-            {/* {team.interests.map((interest, idx) =>
-              idx !== team.interests.length - 1 ? interest + ', ' : interest,
-            )} */}
+            {team.list_of_interests_id!.map((interest_id, idx) => {
+              const interest = InterestList.find(
+                (x) => x.id === interest_id,
+              )!.name;
+              console.log(interest_id, interest);
+
+              return idx !== team.list_of_interests_id!.length - 1
+                ? interest + ', '
+                : interest;
+            })}
           </Box>
         </Box>
-        <Button className={styles.button} onClick={() => teamSelectedHandler(team.id)}>Więcej</Button>
+        <Button
+          className={styles.button}
+          onClick={() => teamSelectedHandler(team.id)}
+        >
+          Więcej
+        </Button>
       </Box>
     </Box>
   );

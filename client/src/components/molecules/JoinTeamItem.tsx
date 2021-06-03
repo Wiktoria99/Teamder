@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { TeamI } from '@/interfaces';
+import React, { useContext, useEffect, useState } from 'react';
+import { InterestI, TeamI } from '@/interfaces';
 import { Button, Box, makeStyles } from '@material-ui/core';
 import { colors } from '@/styles';
-import { CalendarIconY, InterestsIconY, LocationIconY, TeamIconY, DescriptionIconY} from '@/assets';
+import {
+  CalendarIconY,
+  InterestsIconY,
+  LocationIconY,
+  TeamIconY,
+  DescriptionIconY,
+} from '@/assets';
+import { InterestsContext } from '../atoms';
 
 interface Props {
   team: TeamI;
@@ -115,57 +122,71 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const JoinTeamItem: React.FC<Props> = ({team}) => {
+export const JoinTeamItem: React.FC<Props> = ({ team }) => {
   const styles = useStyles();
 
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
+
   return (
-  <Box className={styles.teamItemContainer}>
-    <Box className={styles.avatarContainer}>
-      <img className={styles.photo} height="100" width="100" alt="avatar" />
-    </Box>
-    <Box className={styles.contentContainer}>
-      <p className={styles.hostName}>{team.host}</p>
-      <h3 className={styles.teamTitle}>{team.name}</h3>
-      <Box className={styles.infoBox}>
-        <Box className={styles.iconInfo}>
-          <CalendarIconY />
-          <p className={styles.minorInfo}>{team.expiration_date}</p>
-        </Box>
-        <Box className={styles.iconInfo}>
-          <LocationIconY />
-          <p className={styles.minorInfo}>Kraków</p>
-        </Box>
-        <Box className={styles.iconInfo}>
-          <TeamIconY />
-          <p className={styles.minorInfo}>
-            {team.accepted_people_id?.length}/{team.size}
-          </p>
-        </Box>
+    <Box className={styles.teamItemContainer}>
+      <Box className={styles.avatarContainer}>
+        <img className={styles.photo} height="100" width="100" alt="avatar" />
       </Box>
-      <Box className={styles.interestsContainer}>
-        <Box className={styles.interestsLabel}>
-          <InterestsIconY />
-          <p className={styles.interestsText}>Zainteresowania</p>
+      <Box className={styles.contentContainer}>
+        <p className={styles.hostName}>{team.host}</p>
+        <h3 className={styles.teamTitle}>{team.name}</h3>
+        <Box className={styles.infoBox}>
+          <Box className={styles.iconInfo}>
+            <CalendarIconY />
+            <p className={styles.minorInfo}>{team.expiration_date}</p>
+          </Box>
+          <Box className={styles.iconInfo}>
+            <LocationIconY />
+            <p className={styles.minorInfo}>Kraków</p>
+          </Box>
+          <Box className={styles.iconInfo}>
+            <TeamIconY />
+            <p className={styles.minorInfo}>
+              {team.accepted_people_id?.length}/{team.size}
+            </p>
+          </Box>
         </Box>
-        <Box className={styles.interestsList}>
-          {/* {team.interests.map((interest, idx) =>
-            idx !== team.interests.length - 1 ? interest + ', ' : interest,
-          )} */}
+        <Box className={styles.interestsContainer}>
+          <Box className={styles.interestsLabel}>
+            <InterestsIconY />
+            <p className={styles.interestsText}>Zainteresowania</p>
+          </Box>
+          <Box className={styles.interestsList}>
+            {team.list_of_interests_id!.map((interest_id, idx) => {
+              const interest = InterestList.find(
+                (x) => x.id === interest_id,
+              )!.name;
+              console.log(interest_id, interest);
+
+              return idx !== team.list_of_interests_id!.length - 1
+                ? interest + ', '
+                : interest;
+            })}
+          </Box>
         </Box>
-      </Box>
-      <Box className={styles.descriptionContainer}>
-        <Box className={styles.descriptionLabel}>
-          <DescriptionIconY />
-          <p className={styles.descriptionText}>Opis</p>
-        </Box>
-        <Box className={styles.description}>
+        <Box className={styles.descriptionContainer}>
+          <Box className={styles.descriptionLabel}>
+            <DescriptionIconY />
+            <p className={styles.descriptionText}>Opis</p>
+          </Box>
+          <Box className={styles.description}>
             {/* tu opis z team */}
-            <p>Nikt nie robi projektów tak jak Ćwierz obiera mandarynki. Guziol "Dołącz" jeszcze nie działa ale kiedyś będzie, trzeba mi dużo tekstu żeby wyszło na trzy linijki, no i jest</p>
+            <p>
+              Nikt nie robi projektów tak jak Ćwierz obiera mandarynki. Guziol
+              "Dołącz" jeszcze nie działa ale kiedyś będzie, trzeba mi dużo
+              tekstu żeby wyszło na trzy linijki, no i jest
+            </p>
+          </Box>
         </Box>
+        {/* TO DO: ten guzik ma coś robić */}
+        <Button className={styles.button}>Dołącz</Button>
       </Box>
-      {/* TO DO: ten guzik ma coś robić */}
-      <Button className={styles.button}>Dołącz</Button>
     </Box>
-  </Box>
   );
 };
