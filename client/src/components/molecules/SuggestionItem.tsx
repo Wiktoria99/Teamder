@@ -1,12 +1,10 @@
 import React from 'react';
 import { Box, makeStyles } from '@material-ui/core';
+import { InterestI } from '@/interfaces'
 import { colors } from '@/styles';
 
 interface Props {
-  interest: {
-    name: string;
-    teams_number: number;
-  };
+  interest: InterestI;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +38,8 @@ export const SuggestionItem: React.FC<Props> = ({ interest }) => {
   return (
     <Box className={styles.suggestionItemContainer}>
       <h3 className={styles.interestTitle}>#{interest.name}</h3>
-      <p className={styles.teamsNumber}>{interest.teams_number} Teams</p>
+      {/* tu zmienić id na numer  */}
+      <p className={styles.teamsNumber}>{interest.id} Zespołów</p>
     </Box>
   );
 };
