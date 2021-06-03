@@ -194,6 +194,19 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    def _add_interest(self, interest: Interest):
+        if interest:
+            self.list_of_interests.add(interest[0])
+            #self.save()
+
+    def add_interest_by_ID(self, interest_ID: int):
+        interest = Interest.objects.all().filter(id = interest_ID)
+        self._add_interest(interest)
+
+    def add_interest_by_name(self, interest_name: str):
+        interest = Interest.objects.all().filter(name = interest_name)
+        self._add_interest(interest)
+
 
 
 
