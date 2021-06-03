@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core';
-import { CustomTextField } from '../atoms';
+import { CustomTextField, InterestsContext } from '../atoms';
 import { Link } from 'react-router-dom';
 import { colors } from '@/styles';
 import { InterestI } from '@/interfaces';
@@ -69,27 +69,16 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: ' 22px',
       margin: '5px 0',
       cursor: 'pointer',
-  },
+    },
   }),
 );
 
 export const Suggestions = () => {
   const history = useHistory();
   const classes = useStyles();
-  const [listOfInterests, setInterests] = useState<InterestI[]>([]);
 
-  useEffect(() => {
-    const getInterestsFnc = async () => {
-    const { data } = await getInterests();
-      setInterests(data);
-    };
-
-    try {
-      getInterestsFnc();
-    } catch (error) {
-      toast.error('Nie udało się pobrać zainteresowań!');
-    }
-  }, []);
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
 
   const selectedHandler = (id: number, name: string) => {
     history.push('/teambyinterest/' + id + '/' + name);
@@ -104,16 +93,23 @@ export const Suggestions = () => {
       <table className={classes.myTable}>
         <th className={classes.header}>Proponowane</th>
         {/* tu zmeinić wyświetlanie id na liczbę zepołów z tym zainteresowaniem */}
-        {listOfInterests.filter(element => element.id < 6).map((interest, idx) => {
-          return (
-            <tr key={idx}>
-              <td className={classes.myRow}>
-                <a className={classes.interestTitle} onClick={() => selectedHandler(interest.id, interest.name)}>#{interest.name}</a>
-                <p className={classes.sub} >{interest.id} zespołów</p>
-              </td>
-            </tr>
-          );
-        })}
+        {InterestList.filter((element) => element.id < 6).map(
+          (interest, idx) => {
+            return (
+              <tr key={idx}>
+                <td className={classes.myRow}>
+                  <a
+                    className={classes.interestTitle}
+                    onClick={() => selectedHandler(interest.id, interest.name)}
+                  >
+                    #{interest.name}
+                  </a>
+                  <p className={classes.sub}>{interest.id} zespołów</p>
+                </td>
+              </tr>
+            );
+          },
+        )}
         <tr>
           <td className={classes.different}>
             <Link className={classes.link} to="/suggestions">
