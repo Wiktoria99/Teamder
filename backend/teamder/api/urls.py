@@ -16,7 +16,7 @@ urlpatterns = [
 
     
 
-    path('interests', views.get_all_interests),
+    path('interests', views.manage_interests),
 
 
     path('teams', views.manage_teams),

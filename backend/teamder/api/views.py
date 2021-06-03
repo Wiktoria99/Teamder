@@ -32,11 +32,21 @@ def get_team_by_ID_view(request, teamID):
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET',])
+@api_view(['GET', 'POST'])
 @permission_classes(())
-def get_all_interests(request):
-    return Response(Interest.objects.all().values(), status=status.HTTP_200_OK)
+def manage_interests(request):
+    if request.method == 'GET':
+        return Response(Interest.objects.all().values(), status=status.HTTP_200_OK)
+    elif request.method == 'POST':
+        data = deepcopy(request.data)
+        serializer = InterestSerializer(data = data)
 
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 def get_user_info(user_name: str):

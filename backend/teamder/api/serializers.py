@@ -46,7 +46,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 class InterestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interest
-        fields = ("name")
+        fields = ("name",)
 
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
