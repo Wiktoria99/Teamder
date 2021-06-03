@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, makeStyles } from '@material-ui/core';
+import { InterestI } from '@/interfaces'
+import { useHistory } from 'react-router';
 import { colors } from '@/styles';
+import { paths } from '@/routing';
 
 interface Props {
-  interest: {
-    name: string;
-    teams_number: number;
-  };
+  interest: InterestI;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -17,14 +17,16 @@ const useStyles = makeStyles((theme) => ({
     padding: '8px 0 8px 25px',
   },
   interestTitle: {
+    color: colors.PRIMARY_FONT,
     fontFamily: 'Manrope',
     fontStyle: 'normal',
     fontWeight: 'bold',
-    fontSize: '16px',
+    fontSize: '18px',
     lineHeight: ' 22px',
     margin: '5px 0',
   },
   teamsNumber: {
+    color: colors.PRIMARY_FONT,
     fontFamily: 'Manrope',
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -36,11 +38,18 @@ const useStyles = makeStyles((theme) => ({
 
 export const SuggestionItem: React.FC<Props> = ({ interest }) => {
   const styles = useStyles();
+  const history = useHistory();
+
+  const selectedHandler = (id: number, name: string) => {
+    history.push('/teambyinterest/' + id + '/' + name);
+    // history.push(paths.TEAMBYINTEREST + id);
+  };
 
   return (
     <Box className={styles.suggestionItemContainer}>
-      <h3 className={styles.interestTitle}>#{interest.name}</h3>
-      <p className={styles.teamsNumber}>{interest.teams_number} Teams</p>
+      <a className={styles.interestTitle} onClick={() => selectedHandler(interest.id, interest.name)}>#{interest.name}</a>
+      {/* tu zmienić id na numer  */}
+      <p className={styles.teamsNumber}>{interest.id} Zespołów</p>
     </Box>
   );
 };

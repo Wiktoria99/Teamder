@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Loading } from '@/components';
 import { Box, makeStyles } from '@material-ui/core';
 import { SuggestionItem } from './SuggestionItem';
+import { getInterests } from '@/api'
+import { InterestI } from '@/interfaces'
 
 interface Props {}
 
@@ -11,49 +15,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const listOfInterests = [
-  {
-    name: 'backend',
-    teams_number: 944,
-  },
-  {
-    name: 'countersttrike',
-    teams_number: 552,
-  },
-  {
-    name: 'football',
-    teams_number: 512,
-  },
-  {
-    name: 'music',
-    teams_number: 467,
-  },
-  {
-    name: 'singing',
-    teams_number: 312,
-  },
-  {
-    name: 'dancing',
-    teams_number: 300,
-  },
-  {
-    name: 'games',
-    teams_number: 280,
-  },
-  {
-    name: 'programming',
-    teams_number: 126,
-  },
-];
-
 export const SuggestionList = (props: Props) => {
   const styles = useStyles();
+  const [listOfInterests, setInterests] = useState<InterestI[]>([]);
+
+  useEffect(() => {
+    const getInterestsFnc = async () => {
+    const { data } = await getInterests();
+      setInterests(data);
+    };
+
+    try {
+      getInterestsFnc();
+    } catch (error) {
+      toast.error('Nie udało się pobrać zainteresowań!');
+    }
+  }, []);
+
 
   return (
     <Box className={styles.interestList}>
-      {listOfInterests.map((interest, idx) => (
-        <SuggestionItem key={idx} interest={interest} />
-      ))}
+      {listOfInterests.length ? (
+        <>
+          {listOfInterests.map((interest, idx) => (
+            <SuggestionItem key={idx} interest={interest} />
+          ))}
+        </>
+      ) : (
+        <Loading />
+      )}
     </Box>
   );
 };

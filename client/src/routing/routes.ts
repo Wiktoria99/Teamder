@@ -11,6 +11,7 @@ import {
   SuggestionsAll,
   JoinTeam,
   TeamPage,
+  TeamsByInterest,
 } from '@/pages';
 import { paths } from './paths';
 
@@ -58,5 +59,9 @@ export const routes: RouteProps[] = [
   {
     path: paths.JOINTEAM,
     component: JoinTeam,
+  },
+  {
+    path: paths.TEAMBYINTEREST,
+    component: TeamsByInterest,
   },
 ];

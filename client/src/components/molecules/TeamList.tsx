@@ -6,7 +6,9 @@ import { getTeams } from '@/api';
 import { TeamI } from '@/interfaces';
 import { TeamItem } from './TeamItem';
 
-interface Props {}
+interface Props {
+  id?: string;
+}
 
 const useStyles = makeStyles((theme) => ({
   teamList: {
@@ -36,15 +38,17 @@ export const TeamList = (props: Props) => {
 
   return (
     <Box className={styles.teamList}>
-      {teams.length ? (
-        <>
-          {teams.map((team, idx) => (
-            <TeamItem key={idx} team={team} />
-          ))}
-        </>
-      ) : (
-        <Loading />
-      )}
+    {
+      teams.length ? (
+        props.id ? (
+          <> 
+          {teams.filter(team => team.list_of_interests_id && team.list_of_interests_id.find(elem => String(elem) === props.id)).map((team, idx) => 
+          (<TeamItem key={idx} team={team} />))     
+          }</>
+        ) : (
+        <>{teams.map((team, idx) => (<TeamItem key={idx} team={team} />))}</>)
+      ) : (<Loading />)
+    }
     </Box>
   );
 };
