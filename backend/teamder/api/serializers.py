@@ -51,8 +51,7 @@ class InterestSerializer(serializers.ModelSerializer):
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ("name")#, "date", "size", "description", "cost_per_person", "list_of_interests", "waiting_people", "accepted_people")
-
+        fields = ("name", "description", "creation_date", "expiration_date", "host", "location", "cost_per_person", "list_of_interests", "waiting_people", "accepted_people", "size")
 
 
 

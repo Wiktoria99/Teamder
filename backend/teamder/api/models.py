@@ -181,7 +181,7 @@ class Team(models.Model):
     description = models.TextField(max_length=500, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True, blank=True)
     expiration_date = models.DateTimeField(null=True, blank=True)
-    blog = models.EmbeddedField(
+    location = models.EmbeddedField(
         model_container=Location, null=True, blank=True
     )
     host = models.CharField(max_length=50)

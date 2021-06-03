@@ -1,4 +1,5 @@
 from copy import deepcopy
+from datetime import datetime
 
 from django.shortcuts import render
 from django import core
@@ -120,7 +121,14 @@ def my_profile_view(request):
 @permission_classes((IsAuthenticated,))
 def manage_teams(request):
     if request.method =='GET':
-        return Response(Team.objects.all().values(), status=status.HTTP_200_OK)
+        expired = request.data.get('expired')
+        queryset = Team.objects.all()
+        now = datetime.now()
+        if expired == True:
+            queryset = queryset.filter(expiration_date__lte = now)
+        elif expired == False:
+            queryset = queryset.filter(expiration_date__gte = now)
+        return Response(queryset.values(), status=status.HTTP_200_OK)
     if request.method =='POST':
         host = request.user.user_name
 
@@ -128,24 +136,10 @@ def manage_teams(request):
         data['host'] = host
         serializer = TeamSerializer(data = data)
 
-        response_data = {}
         if serializer.is_valid():
-            
-            name = serializer.data['name']
-            date = serializer.data['date']
-
-            team = Team()
-            team.host = host
-            team.name = name
-            team.date = date
-            team.save()
-
-            response_data['response'] = "succesfully created new Team!"
-            response_data['id'] = team.id
-            response_data['name'] = team.name
-        else:
-            response_data = serializer.errors
-        return Response(response_data)
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
 @api_view(['POST',])
