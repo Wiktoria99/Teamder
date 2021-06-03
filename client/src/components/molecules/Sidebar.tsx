@@ -4,25 +4,45 @@ import { BarWrapper, CustomButton } from '@/components';
 import { NavLink, useHistory } from 'react-router-dom';
 import { paths } from '@/routing';
 import styled from 'styled-components';
-import { TeamderLogoSidebar } from '@/assets';
+import { TeamderLogoSidebar, LogoSimple } from '@/assets';
 import { SidebarData } from '@/components';
 import { TOKEN } from '@/constants';
-import { useLocalStorage } from '@/hooks';
+import { useLocalStorage, useWindowSize, Size } from '@/hooks';
+import { Add, ExitToApp } from '@material-ui/icons';
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    ['@media (max-width:999px)']: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  },
   button: {
     borderRadius: '5px',
     height: 40,
     marginTop: 40,
-    width: 220,
+    width: '100%',
+  },
+  routeList: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  linkItem: {
+    ['@media (max-width:999px)']: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   },
 }));
 
 const SidebarLink = styled(NavLink)`
   display: flex;
   color: #f2f2f2;
-  align-items: 'center';
   flex-wrap: 'wrap';
   height: 60px;
   vertical-align: 'middle';
@@ -30,6 +50,8 @@ const SidebarLink = styled(NavLink)`
   text-decoration: none;
   font-size: 20px;
   list-style: none;
+  justify-content: 'center';
+  align-items: 'center';
   &:hover {
     cursor: pointer;
     color: #ffb800;
@@ -43,6 +65,7 @@ const SidebarLabel = styled.span`
 export const Sidebar = (props: Props) => {
   const styles = useStyles();
   const history = useHistory();
+  const size: Size = useWindowSize();
   const [, setToken] = useLocalStorage<string>(TOKEN, '');
 
   const logoutHandler = async () => {
@@ -58,15 +81,27 @@ export const Sidebar = (props: Props) => {
   return (
     <>
       <BarWrapper>
-        <Box>
-          <TeamderLogoSidebar onClick={() => history.push('/')} />
-          <div style={{ marginTop: '45px' }}>
+        <Box className={styles.mainContainer}>
+          {size.width! >= 1000 ? (
+            <TeamderLogoSidebar onClick={() => history.push('/')} />
+          ) : (
+            <LogoSimple onClick={() => history.push('/')} />
+          )}
+
+          <div className={styles.routeList} style={{ marginTop: '45px' }}>
             {SidebarData.map((item, index) => {
               return (
                 <SidebarLink key={item.title} to={item.path}>
-                  <Grid container direction="row" alignItems="flex-end">
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="flex-end"
+                    className={styles.linkItem}
+                  >
                     {item.icon}
-                    <SidebarLabel>{item.title}</SidebarLabel>
+                    {size.width! >= 1000 && (
+                      <SidebarLabel>{item.title}</SidebarLabel>
+                    )}
                   </Grid>
                 </SidebarLink>
               );
@@ -78,7 +113,7 @@ export const Sidebar = (props: Props) => {
               color="secondary"
               className={styles.button}
             >
-              Stwórz zespół
+              {size.width! >= 1000 ? 'Stwórz zespół' : <Add />}
             </CustomButton>
           </NavLink>
         </Box>
@@ -88,7 +123,7 @@ export const Sidebar = (props: Props) => {
           className={styles.button}
           onClick={logoutHandler}
         >
-          WYLOGUJ
+          {size.width! >= 1000 ? 'WYLOGUJ' : <ExitToApp />}
         </CustomButton>
       </BarWrapper>
     </>

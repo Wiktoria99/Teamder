@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     sidebarContainer: {
       marginLeft: 30,
+      marginRight: 10,
     },
     searchbar: {
       width: '100%',
@@ -18,7 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
     myTable: {
       color: '#F2F2F2',
       paddingTop: '40px',
-      width: '310px',
+      maxWidth: '310px',
+      width: '100%',
       fontSize: '16px',
       border: '1px solid #3A444C',
       borderCollapse: 'collapse',

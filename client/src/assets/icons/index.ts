@@ -14,3 +14,4 @@ export * from './LocationIconY';
 export * from './CalendarIconY';
 export * from './InterestsIconY';
 export * from './TeamIconY';
+export * from './LogoSimple';
