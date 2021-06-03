@@ -159,8 +159,7 @@ export const JoinTeamItem: React.FC<Props> = ({team}) => {
           <p className={styles.descriptionText}>Opis</p>
         </Box>
         <Box className={styles.description}>
-            {/* tu opis z team */}
-            <p>Nikt nie robi projektów tak jak Ćwierz obiera mandarynki. Guziol "Dołącz" jeszcze nie działa ale kiedyś będzie, trzeba mi dużo tekstu żeby wyszło na trzy linijki, no i jest</p>
+            <p>{team.description? team.description : 'Brak opisu'}</p>
         </Box>
       </Box>
       {/* TO DO: ten guzik ma coś robić */}

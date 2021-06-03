@@ -127,7 +127,7 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
             <p className={styles.interestsText}>Zainteresowania</p>
           </Box>
           <Box className={styles.interestsList}>
-            {/* {team.interests.map((interest, idx) =>
+            {/* {team.list.map((interest, idx) =>
               idx !== team.interests.length - 1 ? interest + ', ' : interest,
             )} */}
           </Box>
