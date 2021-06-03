@@ -9,13 +9,19 @@ interface BarI extends React.HTMLProps<HTMLDivElement> {
 
 const useStyles = makeStyles((theme) => ({
   barContainer: {
-    width: 200,
     height: 'calc(100% - 50px)',
-    marginRight: 50,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 25,
     marginBottom: 25,
     display: 'flex',
     flexDirection: 'column',
+
+    ['@media (min-width:1000px)']: {
+      width: '210px',
+      marginRight: 50,
+      marginLeft: 50,
+    },
   },
   barBox: {
     backgroundColor: colors.BLACK,

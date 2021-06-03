@@ -90,11 +90,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TeamItem: React.FC<Props> = ({ team }) => {
+export const CurrentTeamItem: React.FC<Props> = ({ team }) => {
   const styles = useStyles();
   const history = useHistory();
   const teamSelectedHandler = (id: number) => {
-    history.push('/jointeam/' + id);
+    history.push('/my_team/' + id);
   };
 
   return (

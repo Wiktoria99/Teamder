@@ -16,26 +16,18 @@ export const JoinTeam: React.FC<Props> = () => {
   const params: Params = useParams();
 
   useEffect(() => {
-  const getTeamFnc = async () => {
-    const { data } = await getTeamToJoin(params.id);
-    setTeam(data);
-  };
+    const getTeamFnc = async () => {
+      const { data } = await getTeamToJoin(params.id);
+      setTeam(data);
+    };
 
-  getTeamFnc();
+    getTeamFnc();
   }, []);
 
   return (
     <Layout>
-      <MainWrapper
-        isBackBtn
-        title='Zespół'
-        backBtnURL={'/'}
-      ></MainWrapper>
-      {team ? (
-        <JoinTeamItem team={team} />
-      ) : (
-        <Loading />
-      )}
+      <MainWrapper isBackBtn title="Zespół" backBtnURL={'/'}></MainWrapper>
+      {team ? <JoinTeamItem team={team} /> : <Loading />}
     </Layout>
   );
 };

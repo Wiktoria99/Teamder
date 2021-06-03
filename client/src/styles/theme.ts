@@ -9,6 +9,22 @@ export const theme = {
           html: {
             fontVariantNumeric: 'lining-nums',
           },
+
+          '*::-webkit-scrollbar': {
+            width: '13px',
+            height: '13px',
+          },
+          '*::-webkit-scrollbar-thumb': {
+            background: '#bfbfbf',
+            borderRadius: '10px',
+          },
+          '*::-webkit-scrollbar-thumb:hover': {
+            background: '#9e9e9e',
+          },
+          '*::-webkit-scrollbar-track': {
+            background: '#424242',
+            borderRadius: '10px',
+          },
         },
       },
     },
