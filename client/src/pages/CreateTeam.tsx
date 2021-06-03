@@ -9,6 +9,8 @@ import {
   TeamInterests,
 } from '@/components';
 import { CreateTeamI } from '@/interfaces';
+import { toast } from 'react-toastify';
+import { createNewTeam } from '@/api';
 
 export const CreateTeam: React.FC = () => {
   const [teamInfo, setTeamInfo] = useState<CreateTeamI>({
@@ -26,8 +28,16 @@ export const CreateTeam: React.FC = () => {
   });
 
   const styles = useFormStyles();
-  const createTeam = () => {
-    console.log('Test klikania createTeam ');
+  const createTeam = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await createNewTeam(teamInfo);
+      toast.success('Nowy zespół został dodany pomyślnie!');
+      window.location.reload();
+    } catch (error) {
+      toast.error('Nie udało się dodać zespołu!');
+    }
   };
 
   return (
@@ -123,8 +133,7 @@ export const CreateTeam: React.FC = () => {
             }
             value={teamInfo.description}
           />
-          {/* TO DO: dokończyć zainteresowania */}
-          <TeamInterests />
+          <TeamInterests setTeamInfo={setTeamInfo} teamInfo={teamInfo} />
           <Box marginLeft="80%">
             <CustomButton
               type="submit"

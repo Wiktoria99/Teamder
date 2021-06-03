@@ -26,3 +26,5 @@ export interface CreateTeamI {
   size: number;
   interests: string[];
 }
+
+export interface CreateTeamResponseI {}
