@@ -3,7 +3,6 @@ import { Box, makeStyles } from '@material-ui/core';
 import { InterestI } from '@/interfaces'
 import { useHistory } from 'react-router';
 import { colors } from '@/styles';
-import { paths } from '@/routing';
 
 interface Props {
   interest: InterestI;
@@ -24,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
     lineHeight: ' 22px',
     margin: '5px 0',
+    cursor: 'pointer',
   },
   teamsNumber: {
     color: colors.PRIMARY_FONT,
@@ -42,7 +42,6 @@ export const SuggestionItem: React.FC<Props> = ({ interest }) => {
 
   const selectedHandler = (id: number, name: string) => {
     history.push('/teambyinterest/' + id + '/' + name);
-    // history.push(paths.TEAMBYINTEREST + id);
   };
 
   return (
