@@ -132,12 +132,14 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
           </Box>
           <Box className={styles.interestsList}>
             {team.list_of_interests_id!.map((interest_id, idx) => {
-              const interest = InterestList.find(
-                (x) => x.id === interest_id,
-              )!.name;
-              return idx !== team.list_of_interests_id!.length - 1
-                ? interest + ', '
-                : interest;
+              if (InterestList.length) {
+                const interest = InterestList.find(
+                  (x) => x.id === interest_id,
+                )!.name;
+                return idx !== team.list_of_interests_id!.length - 1
+                  ? interest + ', '
+                  : interest;
+              }
             })}
           </Box>
         </Box>
