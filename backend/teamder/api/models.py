@@ -185,6 +185,7 @@ class Team(models.Model):
     longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], blank=True, null=True)
     latitude = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)], blank=True, null=True)
     host = models.CharField(max_length=50)
+    host_profile_picture_url = models.CharField(max_length=100, blank=True)
     cost_per_person = models.FloatField(null=True, blank=True)
     list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.DO_NOTHING, null=True, blank = True)
     waiting_people = models.ArrayReferenceField(to=User, on_delete=models.DO_NOTHING, related_name='waiting_people', null=True, blank = True)  
