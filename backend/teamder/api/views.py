@@ -153,7 +153,16 @@ def manage_teams(request):
                     team.add_interest_by_name(interest)
                 elif type(interest) == int:
                     team.add_interest_by_ID(interest)
-
+            for w_person in request.data['waiting_people']:
+                if type(w_person) == str:
+                    team.add_w_person_by_name(w_person)
+                elif type(w_person) == int:
+                    team.add_w_person_by_ID(w_person)
+            for a_person in request.data['accepted_people']:
+                if type(a_person) == str:
+                    team.add_a_person_by_name(a_person)
+                elif type(a_person) == int:
+                    team.add_a_person_by_ID(a_person)
             team.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)

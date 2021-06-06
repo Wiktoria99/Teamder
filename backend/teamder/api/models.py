@@ -199,13 +199,37 @@ class Team(models.Model):
             self.list_of_interests.add(interest[0])
             #self.save()
 
+    def _add_w_person(self, person: User):
+        if person:
+            self.waiting_people.add(person[0])
+
+    def _add_a_person(self, person: User):
+        if person:
+            self.accepted_people.add(person[0])
+
     def add_interest_by_ID(self, interest_ID: int):
         interest = Interest.objects.all().filter(id = interest_ID)
         self._add_interest(interest)
 
     def add_interest_by_name(self, interest_name: str):
-        interest = Interest.objects.all().filter(name = interest_name)
+        interest = Interest.objects.all().filter(user_name = interest_name)
         self._add_interest(interest)
+
+    def add_w_person_by_ID(self, w_person_ID: int):
+        person = User.objects.all().filter(id = w_person_ID)
+        self._add_w_person(person)
+
+    def add_w_person_by_name(self, w_person_name: str):
+        person = User.objects.all().filter(user_name = w_person_name)
+        self._add_w_person(person)
+
+    def add_a_person_by_ID(self, a_person_ID: int):
+        person = User.objects.all().filter(id = a_person_ID)
+        self._add_a_person(person)
+
+    def add_a_person_by_name(self, a_person_name: str):
+        person = User.objects.all().filter(user_name = a_person_name)
+        self._add_a_person(person)
 
 
 
