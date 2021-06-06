@@ -131,13 +131,19 @@ def my_profile_view(request):
 @permission_classes((IsAuthenticated,))
 def manage_teams(request):
     if request.method =='GET':
-        expired = request.data.get('expired')
         queryset = Team.objects.all()
+
+        expired = request.data.get('expired')
         now = datetime.now()
         if expired == True:
             queryset = queryset.filter(expiration_date__lte = now)
         elif expired == False:
             queryset = queryset.filter(expiration_date__gte = now)
+        
+        team_id = request.data.get('team_id')
+        if team_id != None:
+            queryset = queryset.filter(id = team_id)
+
         return Response(queryset.values(), status=status.HTTP_200_OK)
     if request.method =='POST':
         host = request.user.user_name
