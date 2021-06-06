@@ -1,8 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { TeamI } from '@/interfaces';
-import { AppBar, Box, createStyles, makeStyles, Tab, Tabs, Theme, withStyles } from '@material-ui/core';
+import React, { useContext, useState } from 'react';
+import { InterestI, TeamI } from '@/interfaces';
+import { Box } from '@material-ui/core';
 import { colors } from '@/styles';
-import { CalendarIconY, InterestsIconY, LocationIconY, TeamIconY, DescriptionIconY} from '@/assets';
+import { makeStyles, withStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {
+  CalendarIconY,
+  InterestsIconY,
+  LocationIconY,
+  TeamIconY,
+} from '@/assets';
+import { InterestsContext } from '../atoms';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { UserInterests, SocialMedia, EditProfile } from '@/components';
 
 interface Props {
   team: TeamI;
@@ -18,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
   teamItemContainer: {
     display: 'flex',
     padding: 40,
-    minHeight: 500,
   },
   avatarContainer: {
     paddingRight: 20,
@@ -82,78 +92,136 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px',
     marginTop: '10px',
   },
-  descriptionContainer: {
-    paddingTop: 10,
-    display: 'flex',
-    flexFlow: 'column',
+  tabsContainer: {
+    marginTop: 25,
   },
-  descriptionLabel: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: '25px',
-  },
-  description: {
-    marginTop: 15,
-    display: 'flex',
+  customBox: {
+    fontSize: '17px',
+    margin: 30,
+    padding: 10,
+    listStyle: 'none',
     border: `1px solid ${colors.BORDER_GRAY}`,
-    paddingLeft: 14,
-    paddingRight: 14,
-    fontSize: 16,
-  },
-  descriptionText: {
-    fontSize: '16px',
-    fontWeight: 600,
-    lineHeight: '125%',
-    margin: 0,
-    marginLeft: '10px',
   },
 }));
 
+const AntTab = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      textTransform: 'none',
+      minWidth: 72,
+      borderBottom: `1px solid ${colors.BORDER_GRAY}`,
+      fontWeight: 500,
+      fontSize: 17,
+      opacity: 1,
+      color: colors.PRIMARY_FONT,
+      '&:hover': {
+        color: colors.SECONDARY,
+        opacity: 1,
+      },
+      '&$selected': {
+        color: colors.SECONDARY,
+      },
+    },
+    selected: {},
+  }),
+)((props: any) => <Tab disableRipple {...props} />);
 
-export const CurrentTeam: React.FC<Props> = ({team}) => {
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index } = props;
+  return <div>{value === index && <Box> {children} </Box>}</div>;
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `${index}`,
+  };
+}
+
+export const CurrentTeam: React.FC<Props> = ({ team }) => {
   const styles = useStyles();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
+
+  //@ts-ignore
+  const InterestList: InterestI[] = useContext(InterestsContext);
 
   return (
-  <Box className={styles.teamItemContainer}>
-    <Box className={styles.avatarContainer}>
-      <img className={styles.photo} height="100" width="100" alt="avatar" />
+    <Box>
+      <Box className={styles.teamItemContainer}>
+        <Box className={styles.avatarContainer}>
+          <img className={styles.photo} height="100" width="100" alt="avatar" />
+        </Box>
+        <Box className={styles.contentContainer}>
+          <p className={styles.hostName}>{team.host}</p>
+          <h3 className={styles.teamTitle}>{team.name}</h3>
+          <Box className={styles.infoBox}>
+            <Box className={styles.iconInfo}>
+              <CalendarIconY />
+              <p className={styles.minorInfo}>{team.expiration_date}</p>
+            </Box>
+            <Box className={styles.iconInfo}>
+              <LocationIconY />
+              <p className={styles.minorInfo}>Kraków</p>
+            </Box>
+            <Box className={styles.iconInfo}>
+              <TeamIconY />
+              <p className={styles.minorInfo}>
+                {team.accepted_people_id?.length}/{team.size}
+              </p>
+            </Box>
+          </Box>
+          <Box className={styles.interestsContainer}>
+            <Box className={styles.interestsLabel}>
+              <InterestsIconY />
+              <p className={styles.interestsText}>Zainteresowania</p>
+            </Box>
+            <Box className={styles.interestsList}>
+              {team.list_of_interests_id!.map((interest_id, idx) => {
+                if (InterestList.length) {
+                  const interest = InterestList.find(
+                    (x) => x.id === interest_id,
+                  )!.name;
+
+                  return idx !== team.list_of_interests_id!.length - 1
+                    ? interest + ', '
+                    : interest;
+                }
+              })}
+            </Box>
+          </Box>
+        </Box>
+        </Box>
+          <Box className={styles.tabsContainer}>
+            <AppBar position="static" color="secondary">
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                indicatorColor="primary"
+              >
+                <AntTab label="Opis" {...a11yProps(0)} />
+                <AntTab label="Członkowie" {...a11yProps(1)} />
+                <AntTab label="Forum" {...a11yProps(2)} />
+              </Tabs>
+            </AppBar>
+            <Box>
+              <TabPanel value={value} index={0}>
+                <Box className={styles.customBox}>
+                  {team.description ? team.description : 'Brak opisu'}
+                </Box>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+              <Box className={styles.customBox}> </Box>
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+              <Box className={styles.customBox}> </Box>
+              </TabPanel>
+            </Box>
+         
+        </Box>
     </Box>
-    <Box className={styles.contentContainer}>
-      <p className={styles.hostName}>{team.host}</p>
-      <h3 className={styles.teamTitle}>{team.name}</h3>
-      <Box className={styles.infoBox}>
-        <Box className={styles.iconInfo}>
-          <CalendarIconY />
-          <p className={styles.minorInfo}>{team.expiration_date}</p>
-        </Box>
-        <Box className={styles.iconInfo}>
-          <LocationIconY />
-          <p className={styles.minorInfo}>Kraków</p>
-        </Box>
-        <Box className={styles.iconInfo}>
-          <TeamIconY />
-          <p className={styles.minorInfo}>
-            {team.accepted_people_id?.length}/{team.size}
-          </p>
-        </Box>
-      </Box>
-      <Box className={styles.interestsContainer}>
-        <Box className={styles.interestsLabel}>
-          <InterestsIconY />
-          <p className={styles.interestsText}>Zainteresowania</p>
-        </Box>
-        <Box className={styles.interestsList}>
-          {/* {team.interests.map((interest, idx) =>
-            idx !== team.interests.length - 1 ? interest + ', ' : interest,
-          )} */}
-        </Box>
-      </Box>
-      <Box className={styles.descriptionContainer}>
-        <Box className={styles.description}>
-            Tu będą guziczki...
-        </Box>
-      </Box>
-    </Box>
-  </Box>
   );
 };

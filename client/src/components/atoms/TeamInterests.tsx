@@ -1,5 +1,5 @@
 import { useFormStyles } from '@/components';
-import { InterestI } from '@/interfaces';
+import { CreateTeamI, InterestI } from '@/interfaces';
 import {
   Checkbox,
   createStyles,
@@ -10,8 +10,13 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
-import { useContext } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
 import { InterestsContext } from './InterestsProvider';
+
+interface Props {
+  setTeamInfo: Dispatch<SetStateAction<CreateTeamI>>;
+  teamInfo: CreateTeamI;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,12 +47,22 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const TeamInterests = () => {
+export const TeamInterests: React.FC<Props> = ({ setTeamInfo, teamInfo }) => {
   const styles = useFormStyles();
   const classes = useStyles();
   const funct = () => console.log('Napis');
   //@ts-ignore
   const InterestList: InterestI[] = useContext(InterestsContext);
+
+  //   const handleToggle = (value: string) => () => {
+  //     let interestsNew = teamInfo.list_of_interests;
+  //     interestsNew = interestsNew.includes(value)
+  //       ? interestsNew.filter((el) => el !== value)
+  //       : [...interestsNew, value];
+
+  //     setTeamInfo({ ...teamInfo, list_of_interests: interestsNew });
+  //   };
+
   return (
     <>
       <List className={classes.root}>
