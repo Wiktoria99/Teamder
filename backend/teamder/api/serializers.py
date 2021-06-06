@@ -51,9 +51,22 @@ class InterestSerializer(serializers.ModelSerializer):
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ("name", "description", "creation_date", "expiration_date", "host", "location", "cost_per_person", "waiting_people", "accepted_people", "size")
+        fields = ("name", "description", "location", "creation_date", "expiration_date", "host", "cost_per_person", "size")
 
-
+    def save(self, team: Team):
+        team.name = self.validated_data['name']
+        team.description = self.validated_data['description']
+        try:
+            team.creation_date = self.validated_data['creation_date']
+        except:
+            pass
+        team.expiration_date = self.validated_data['expiration_date']
+        team.host = self.validated_data['host']
+        team.location = self.validated_data['location']
+        team.cost_per_person = self.validated_data['cost_per_person']
+        team.size = self.validated_data['size']
+        team.save()
+        return team
 
 # Account stuff
 

@@ -181,9 +181,9 @@ class Team(models.Model):
     description = models.TextField(max_length=500, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True, blank=True)
     expiration_date = models.DateTimeField(null=True, blank=True)
-    location = models.EmbeddedField(
-        model_container=Location, null=True, blank=True
-    )
+    location = models.CharField(max_length=50, blank = True)
+    longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], blank=True, null=True)
+    latitude = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)], blank=True, null=True)
     host = models.CharField(max_length=50)
     cost_per_person = models.FloatField(null=True, blank=True)
     list_of_interests = models.ArrayReferenceField(to=Interest, on_delete=models.DO_NOTHING, null=True, blank = True)

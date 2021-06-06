@@ -147,14 +147,14 @@ def manage_teams(request):
         serializer = TeamSerializer(data = data)
 
         if serializer.is_valid():
-            # serializer.save()
-            # for interest in request.data['list_of_interests']:
-            #     if type(interest) == str:
-            #         serializer.add_interest_by_name(interest)
-            #     elif type(interest) == int:
-            #         serializer.add_interest_by_ID(interest)
+            team = serializer.save(Team())
+            for interest in request.data['list_of_interests']:
+                if type(interest) == str:
+                    team.add_interest_by_name(interest)
+                elif type(interest) == int:
+                    team.add_interest_by_ID(interest)
 
-            serializer.save()
+            team.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
