@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  makeStyles,
-  Button,
-  Box,
-} from '@material-ui/core/';
+import { makeStyles, Button, Box } from '@material-ui/core/';
 import { colors } from '@/styles';
 import { useHistory } from 'react-router';
 import { Layout, MainWrapper, CurrentTeam } from '@/components';
 import { paths } from '@/routing';
 import { useParams } from 'react-router';
 import { Loading } from '@/components';
-// zamienić kiedyś na currentteam 
+// zamienić kiedyś na currentteam
 import { getTeamToJoin } from '@/api';
 import { TeamI } from '@/interfaces';
 
@@ -60,34 +56,35 @@ export const TeamPage = (props: Props) => {
   const params: Params = useParams();
 
   useEffect(() => {
-  const getTeamFnc = async () => {
-    const { data } = await getTeamToJoin(params.id);
-    setTeam(data);
-  };
+    const getTeamFnc = async () => {
+      const { data } = await getTeamToJoin(params.id);
+      setTeam(data);
+    };
 
-  getTeamFnc();
+    getTeamFnc();
   }, []);
 
   return (
     <>
-    <Layout>
+      <Layout>
         <MainWrapper
-            isBackBtn
-            title="Moje zespoły"
-            backBtnURL={paths.MY_TEAMS}
+          isBackBtn
+          title="Moje zespoły"
+          backBtnURL={paths.MY_TEAMS}
         ></MainWrapper>
         <Box>
           <Box className={styles.buttonContainer}>
-              <Button className={styles.active} >Aktualne</Button>
-              <Button className={styles.disable} onClick={() =>history.push(paths.MY_ARCHIVED_TEAMS)}>Zakończone</Button>
+            <Button className={styles.active}>Aktualne</Button>
+            <Button
+              className={styles.disable}
+              onClick={() => history.push(paths.MY_ARCHIVED_TEAMS)}
+            >
+              Zakończone
+            </Button>
           </Box>
         </Box>
-        {team ? (
-        <CurrentTeam team={team} />
-        ) : (
-        <Loading />
-      )}
-    </Layout>
+        {team ? <CurrentTeam team={team} /> : <Loading />}
+      </Layout>
     </>
   );
 };
