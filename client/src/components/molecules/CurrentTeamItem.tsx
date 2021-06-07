@@ -104,13 +104,23 @@ export const CurrentTeamItem: React.FC<Props> = ({ team }) => {
   return (
     <Box className={styles.teamItemContainer}>
       <Box className={styles.avatarContainer}>
-        <img
-          className={styles.photo}
-          src={team.host_profile_picture_url}
-          height="100"
-          width="100"
-          alt="avatar"
-        />
+        {team.host_profile_picture_url ? (
+          <img
+            className={styles.photo}
+            src={team.host_profile_picture_url}
+            height="100"
+            width="100"
+            alt="avatar"
+          />
+        ) : (
+          <img
+            className={styles.photo}
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            height="100"
+            width="100"
+            alt="no-avatar"
+          />
+        )}
       </Box>
       <Box className={styles.contentContainer}>
         <p className={styles.hostName}>{team.host}</p>
@@ -119,7 +129,11 @@ export const CurrentTeamItem: React.FC<Props> = ({ team }) => {
           <Box className={styles.iconInfo}>
             <CalendarIcon />
             <p className={styles.minorInfo}>
-              {new Date(team.expiration_date!).toLocaleDateString('us-US')}
+              {new Date(team.expiration_date!).toLocaleDateString('us-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+              })}
             </p>
           </Box>
           <Box className={styles.iconInfo}>
