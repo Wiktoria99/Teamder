@@ -124,6 +124,18 @@ def my_profile_view(request):
                 response_data["Errors"].append(value)
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def my_teams(request):
+    response_data = {'my_teams': []}
+    curr_user = request.user.user_name
+    my_teams_ids = User.objects.filter(user_name=curr_user)[0].my_teams.values()
+    for team_id in my_teams_ids:
+        team = Team.objects.all().filter(id = team_id['team_id'])
+        if team:
+            response_data['my_teams'].append(team.values()[0])
+    return Response(response_data, status=status.HTTP_200_OK)
+
 
 
 
@@ -167,8 +179,14 @@ def manage_teams(request):
             for a_person in request.data['accepted_people']:
                 if type(a_person) == str:
                     team.add_a_person_by_name(a_person)
+                    user = User.objects.filter(user_name = a_person)    # dodanie teamu do listy moich teamow
+                    if user:
+                        user[0].add_team_by_ID(team.id)
                 elif type(a_person) == int:
                     team.add_a_person_by_ID(a_person)
+                    user = User.objects.filter(id = a_person)       # dodanie teamu do listy moich teamow
+                    if user:
+                        user[0].add_team_by_ID(team.id)
             team.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)

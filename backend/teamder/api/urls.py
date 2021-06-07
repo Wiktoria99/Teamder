@@ -14,6 +14,7 @@ urlpatterns = [
 
     path('my_profile', views.my_profile_view),
 
+    path('my_teams', views.my_teams),
     
 
     path('interests', views.manage_interests),

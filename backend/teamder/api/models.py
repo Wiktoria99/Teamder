@@ -62,7 +62,7 @@ class Location(models.Model):
         return self.address
 
 
-class TeamID(models.Model): #XDDD Django jest gównem 
+class TeamID(models.Model):
     id = models.BigIntegerField(unique=True, primary_key=True, blank=False, null=False, default=TeamID_get_next_ID)
     team_id = models.IntegerField()
 
