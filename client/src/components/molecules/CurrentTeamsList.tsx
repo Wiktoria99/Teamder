@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Box, makeStyles } from '@material-ui/core';
 import { Loading, CurrentTeamItem } from '@/components';
-import { getTeams } from '@/api';
+import { getMyTeams } from '@/api';
 import { TeamI } from '@/interfaces';
 
 interface Props {}
@@ -22,10 +22,9 @@ export const CurrentTeamsList = (props: Props) => {
 
   useEffect(() => {
     const getTeamsFnc = async () => {
-      const { data } = await getTeams();
-      console.log(data);
+      const { data } = await getMyTeams();
 
-      setTeams(data);
+      setTeams(data.my_teams);
     };
 
     try {

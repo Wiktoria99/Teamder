@@ -31,7 +31,11 @@ export const CreateTeam: React.FC = () => {
   useEffect(() => {
     const getProfileFnc = async () => {
       const { data } = await getMyProfile();
-      setTeamInfo({ ...teamInfo, host_profile_picture_url: data.photo_src });
+      setTeamInfo({
+        ...teamInfo,
+        host_profile_picture_url: data.photo_src,
+        accepted_people: [data.id],
+      });
     };
 
     try {
