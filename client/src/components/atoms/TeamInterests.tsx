@@ -50,18 +50,17 @@ const useStyles = makeStyles((theme: Theme) =>
 export const TeamInterests: React.FC<Props> = ({ setTeamInfo, teamInfo }) => {
   const styles = useFormStyles();
   const classes = useStyles();
-  const funct = () => console.log('Napis');
   //@ts-ignore
   const InterestList: InterestI[] = useContext(InterestsContext);
 
-  //   const handleToggle = (value: string) => () => {
-  //     let interestsNew = teamInfo.list_of_interests;
-  //     interestsNew = interestsNew.includes(value)
-  //       ? interestsNew.filter((el) => el !== value)
-  //       : [...interestsNew, value];
+  const handleToggle = (value: number) => () => {
+    let interestsNew = teamInfo.list_of_interests;
+    interestsNew = interestsNew.includes(value)
+      ? interestsNew.filter((el) => el !== value)
+      : [...interestsNew, value];
 
-  //     setTeamInfo({ ...teamInfo, list_of_interests: interestsNew });
-  //   };
+    setTeamInfo({ ...teamInfo, list_of_interests: interestsNew });
+  };
 
   return (
     <>
@@ -70,7 +69,12 @@ export const TeamInterests: React.FC<Props> = ({ setTeamInfo, teamInfo }) => {
         Powiązane zainteresowania:
         {InterestList.map((value) => {
           return (
-            <ListItem key={value.id} dense button onClick={funct}>
+            <ListItem
+              key={value.id}
+              dense
+              button
+              onClick={handleToggle(value.id)}
+            >
               <ListItemIcon>
                 <Checkbox
                   edge="start"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import {
   Layout,
@@ -17,15 +17,20 @@ export const CreateTeam: React.FC = () => {
     name: '',
     description: '',
     expiration_date: new Date(),
-    location: {
-      address: '',
-      longitude: 0,
-      latitude: 0,
-    },
+    location: '',
+    longitude: 0,
+    latitude: 0,
     size: 10,
-    interests: [],
+    list_of_interests: [],
     cost_per_person: 0,
+    host_profile_picture_url: 'http://placecorgi.com/250',
+    waiting_people: [],
+    accepted_people: [],
   });
+
+  useEffect(() => {
+    console.log(teamInfo);
+  }, [teamInfo]);
 
   const styles = useFormStyles();
   const createTeam = async (e: any) => {
@@ -83,13 +88,10 @@ export const CreateTeam: React.FC = () => {
               onChange={(e) =>
                 setTeamInfo({
                   ...teamInfo,
-                  location: {
-                    ...teamInfo.location,
-                    address: e.currentTarget.value,
-                  },
+                  location: e.currentTarget.value,
                 })
               }
-              value={teamInfo.location.address}
+              value={teamInfo.location}
             />
             <Box marginLeft="15%">
               <CustomTextField

@@ -17,14 +17,15 @@ export interface CreateTeamI {
   name: string;
   description: string;
   expiration_date: Date;
-  location: {
-    address: string;
-    longitude: number;
-    latitude: number;
-  };
+  location: string;
+  longitude: number;
+  latitude: number;
   cost_per_person: number;
   size: number;
-  interests: string[];
+  list_of_interests: number[];
+  host_profile_picture_url: string;
+  waiting_people: number[];
+  accepted_people: number[];
 }
 
 export interface CreateTeamResponseI {}
