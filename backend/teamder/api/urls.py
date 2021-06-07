@@ -15,6 +15,8 @@ urlpatterns = [
     path('my_profile', views.my_profile_view),
 
     path('my_teams', views.my_teams),
+
+    path('get_infos_by_list_of_usersID', views.list_of_user_info_view),
     
 
     path('interests', views.manage_interests),
