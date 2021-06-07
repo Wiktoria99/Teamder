@@ -72,9 +72,9 @@ def user_info_view(request, user_name):
         response_data['ERROR'] = f"User with this user_name does not exist"
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET',])
+@api_view(['POST',])
 @permission_classes(())
-def list_of_user_info_view(request): # dostaje tablice z ID, zwraca tablice i info
+def list_of_user_info_view(request): # dostaje tablice z ID, zwraca tablice info
     id_table = request.data['user_ids']
     response_data = {'users_info': []}
     for user_id in id_table:
