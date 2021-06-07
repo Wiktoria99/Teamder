@@ -13,6 +13,15 @@ export const getTeams = () => {
   return response;
 };
 
+export const getMyTeams = () => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<{ my_teams: TeamI[] }>> = axios.get(
+    '/my_teams',
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
 export const getTeamToJoin = (id: string) => {
   const token = localStorage.getItem('token');
   const response: Promise<AxiosResponse<TeamI>> = axios.get(
