@@ -164,6 +164,9 @@ class User(models.Model):
         return len(rating.users_UpVote.values()) - len(rating.users_DownVote.values())
         
     def add_team_by_ID(self, team_ID: int):
+        for team in self.my_teams.values():
+            if team_ID == team['team_id']:
+                return
         self.my_teams.add(TeamID.create(team_ID))
         self.save()
 
