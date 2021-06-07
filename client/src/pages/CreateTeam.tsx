@@ -10,7 +10,7 @@ import {
 } from '@/components';
 import { CreateTeamI } from '@/interfaces';
 import { toast } from 'react-toastify';
-import { createNewTeam } from '@/api';
+import { createNewTeam, getMyProfile } from '@/api';
 
 export const CreateTeam: React.FC = () => {
   const [teamInfo, setTeamInfo] = useState<CreateTeamI>({
@@ -23,14 +23,23 @@ export const CreateTeam: React.FC = () => {
     size: 10,
     list_of_interests: [],
     cost_per_person: 0,
-    host_profile_picture_url: 'http://placecorgi.com/250',
+    host_profile_picture_url: '',
     waiting_people: [],
     accepted_people: [],
   });
 
   useEffect(() => {
-    console.log(teamInfo);
-  }, [teamInfo]);
+    const getProfileFnc = async () => {
+      const { data } = await getMyProfile();
+      setTeamInfo({ ...teamInfo, host_profile_picture_url: data.photo_src });
+    };
+
+    try {
+      getProfileFnc();
+    } catch (error) {
+      toast.error('Nie udało się pobrać zdjecia!');
+    }
+  }, []);
 
   const styles = useFormStyles();
   const createTeam = async (e: any) => {

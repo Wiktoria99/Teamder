@@ -104,13 +104,23 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
   return (
     <Box className={styles.teamItemContainer}>
       <Box className={styles.avatarContainer}>
-        <img
-          className={styles.photo}
-          src={team.host_profile_picture_url}
-          height="100"
-          width="100"
-          alt="avatar"
-        />
+        {team.host_profile_picture_url ? (
+          <img
+            className={styles.photo}
+            src={team.host_profile_picture_url}
+            height="100"
+            width="100"
+            alt="avatar"
+          />
+        ) : (
+          <img
+            className={styles.photo}
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            height="100"
+            width="100"
+            alt="no-avatar"
+          />
+        )}
       </Box>
       <Box className={styles.contentContainer}>
         <p className={styles.hostName}>{team.host}</p>
