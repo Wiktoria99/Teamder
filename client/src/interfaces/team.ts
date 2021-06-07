@@ -4,9 +4,11 @@ export interface TeamI {
   cost_per_person?: number;
   description?: string;
   name?: string;
-  //   photoSource: string;
+  host_profile_picture_url?: string;
   expiration_date?: string;
-  //   location: string;
+  location?: string;
+  longitude?: number;
+  latitude?: number;
   list_of_interests_id?: number[];
   waiting_people_id?: number[];
   accepted_people_id?: number[];

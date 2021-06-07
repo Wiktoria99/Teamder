@@ -104,7 +104,13 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
   return (
     <Box className={styles.teamItemContainer}>
       <Box className={styles.avatarContainer}>
-        <img className={styles.photo} height="100" width="100" alt="avatar" />
+        <img
+          className={styles.photo}
+          src={team.host_profile_picture_url}
+          height="100"
+          width="100"
+          alt="avatar"
+        />
       </Box>
       <Box className={styles.contentContainer}>
         <p className={styles.hostName}>{team.host}</p>
@@ -112,11 +118,13 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
         <Box className={styles.infoBox}>
           <Box className={styles.iconInfo}>
             <CalendarIcon />
-            <p className={styles.minorInfo}>{team.expiration_date}</p>
+            <p className={styles.minorInfo}>
+              {new Date(team.expiration_date!).toLocaleDateString('us-US')}
+            </p>
           </Box>
           <Box className={styles.iconInfo}>
             <LocationIcon />
-            <p className={styles.minorInfo}>Kraków</p>
+            <p className={styles.minorInfo}>{team.location}</p>
           </Box>
           <Box className={styles.iconInfo}>
             <TeamIcon />

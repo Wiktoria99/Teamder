@@ -2,7 +2,12 @@ import React, { useContext, useState } from 'react';
 import { InterestI, TeamI } from '@/interfaces';
 import { Box } from '@material-ui/core';
 import { colors } from '@/styles';
-import { makeStyles, withStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  withStyles,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles';
 import {
   CalendarIconY,
   InterestsIconY,
@@ -152,7 +157,13 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
     <Box>
       <Box className={styles.teamItemContainer}>
         <Box className={styles.avatarContainer}>
-          <img className={styles.photo} height="100" width="100" alt="avatar" />
+          <img
+            className={styles.photo}
+            src={team.host_profile_picture_url}
+            height="100"
+            width="100"
+            alt="avatar"
+          />
         </Box>
         <Box className={styles.contentContainer}>
           <p className={styles.hostName}>{team.host}</p>
@@ -160,11 +171,13 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
           <Box className={styles.infoBox}>
             <Box className={styles.iconInfo}>
               <CalendarIconY />
-              <p className={styles.minorInfo}>{team.expiration_date}</p>
+              <p className={styles.minorInfo}>
+                {new Date(team.expiration_date!).toLocaleDateString('us-US')}
+              </p>
             </Box>
             <Box className={styles.iconInfo}>
               <LocationIconY />
-              <p className={styles.minorInfo}>Kraków</p>
+              <p className={styles.minorInfo}>{team.location}</p>
             </Box>
             <Box className={styles.iconInfo}>
               <TeamIconY />
@@ -193,35 +206,34 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
             </Box>
           </Box>
         </Box>
-        </Box>
-          <Box className={styles.tabsContainer}>
-            <AppBar position="static" color="secondary">
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                variant="fullWidth"
-                indicatorColor="primary"
-              >
-                <AntTab label="Opis" {...a11yProps(0)} />
-                <AntTab label="Członkowie" {...a11yProps(1)} />
-                <AntTab label="Forum" {...a11yProps(2)} />
-              </Tabs>
-            </AppBar>
-            <Box>
-              <TabPanel value={value} index={0}>
-                <Box className={styles.customBox}>
-                  {team.description ? team.description : 'Brak opisu'}
-                </Box>
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-              <Box className={styles.customBox}> </Box>
-              </TabPanel>
-              <TabPanel value={value} index={2}>
-              <Box className={styles.customBox}> </Box>
-              </TabPanel>
+      </Box>
+      <Box className={styles.tabsContainer}>
+        <AppBar position="static" color="secondary">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="fullWidth"
+            indicatorColor="primary"
+          >
+            <AntTab label="Opis" {...a11yProps(0)} />
+            <AntTab label="Członkowie" {...a11yProps(1)} />
+            <AntTab label="Forum" {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <Box>
+          <TabPanel value={value} index={0}>
+            <Box className={styles.customBox}>
+              {team.description ? team.description : 'Brak opisu'}
             </Box>
-         
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Box className={styles.customBox}> </Box>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <Box className={styles.customBox}> </Box>
+          </TabPanel>
         </Box>
+      </Box>
     </Box>
   );
 };
