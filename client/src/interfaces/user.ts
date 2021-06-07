@@ -3,7 +3,7 @@ export interface ProfileI {
   user_name: string;
   name: string;
   surname: string;
-  email: string;
+  email?: string;
   location: string;
   age: number | null;
   photo_src: string;
@@ -30,4 +30,8 @@ export interface EditI {
 
 export interface EditResponseI {
   response: string;
+}
+
+export interface MyTeamProfilesRequestI {
+  user_ids: number[];
 }

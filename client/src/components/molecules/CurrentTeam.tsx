@@ -19,6 +19,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { UserInterests, SocialMedia, EditProfile } from '@/components';
+import { MemberList } from './MemberList';
 
 interface Props {
   team: TeamI;
@@ -241,7 +242,9 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
             </Box>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Box className={styles.customBox}> </Box>
+            <Box className={styles.customBox}>
+              <MemberList membersIDs={team.accepted_people_id!} />
+            </Box>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <Box className={styles.customBox}> </Box>
