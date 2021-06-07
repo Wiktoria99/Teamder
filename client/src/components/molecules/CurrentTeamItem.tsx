@@ -119,7 +119,11 @@ export const CurrentTeamItem: React.FC<Props> = ({ team }) => {
           <Box className={styles.iconInfo}>
             <CalendarIcon />
             <p className={styles.minorInfo}>
-              {new Date(team.expiration_date!).toLocaleDateString('us-US')}
+              {new Date(team.expiration_date!).toLocaleDateString('us-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+              })}
             </p>
           </Box>
           <Box className={styles.iconInfo}>
