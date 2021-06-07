@@ -13,12 +13,17 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { UserInterests, SocialMedia, EditProfile } from '@/components';
 import { colors } from '@/styles';
-import { getMyProfile } from '@/api';
+import { getProfile } from '@/api';
 import { toast } from 'react-toastify';
 import { Loading } from '../atoms';
+import { useParams } from 'react-router';
 
 interface Props {
   info?: ProfileI;
+}
+
+interface Params {
+  username: string;
 }
 
 interface TabPanelProps {
@@ -118,14 +123,15 @@ function a11yProps(index: number) {
   };
 }
 
-export const ProfileInfo = (props: Props) => {
+export const ExternalProfileInfo = (props: Props) => {
   const [value, setValue] = useState(0);
   const [profile, setProfile] = useState<ProfileI>();
   const styles = useStyles();
+  const params: Params = useParams();
 
   useEffect(() => {
     const getProfileFnc = async () => {
-      const { data } = await getMyProfile();
+      const { data } = await getProfile(params.username);
       setProfile(data);
     };
 
@@ -190,18 +196,14 @@ export const ProfileInfo = (props: Props) => {
               >
                 <AntTab label="Zainteresowania" {...a11yProps(0)} />
                 <AntTab label="Social media" {...a11yProps(1)} />
-                <AntTab label="Edytuj profil" {...a11yProps(2)} />
               </Tabs>
             </AppBar>
             <Box>
               <TabPanel value={value} index={0}>
-                <UserInterests profile={profile} edit={true} />
+                <UserInterests profile={profile} edit={false} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <SocialMedia profile={profile} edit={true} />
-              </TabPanel>
-              <TabPanel value={value} index={2}>
-                <EditProfile profile={profile} />
+                <SocialMedia profile={profile} edit={false} />
               </TabPanel>
             </Box>
           </Box>

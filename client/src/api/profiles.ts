@@ -18,6 +18,15 @@ export const getMyProfile = () => {
   return response;
 };
 
+export const getProfile = (username: string) => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<ProfileI>> = axios.get(
+    '/profile/' + username,
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
 export const getMyTeamProfiles = (data: MyTeamProfilesRequestI) => {
   const token = localStorage.getItem('token');
   const response: Promise<AxiosResponse<{ users_info: ProfileI[] }>> =

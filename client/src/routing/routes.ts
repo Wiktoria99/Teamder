@@ -12,6 +12,7 @@ import {
   JoinTeam,
   TeamPage,
   TeamsByInterest,
+  Profile,
 } from '@/pages';
 import { paths } from './paths';
 
@@ -63,5 +64,9 @@ export const routes: RouteProps[] = [
   {
     path: paths.TEAMBYINTEREST,
     component: TeamsByInterest,
+  },
+  {
+    path: paths.PROFILE,
+    component: Profile,
   },
 ];

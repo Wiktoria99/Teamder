@@ -20,6 +20,7 @@ import { toast } from 'react-toastify';
 
 interface Props {
   profile: ProfileI;
+  edit?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const UserInterests: React.FC<Props> = ({ profile }) => {
+export const UserInterests: React.FC<Props> = ({ profile, edit }) => {
   const styles = useStyles();
   //@ts-ignore
   const InterestList: InterestI[] = useContext(InterestsContext);
@@ -90,7 +91,7 @@ export const UserInterests: React.FC<Props> = ({ profile }) => {
 
     setEditInfo({ ...editInfo, list_of_interests: interestsNew });
   };
-  
+
   const handleEdit = async (e: any) => {
     e.preventDefault();
 
@@ -110,31 +111,35 @@ export const UserInterests: React.FC<Props> = ({ profile }) => {
   const [withoutEditing, setWithoutEditing] = useState(1);
 
   return (
-  <>
-    {withoutEditing ? (
-       <>
-        <List className={styles.root}>
-          {profile.list_of_interests_id.map((value) => {
-            return (
-              <ListItem key={value}>
-                <ListItemText
-                  primary={InterestList.find((x) => x.id === value)!.name}
-                />
-              </ListItem>
-            );
-          })}
-        </List>
-        <div className={styles.buttonPos}>
-          <CustomButton
-            type="submit"
-            color="secondary"
-            variant="contained"
-            className={styles.button}
-          >
-            <Typography variant="button" onClick={handleClick}>Edytuj</Typography>
-          </CustomButton>
-        </div>
-      </>
+    <>
+      {withoutEditing ? (
+        <>
+          <List className={styles.root}>
+            {profile.list_of_interests_id.map((value) => {
+              return (
+                <ListItem key={value}>
+                  <ListItemText
+                    primary={InterestList.find((x) => x.id === value)!.name}
+                  />
+                </ListItem>
+              );
+            })}
+          </List>
+          <div className={styles.buttonPos}>
+            {edit && (
+              <CustomButton
+                type="submit"
+                color="secondary"
+                variant="contained"
+                className={styles.button}
+              >
+                <Typography variant="button" onClick={handleClick}>
+                  Edytuj
+                </Typography>
+              </CustomButton>
+            )}
+          </div>
+        </>
       ) : (
         <>
           <form onSubmit={handleEdit} className={styles.form}>
@@ -154,9 +159,7 @@ export const UserInterests: React.FC<Props> = ({ profile }) => {
                         style={{
                           transform: 'scale(0.6)',
                         }}
-                        checked={editInfo.list_of_interests.includes(
-                          value.id,
-                        )}
+                        checked={editInfo.list_of_interests.includes(value.id)}
                         tabIndex={-1}
                         disableRipple
                       />
@@ -167,18 +170,18 @@ export const UserInterests: React.FC<Props> = ({ profile }) => {
               })}
             </List>
             <div className={styles.buttonPos}>
-          <CustomButton
-            type="submit"
-            color="secondary"
-            variant="contained"
-            className={styles.button}
-          >
-            <Typography variant="button" >Zatwierdź</Typography>
-          </CustomButton>
-          </div>
+              <CustomButton
+                type="submit"
+                color="secondary"
+                variant="contained"
+                className={styles.button}
+              >
+                <Typography variant="button">Zatwierdź</Typography>
+              </CustomButton>
+            </div>
           </form>
         </>
       )}
-  </>
+    </>
   );
 };

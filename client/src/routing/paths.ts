@@ -12,4 +12,5 @@ export const paths = {
   SUGGESTIONS: '/suggestions',
   JOINTEAM: '/jointeam/:id',
   TEAMBYINTEREST: '/teambyinterest/:id/:name',
+  PROFILE: '/profile/:username',
 };

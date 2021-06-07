@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 
 interface Props {
   profile: ProfileI;
+  edit: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const SocialMedia: React.FC<Props> = ({ profile }) => {
+export const SocialMedia: React.FC<Props> = ({ profile, edit }) => {
   const styles = useStyles();
   const [editInfo, setEditInfo] = useState<EditI>({
     name: profile.name,
@@ -75,10 +76,10 @@ export const SocialMedia: React.FC<Props> = ({ profile }) => {
     e.preventDefault();
 
     try {
-    const { data } = await editMyProfile(editInfo);
-    console.log(data);
-    toast.success('Media społecznościowe zostały zedytowane pomyślnie!');
-    window.location.reload();
+      const { data } = await editMyProfile(editInfo);
+      console.log(data);
+      toast.success('Media społecznościowe zostały zedytowane pomyślnie!');
+      window.location.reload();
     } catch (error) {
       toast.error('Nie udało się edytować mediów społecznościowych!');
     }
@@ -90,95 +91,117 @@ export const SocialMedia: React.FC<Props> = ({ profile }) => {
   const [withoutEditing, setWithoutEditing] = useState(1);
 
   return (
-  <>
-    {withoutEditing ? (
-       <>
-        <List className={styles.root}>
-          <ListItem>
-            <ListItemIcon>
-              <FacebookIcon />
-            </ListItemIcon>
-            <ListItemText primary={profile.social_media_URL1} className={styles.linkFont} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <InstagramIcon />
-            </ListItemIcon>
-            <ListItemText primary={profile.social_media_URL2} className={styles.linkFont} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <TwitterIcon />
-            </ListItemIcon>
-            <ListItemText primary={profile.social_media_URL3} className={styles.linkFont} />
-          </ListItem>
-        </List>
-        <div className={styles.buttonPos}>
-          <CustomButton
-            type="submit"
-            color="secondary"
-            variant="contained"
-            className={styles.button}
-          >
-            <Typography variant="button"  onClick={handleClick}>Edytuj</Typography>
-          </CustomButton>
-        </div>
-      </>
+    <>
+      {withoutEditing ? (
+        <>
+          <List className={styles.root}>
+            <ListItem>
+              <ListItemIcon>
+                <FacebookIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={profile.social_media_URL1}
+                className={styles.linkFont}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <InstagramIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={profile.social_media_URL2}
+                className={styles.linkFont}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <TwitterIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={profile.social_media_URL3}
+                className={styles.linkFont}
+              />
+            </ListItem>
+          </List>
+          <div className={styles.buttonPos}>
+            {edit && (
+              <CustomButton
+                type="submit"
+                color="secondary"
+                variant="contained"
+                className={styles.button}
+              >
+                <Typography variant="button" onClick={handleClick}>
+                  Edytuj
+                </Typography>
+              </CustomButton>
+            )}
+          </div>
+        </>
       ) : (
-       <>
-      <Box className={styles.root}>
-        <form onSubmit={handleEdit} className={styles.form}>
-          <CustomTextField
-            label="Link #1"
-            variant="standard"
-            color="secondary"
-            className={styles.textfield}
-            multiline
-            rowsMax={2}
-            onChange={(e) =>
-              setEditInfo({ ...editInfo, social_media_URL1: e.currentTarget.value })
-            }
-            value={editInfo.social_media_URL1}
-          />
-          <CustomTextField
-            label="Link #2"
-            variant="standard"
-            color="secondary"
-            className={styles.textfield}
-            multiline
-            rowsMax={2}
-            onChange={(e) =>
-              setEditInfo({ ...editInfo, social_media_URL2: e.currentTarget.value })
-            }
-            value={editInfo.social_media_URL2}
-          />
-          <CustomTextField
-            label="Link #3"
-            variant="standard"
-            color="secondary"
-            className={styles.textfield}
-            multiline
-            rowsMax={2}
-            onChange={(e) =>
-              setEditInfo({ ...editInfo, social_media_URL3: e.currentTarget.value })
-            }
-            value={editInfo.social_media_URL3}
-          />
-        </form>
-      </Box>
-      <div className={styles.buttonPos}>
-        <CustomButton
-          type="submit"
-          color="secondary"
-          className={styles.textfield}
-          variant="contained"
-          onClick={(e) => handleEdit(e)}
-        >
-          <Typography variant="button">Zatwierdź</Typography>
-        </CustomButton>
-      </div>
-    </>
+        <>
+          <Box className={styles.root}>
+            <form onSubmit={handleEdit} className={styles.form}>
+              <CustomTextField
+                label="Link #1"
+                variant="standard"
+                color="secondary"
+                className={styles.textfield}
+                multiline
+                rowsMax={2}
+                onChange={(e) =>
+                  setEditInfo({
+                    ...editInfo,
+                    social_media_URL1: e.currentTarget.value,
+                  })
+                }
+                value={editInfo.social_media_URL1}
+              />
+              <CustomTextField
+                label="Link #2"
+                variant="standard"
+                color="secondary"
+                className={styles.textfield}
+                multiline
+                rowsMax={2}
+                onChange={(e) =>
+                  setEditInfo({
+                    ...editInfo,
+                    social_media_URL2: e.currentTarget.value,
+                  })
+                }
+                value={editInfo.social_media_URL2}
+              />
+              <CustomTextField
+                label="Link #3"
+                variant="standard"
+                color="secondary"
+                className={styles.textfield}
+                multiline
+                rowsMax={2}
+                onChange={(e) =>
+                  setEditInfo({
+                    ...editInfo,
+                    social_media_URL3: e.currentTarget.value,
+                  })
+                }
+                value={editInfo.social_media_URL3}
+              />
+            </form>
+          </Box>
+          <div className={styles.buttonPos}>
+            <CustomButton
+              type="submit"
+              color="secondary"
+              className={styles.textfield}
+              variant="contained"
+              onClick={(e) => handleEdit(e)}
+            >
+              <Typography variant="button">Zatwierdź</Typography>
+            </CustomButton>
+          </div>
+        </>
       )}
-  </>
+    </>
   );
 };
