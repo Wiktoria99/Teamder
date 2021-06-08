@@ -13,10 +13,21 @@ export const getTeams = () => {
   return response;
 };
 
-export const getMyTeams = () => {
+export const getMyCurrentTeams = () => {
   const token = localStorage.getItem('token');
-  const response: Promise<AxiosResponse<{ my_teams: TeamI[] }>> = axios.get(
+  const response: Promise<AxiosResponse<{ my_teams: TeamI[] }>> = axios.post(
     '/my_teams',
+    { expired: false },
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
+export const getMyArchivedTeams = () => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<{ my_teams: TeamI[] }>> = axios.post(
+    '/my_teams',
+    { expired: true },
     axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
   );
   return response;

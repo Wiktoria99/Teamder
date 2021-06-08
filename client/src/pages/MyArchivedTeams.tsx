@@ -1,14 +1,9 @@
 import React from 'react';
-import {
-  makeStyles,
-  Button,
-  Box,
-} from '@material-ui/core/';
+import { makeStyles, Button, Box } from '@material-ui/core/';
 import { colors } from '@/styles';
 import { useHistory } from 'react-router';
-import { Layout, MainWrapper } from '@/components';
+import { ArchivedTeamsList, Layout, MainWrapper } from '@/components';
 import { paths } from '@/routing';
-
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -47,20 +42,25 @@ export const MyArchivedTeams: React.FC = () => {
 
   return (
     <>
-    <Layout>
+      <Layout>
         <MainWrapper
-            isBackBtn
-            title="Moje zespoły"
-            backBtnURL={'/'}
+          isBackBtn
+          title="Moje zespoły"
+          backBtnURL={'/'}
         ></MainWrapper>
         <Box>
           <Box className={styles.buttonContainer}>
-              <Button className={styles.disable} onClick={() =>history.push(paths.MY_TEAMS)}>Aktualne</Button>
-              <Button className={styles.active}>Zakończone</Button>
+            <Button
+              className={styles.disable}
+              onClick={() => history.push(paths.MY_TEAMS)}
+            >
+              Aktualne
+            </Button>
+            <Button className={styles.active}>Zakończone</Button>
           </Box>
         </Box>
-        ArchivedTeams
-    </Layout>
+        <ArchivedTeamsList />
+      </Layout>
     </>
   );
 };

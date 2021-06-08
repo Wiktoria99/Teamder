@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Box, makeStyles } from '@material-ui/core';
 import { Loading, CurrentTeamItem } from '@/components';
-import { getMyCurrentTeams } from '@/api';
+import { getMyArchivedTeams } from '@/api';
 import { TeamI } from '@/interfaces';
 
 interface Props {}
@@ -16,13 +16,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CurrentTeamsList = (props: Props) => {
+export const ArchivedTeamsList = (props: Props) => {
   const [teams, setTeams] = useState<TeamI[]>([]);
   const styles = useStyles();
 
   useEffect(() => {
     const getTeamsFnc = async () => {
-      const { data } = await getMyCurrentTeams();
+      const { data } = await getMyArchivedTeams();
 
       setTeams(data.my_teams);
     };

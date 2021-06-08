@@ -17,3 +17,4 @@ export * from './NotificationList';
 export * from './JoinTeamItem';
 export * from './MemberList';
 export * from './ExternalProfileInfo';
+export * from './ArchivedTeamsList';
