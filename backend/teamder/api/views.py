@@ -135,14 +135,22 @@ def my_profile_view(request):
                 response_data["Errors"].append(value)
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def my_teams(request):
     response_data = {'my_teams': []}
     curr_user = request.user.user_name
+    
+    expired = request.data.get('expired')
+    now = datetime.now()
+    
     my_teams_ids = User.objects.filter(user_name=curr_user)[0].my_teams.values()
     for team_id in my_teams_ids:
         team = Team.objects.all().filter(id = team_id['team_id'])
+        if expired == True:
+            team = team.filter(expiration_date__lte = now)
+        elif expired == False:
+            team = team.filter(expiration_date__gte = now)
         if team:
             response_data['my_teams'].append(team.values()[0])
     return Response(response_data, status=status.HTTP_200_OK)
