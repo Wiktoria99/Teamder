@@ -221,7 +221,6 @@ def manage_teams(request):
         elif type(w_person) == int:
             team.add_w_person_by_ID(w_person)
 
-        team.save()
         host = request.user.user_name
         if host == team.host:
             for w_person in request.data['people_to_accept']:
