@@ -207,6 +207,10 @@ class Team(models.Model):
         if person:
             self.waiting_people.add(person[0])
 
+    def _remove_w_person(self, person: User):
+        if person:
+            self.waiting_people.remove(person[0])
+
     def _add_a_person(self, person: User):
         if person:
             self.accepted_people.add(person[0])
@@ -226,6 +230,14 @@ class Team(models.Model):
     def add_w_person_by_name(self, w_person_name: str):
         person = User.objects.all().filter(user_name = w_person_name)
         self._add_w_person(person)
+
+    def remove_w_person_by_ID(self, w_person_ID: int):
+        person = User.objects.all().filter(id = w_person_ID)
+        self._remove_w_person(person)
+
+    def remove_w_person_by_name(self, w_person_name: str):
+        person = User.objects.all().filter(user_name = w_person_name)
+        self._remove_w_person(person)
 
     def add_a_person_by_ID(self, a_person_ID: int):
         person = User.objects.all().filter(id = a_person_ID)

@@ -158,7 +158,7 @@ def my_teams(request):
 
 
 
-@api_view(['POST', 'GET'])
+@api_view(['POST', 'GET', 'PUT'])
 @permission_classes((IsAuthenticated,))
 def manage_teams(request):
     if request.method =='GET':
@@ -209,6 +209,35 @@ def manage_teams(request):
             team.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+    if request.method =='PUT':
+        team_id = request.data.get('team_id')
+        if team_id == None:
+            return Response("No id given", status=400)
+        team = Team.objects.get(id = team_id)
+        
+        w_person = request.data.get('person_joining')
+        if type(w_person) == str:
+            team.add_w_person_by_name(w_person)
+        elif type(w_person) == int:
+            team.add_w_person_by_ID(w_person)
+
+        team.save()
+        host = request.user.user_name
+        if host == team.host:
+            for w_person in request.data['people_to_accept']:
+                if type(w_person) == str:
+                    team.remove_w_person_by_name(w_person)
+                    team.add_a_person_by_name(w_person)
+                    user = User.objects.filter(user_name = w_person)    # dodanie teamu do listy moich teamow
+                    if user:
+                        user[0].add_team_by_ID(team.id)
+                elif type(w_person) == int:
+                    team.remove_w_person_by_ID(w_person)
+                    team.add_a_person_by_ID(w_person)
+                    user = User.objects.filter(id = w_person)       # dodanie teamu do listy moich teamow
+                    if user:
+                        user[0].add_team_by_ID(team.id)
+        return Response("Updated team succesfully", status=201)
 
 
 @api_view(['POST',])
