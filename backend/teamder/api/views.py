@@ -156,7 +156,32 @@ def my_teams(request):
     return Response(response_data, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def waiting_people(request):
+    queryset = Team.objects.all()
 
+    expired = request.data.get('expired')
+    now = datetime.now()
+    if expired == True:
+        queryset = queryset.filter(expiration_date__lte = now)
+    elif expired == False:
+        queryset = queryset.filter(expiration_date__gte = now)
+    
+    team_id = request.data.get('team_id')
+    if team_id != None:
+        queryset = queryset.filter(id = team_id)
+
+    response = []
+
+    for team in queryset:
+        response.append(
+            {
+                "team_id": team.id,
+                "waiting_people": team.waiting_people.values()
+            })
+    
+    return Response(response, status=status.HTTP_200_OK)
 
 @api_view(['POST', 'GET', 'PUT'])
 @permission_classes((IsAuthenticated,))

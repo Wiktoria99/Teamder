@@ -25,4 +25,6 @@ urlpatterns = [
     path('teams', views.manage_teams),
 
     path('team_by_ID/<int:teamID>/', views.get_team_by_ID_view),
+
+    path('waiting_people', views.waiting_people),
 ]
