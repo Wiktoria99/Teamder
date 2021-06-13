@@ -100,6 +100,8 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "CLIENT": {
+            #TEST DATA BASE:
+            #"host": "mongodb+srv://teamder:teamder@cluster0.ggbza.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",     #TEST DATA BASE
             "host": "mongodb+srv://teamder:teamder@cluster0.ftvbd.mongodb.net/?retryWrites=true&w=majority",
             "username": "teamder",
             "password": "teamder",
