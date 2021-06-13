@@ -31,3 +31,10 @@ export interface CreateTeamI {
 }
 
 export interface CreateTeamResponseI {}
+
+export interface JoinTeamI {
+  team_id: number;
+  person_joining: number;
+}
+
+export interface JoinTeamResponseI {}

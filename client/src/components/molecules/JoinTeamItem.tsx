@@ -9,7 +9,9 @@ import {
   TeamIconY,
   DescriptionIconY,
 } from '@/assets';
-import { InterestsContext } from '../atoms';
+import { InterestsContext, Loading } from '../atoms';
+import { getMyProfile, joinTeam } from '@/api';
+import { toast } from 'react-toastify';
 
 interface Props {
   team: TeamI;
@@ -124,9 +126,38 @@ const useStyles = makeStyles((theme) => ({
 
 export const JoinTeamItem: React.FC<Props> = ({ team }) => {
   const styles = useStyles();
-
+  const [profileId, setProfileId] = useState<number>();
   //@ts-ignore
   const InterestList: InterestI[] = useContext(InterestsContext);
+
+  useEffect(() => {
+    const getProfileFnc = async () => {
+      const { data } = await getMyProfile();
+      setProfileId(data.id);
+    };
+
+    try {
+      getProfileFnc();
+    } catch (error) {
+      toast.error('Nie udało się pobrać id użytkownika!');
+    }
+  }, []);
+
+  const clickHandler = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await joinTeam({
+        team_id: team.id,
+        person_joining: profileId!,
+      });
+      console.log(data);
+      toast.success('Dodano na listę chętnych!');
+      window.location.reload();
+    } catch (error) {
+      toast.error('Nie udało się dodać zespołu!');
+    }
+  };
 
   return (
     <Box className={styles.teamItemContainer}>
@@ -196,8 +227,17 @@ export const JoinTeamItem: React.FC<Props> = ({ team }) => {
         <Box className={styles.description}>
           <p>{team.description ? team.description : 'Brak opisu'}</p>
         </Box>
-        {/* TO DO: ten guzik ma coś robić */}
-        <Button className={styles.button}>Dołącz</Button>
+        {profileId ? (
+          team.waiting_people_id?.includes(profileId) ? (
+            'Jesteś już na liście oczekujących!'
+          ) : (
+            <Button className={styles.button} onClick={(e) => clickHandler(e)}>
+              Dołącz
+            </Button>
+          )
+        ) : (
+          <Loading />
+        )}
       </Box>
     </Box>
   );

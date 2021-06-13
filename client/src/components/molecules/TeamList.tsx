@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Box, makeStyles } from '@material-ui/core';
 import { Loading } from '@/components';
-import { getTeams } from '@/api';
+import { getMyProfile, getTeams } from '@/api';
 import { TeamI } from '@/interfaces';
 import { TeamItem } from './TeamItem';
 
@@ -21,15 +21,22 @@ const useStyles = makeStyles((theme) => ({
 
 export const TeamList = (props: Props) => {
   const [teams, setTeams] = useState<TeamI[]>([]);
+  const [profileId, setProfileId] = useState<number>();
   const styles = useStyles();
 
   useEffect(() => {
+    const getProfileId = async () => {
+      const { data } = await getMyProfile();
+      setProfileId(data.id);
+    };
+
     const getTeamsFnc = async () => {
       const { data } = await getTeams();
       setTeams(data);
     };
 
     try {
+      getProfileId();
       getTeamsFnc();
     } catch (error) {
       toast.error('Nie udało się pobrać zespołów!');
@@ -38,7 +45,7 @@ export const TeamList = (props: Props) => {
 
   return (
     <Box className={styles.teamList}>
-      {teams.length ? (
+      {teams.length && profileId ? (
         props.id ? (
           <>
             {teams
@@ -49,15 +56,18 @@ export const TeamList = (props: Props) => {
                     (elem) => String(elem) === props.id,
                   ),
               )
+              .filter((team) => !team.accepted_people_id?.includes(profileId))
               .map((team, idx) => (
                 <TeamItem key={idx} team={team} />
               ))}
           </>
         ) : (
           <>
-            {teams.map((team, idx) => (
-              <TeamItem key={idx} team={team} />
-            ))}
+            {teams
+              .filter((team) => !team.accepted_people_id?.includes(profileId))
+              .map((team, idx) => (
+                <TeamItem key={idx} team={team} />
+              ))}
           </>
         )
       ) : (

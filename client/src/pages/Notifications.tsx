@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useLocalStorage } from '@/hooks';
-import { ACCESS_TOKEN, ID_TOKEN } from '@/constants';
+import { ID_TOKEN } from '@/constants';
 import { Layout, MainWrapper, NotificationList } from '@/components';
 
 export const Notifications: React.FC = () => {

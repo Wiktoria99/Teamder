@@ -1,6 +1,12 @@
 import { axiosInstance as axios } from '@/api';
 import { AxiosResponse } from 'axios';
-import { CreateTeamI, CreateTeamResponseI, TeamI } from '@/interfaces';
+import {
+  CreateTeamI,
+  CreateTeamResponseI,
+  JoinTeamI,
+  JoinTeamResponseI,
+  TeamI,
+} from '@/interfaces';
 import { axiosAuthorizedConfig } from '@/api';
 import { axiosUnauthorizedConfig } from './config';
 
@@ -45,6 +51,16 @@ export const getTeamToJoin = (id: string) => {
 export const createNewTeam = (data: CreateTeamI) => {
   const token = localStorage.getItem('token');
   const response: Promise<AxiosResponse<CreateTeamResponseI>> = axios.post(
+    '/teams',
+    data,
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
+export const joinTeam = (data: JoinTeamI) => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<JoinTeamResponseI>> = axios.put(
     '/teams',
     data,
     axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
