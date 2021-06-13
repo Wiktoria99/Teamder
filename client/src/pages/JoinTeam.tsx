@@ -17,7 +17,7 @@ export const JoinTeam: React.FC<Props> = () => {
 
   useEffect(() => {
     const getTeamFnc = async () => {
-      const { data } = await getTeamToJoin(params.id);
+      const { data } = await getTeamToJoin(parseInt(params.id));
       setTeam(data);
     };
 

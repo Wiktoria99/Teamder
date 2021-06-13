@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { colors } from '@/styles';
-import { NotificationI } from '@/interfaces';
+import { ProfileI, TeamI } from '@/interfaces';
+import { getTeamToJoin } from '@/api';
+import { toast } from 'react-toastify';
 
 interface Props {
-  notification: NotificationI;
+  team_id: number;
+  person: ProfileI;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -81,8 +84,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const NotificationItem: React.FC<Props> = ({ notification }) => {
+export const NotificationItem: React.FC<Props> = ({ team_id, person }) => {
   const styles = useStyles();
+  const [team, setTeam] = useState<TeamI>();
+
+  useEffect(() => {
+    const getTeamFnc = async () => {
+      const { data } = await getTeamToJoin(team_id);
+      setTeam(data);
+    };
+
+    try {
+      getTeamFnc();
+    } catch (error) {
+      toast.error('Nie udało się pobrać zespołu!');
+    }
+  }, []);
 
   return (
     <>
@@ -93,14 +110,16 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
               className={styles.photo}
               height="100"
               width="100"
-              src={notification.photoSource}
+              src={person.photo_src}
               alt="avatar"
             />
           </Box>
           <Box className={styles.nameContainer}>
             <p className={styles.name}>
-              <span>{notification.person}</span> chce dołączyć do twojego
-              zespołu <span>{notification.title}</span>
+              <span>
+                {person.name} {person.surname}
+              </span>{' '}
+              chce dołączyć do twojego zespołu <span>{team?.name}</span>
             </p>
           </Box>
         </Box>

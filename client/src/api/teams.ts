@@ -5,6 +5,7 @@ import {
   CreateTeamResponseI,
   JoinTeamI,
   JoinTeamResponseI,
+  NotificationI,
   TeamI,
 } from '@/interfaces';
 import { axiosAuthorizedConfig } from '@/api';
@@ -39,7 +40,7 @@ export const getMyArchivedTeams = () => {
   return response;
 };
 
-export const getTeamToJoin = (id: string) => {
+export const getTeamToJoin = (id: number) => {
   const token = localStorage.getItem('token');
   const response: Promise<AxiosResponse<TeamI>> = axios.get(
     '/team_by_ID/' + id,
@@ -63,6 +64,15 @@ export const joinTeam = (data: JoinTeamI) => {
   const response: Promise<AxiosResponse<JoinTeamResponseI>> = axios.put(
     '/teams',
     data,
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
+export const getNotifications = () => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<NotificationI[]>> = axios.get(
+    '/waiting_people',
     axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
   );
   return response;

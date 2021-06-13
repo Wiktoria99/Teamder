@@ -1,3 +1,5 @@
+import { ProfileI } from './user';
+
 export interface TeamI {
   id: number;
   host?: string;
@@ -38,3 +40,8 @@ export interface JoinTeamI {
 }
 
 export interface JoinTeamResponseI {}
+
+export interface NotificationI {
+  team_id: number;
+  waiting_people: ProfileI[];
+}

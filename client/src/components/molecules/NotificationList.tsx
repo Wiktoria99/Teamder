@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import { NotificationI } from '@/interfaces';
 import { Loading, NotificationItem } from '@/components';
+import { toast } from 'react-toastify';
+import { getNotifications } from '@/api';
 
 interface Props {}
 
@@ -12,32 +14,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const listOfNotifications: NotificationI[] = [
-  {
-    person: 'Jan Kowalski',
-    photoSource: 'https://avatars.githubusercontent.com/u/65246171?s=400&v=4',
-    title: 'Hackathon - Webdev and mobile applications! ',
-  },
-  {
-    person: 'Irena Słowik',
-    photoSource: 'https://avatars.githubusercontent.com/u/44270336?v=4',
-    title: 'Festiwal tańca i śpiewu',
-  },
-];
-
 export const NotificationList = (props: Props) => {
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState<NotificationI[]>([]);
   const styles = useStyles();
+
+  useEffect(() => {
+    const getNotificationsFnc = async () => {
+      const { data } = await getNotifications();
+      setNotifications(data);
+    };
+
+    try {
+      getNotificationsFnc();
+    } catch (error) {
+      toast.error('Nie udało się pobrać zespołów!');
+    }
+  }, []);
 
   return (
     <Box className={styles.notificationList}>
       {notifications ? (
         <>
-          {listOfNotifications.map((notification) => (
-            <div key={notification.person}>
-              <NotificationItem notification={notification} />
-            </div>
-          ))}
+          {notifications.map((notification) => {
+            return notification.waiting_people.map((person) => (
+              <div key={notification.team_id}>
+                <NotificationItem
+                  team_id={notification.team_id}
+                  person={person}
+                />
+              </div>
+            ));
+          })}
         </>
       ) : (
         <Loading />
