@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { colors } from '@/styles';
 import { ProfileI, TeamI } from '@/interfaces';
-import { getTeamToJoin } from '@/api';
+import { acceptJoining, getTeamToJoin } from '@/api';
 import { toast } from 'react-toastify';
 
 interface Props {
+  username: string;
   team_id: number;
   person: ProfileI;
 }
@@ -84,7 +85,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const NotificationItem: React.FC<Props> = ({ team_id, person }) => {
+export const NotificationItem: React.FC<Props> = ({
+  username,
+  team_id,
+  person,
+}) => {
   const styles = useStyles();
   const [team, setTeam] = useState<TeamI>();
 
@@ -101,33 +106,54 @@ export const NotificationItem: React.FC<Props> = ({ team_id, person }) => {
     }
   }, []);
 
+  const handleAccept = async () => {
+    try {
+      await acceptJoining({ team_id: team_id, people_to_accept: [person.id] });
+      toast.success('Zaakceptowano!');
+      window.location.reload();
+    } catch (e) {
+      toast.error('Nie udało się zaakceptować!');
+    }
+  };
+
+  const handleReject = async () => {};
+
   return (
     <>
-      <Box>
-        <Box className={styles.info}>
-          <Box className={styles.avatarContainer}>
-            <img
-              className={styles.photo}
-              height="100"
-              width="100"
-              src={person.photo_src}
-              alt="avatar"
-            />
+      {team && username && team.host === username ? (
+        <Box>
+          <Box className={styles.info}>
+            <Box className={styles.avatarContainer}>
+              <img
+                className={styles.photo}
+                height="100"
+                width="100"
+                src={person.photo_src}
+                alt="avatar"
+              />
+            </Box>
+            <Box className={styles.nameContainer}>
+              <p className={styles.name}>
+                <span>
+                  {person.name} {person.surname}
+                </span>{' '}
+                chce dołączyć do twojego zespołu <span>{team?.name}</span>
+              </p>
+            </Box>
           </Box>
-          <Box className={styles.nameContainer}>
-            <p className={styles.name}>
-              <span>
-                {person.name} {person.surname}
-              </span>{' '}
-              chce dołączyć do twojego zespołu <span>{team?.name}</span>
-            </p>
+          <Box className={styles.buttonContainer}>
+            <Button className={styles.button} onClick={() => handleAccept()}>
+              Akceptuj
+            </Button>
+            <Button
+              className={styles.buttonDelete}
+              onClick={() => handleReject()}
+            >
+              Odrzuć
+            </Button>
           </Box>
         </Box>
-        <Box className={styles.buttonContainer}>
-          <Button className={styles.button}>Akceptuj</Button>
-          <Button className={styles.buttonDelete}>Odrzuć</Button>
-        </Box>
-      </Box>
+      ) : null}
     </>
   );
 };

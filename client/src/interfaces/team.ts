@@ -45,3 +45,10 @@ export interface NotificationI {
   team_id: number;
   waiting_people: ProfileI[];
 }
+
+export interface AcceptJoinI {
+  team_id: number;
+  people_to_accept: number[];
+}
+
+export interface AcceptJoinResponseI {}

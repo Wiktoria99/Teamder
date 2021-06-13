@@ -3,7 +3,7 @@ import { Box, makeStyles } from '@material-ui/core';
 import { NotificationI } from '@/interfaces';
 import { Loading, NotificationItem } from '@/components';
 import { toast } from 'react-toastify';
-import { getNotifications } from '@/api';
+import { getMyProfile, getNotifications } from '@/api';
 
 interface Props {}
 
@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const NotificationList = (props: Props) => {
   const [notifications, setNotifications] = useState<NotificationI[]>([]);
+  const [username, setUsername] = useState<string>();
+
   const styles = useStyles();
 
   useEffect(() => {
@@ -24,7 +26,13 @@ export const NotificationList = (props: Props) => {
       setNotifications(data);
     };
 
+    const getProfileIdFnc = async () => {
+      const { data } = await getMyProfile();
+      setUsername(data.user_name);
+    };
+
     try {
+      getProfileIdFnc();
       getNotificationsFnc();
     } catch (error) {
       toast.error('Nie udało się pobrać zespołów!');
@@ -33,12 +41,13 @@ export const NotificationList = (props: Props) => {
 
   return (
     <Box className={styles.notificationList}>
-      {notifications ? (
+      {notifications && username ? (
         <>
           {notifications.map((notification) => {
             return notification.waiting_people.map((person) => (
               <div key={notification.team_id}>
                 <NotificationItem
+                  username={username}
                   team_id={notification.team_id}
                   person={person}
                 />

@@ -1,6 +1,8 @@
 import { axiosInstance as axios } from '@/api';
 import { AxiosResponse } from 'axios';
 import {
+  AcceptJoinI,
+  AcceptJoinResponseI,
   CreateTeamI,
   CreateTeamResponseI,
   JoinTeamI,
@@ -73,6 +75,16 @@ export const getNotifications = () => {
   const token = localStorage.getItem('token');
   const response: Promise<AxiosResponse<NotificationI[]>> = axios.get(
     '/waiting_people',
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
+export const acceptJoining = (data: AcceptJoinI) => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<AcceptJoinResponseI>> = axios.put(
+    '/teams',
+    data,
     axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
   );
   return response;
