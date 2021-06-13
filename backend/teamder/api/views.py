@@ -88,7 +88,12 @@ def list_of_user_info_view(request): # dostaje tablice z ID, zwraca tablice info
 @permission_classes((IsAuthenticated,))
 def rate_user_view(request):
     currUser = User.objects.filter(user_name=request.user.user_name)[0]
-    user_to_be_rated = User.objects.filter(user_name=request.data['user_name'])[0]
+    user_to_be_rated = User.objects.filter(user_name=request.data['user_name'])
+    if not user_to_be_rated:
+        response_data = {'error': 'user_does_not_exist'}
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+    user_to_be_rated = user_to_be_rated[0]
     if int(request.data['rate']) == 1:
         user_to_be_rated.add_UpVote_from(currUser)
     elif int(request.data['rate']) == -1:
@@ -96,7 +101,8 @@ def rate_user_view(request):
     elif int(request.data['rate']) == 0:
         user_to_be_rated.remove_rate_from(currUser)
     else:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        response_data = {'error': 'rate must be one of: -1 / 0 / 1'}
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
     response_data = {}
     response_data['yourRate'] = request.data['rate']
