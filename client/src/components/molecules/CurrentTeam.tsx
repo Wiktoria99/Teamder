@@ -18,7 +18,7 @@ import { InterestsContext } from '../atoms';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { UserInterests, SocialMedia, EditProfile } from '@/components';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { MemberList } from './MemberList';
 
 interface Props {
@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   infoBox: {
     display: 'flex',
-    width: '70%',
     minWidth: '230px',
     justifyContent: 'space-between',
     marginTop: 30,
@@ -200,7 +199,15 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
                 {team.accepted_people_id?.length}/{team.size}
               </p>
             </Box>
+            {team.cost_per_person ? (
+              <Box className={styles.iconInfo}>
+                <MonetizationOnIcon style={{ height: '20px', width: '20px' }} />
+
+                <p className={styles.minorInfo}>{team.cost_per_person} zł</p>
+              </Box>
+            ) : null}
           </Box>
+
           <Box className={styles.interestsContainer}>
             <Box className={styles.interestsLabel}>
               <InterestsIconY />
@@ -232,7 +239,6 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
           >
             <AntTab label="Opis" {...a11yProps(0)} />
             <AntTab label="Członkowie" {...a11yProps(1)} />
-            <AntTab label="Forum" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
         <Box>
@@ -245,9 +251,6 @@ export const CurrentTeam: React.FC<Props> = ({ team }) => {
             <Box className={styles.customBox}>
               <MemberList membersIDs={team.accepted_people_id!} />
             </Box>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <Box className={styles.customBox}> </Box>
           </TabPanel>
         </Box>
       </Box>

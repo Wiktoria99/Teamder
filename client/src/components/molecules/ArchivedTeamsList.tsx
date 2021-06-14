@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const ArchivedTeamsList = (props: Props) => {
   const [teams, setTeams] = useState<TeamI[]>([]);
+  const [fetching, setFetching] = useState<boolean>(true);
+
   const styles = useStyles();
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export const ArchivedTeamsList = (props: Props) => {
       const { data } = await getMyArchivedTeams();
 
       setTeams(data.my_teams);
+      setFetching(false);
     };
 
     try {
@@ -36,11 +39,23 @@ export const ArchivedTeamsList = (props: Props) => {
 
   return (
     <Box className={styles.teamList}>
-      {teams.length ? (
+      {!fetching ? (
         <>
-          {teams.map((team, idx) => (
-            <CurrentTeamItem key={idx} team={team} />
-          ))}
+          {teams.length ? (
+            teams.map((team, idx) => <CurrentTeamItem key={idx} team={team} />)
+          ) : (
+            <div
+              style={{
+                width: '100%',
+                height: '100px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              No teams found!
+            </div>
+          )}
         </>
       ) : (
         <Loading />

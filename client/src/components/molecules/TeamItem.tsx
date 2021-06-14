@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Box, Button, makeStyles } from '@material-ui/core';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { CalendarIcon, InterestsIcon, LocationIcon, TeamIcon } from '@/assets';
 import { InterestI, TeamI } from '@/interfaces';
 import { colors } from '@/styles';
@@ -44,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
   },
   infoBox: {
     display: 'flex',
-    width: '70%',
     minWidth: '230px',
     justifyContent: 'space-between',
     marginTop: 15,
@@ -146,6 +146,13 @@ export const TeamItem: React.FC<Props> = ({ team }) => {
               {team.accepted_people_id?.length}/{team.size}
             </p>
           </Box>
+          {team.cost_per_person ? (
+            <Box className={styles.iconInfo}>
+              <MonetizationOnIcon style={{ height: '20px', width: '20px' }} />
+
+              <p className={styles.minorInfo}>{team.cost_per_person} zł</p>
+            </Box>
+          ) : null}
         </Box>
         <Box className={styles.interestsContainer}>
           <Box className={styles.interestsLabel}>

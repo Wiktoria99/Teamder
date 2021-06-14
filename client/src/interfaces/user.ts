@@ -35,3 +35,13 @@ export interface EditResponseI {
 export interface MyTeamProfilesRequestI {
   user_ids: number[];
 }
+
+export interface RateUserRequestI {
+  user_name: string;
+  rate: number;
+}
+
+export interface RateUserResponseI {
+  yourRate: number;
+  rating: number;
+}

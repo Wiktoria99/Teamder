@@ -5,6 +5,8 @@ import {
   EditResponseI,
   MyTeamProfilesRequestI,
   ProfileI,
+  RateUserRequestI,
+  RateUserResponseI,
 } from '@/interfaces';
 import { axiosAuthorizedConfig } from '@/api';
 import { axiosUnauthorizedConfig } from './config';
@@ -42,6 +44,16 @@ export const editMyProfile = (data: EditI) => {
   const token = localStorage.getItem('token');
   const response: Promise<AxiosResponse<EditResponseI>> = axios.post(
     '/my_profile',
+    data,
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
+export const rateUser = (data: RateUserRequestI) => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<RateUserResponseI>> = axios.post(
+    '/rate_user',
     data,
     axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
   );

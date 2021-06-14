@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { InterestI, TeamI } from '@/interfaces';
 import { Button, Box, makeStyles } from '@material-ui/core';
 import { colors } from '@/styles';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import {
   CalendarIconY,
   InterestsIconY,
   LocationIconY,
   TeamIconY,
-  DescriptionIconY,
 } from '@/assets';
 import { InterestsContext, Loading } from '../atoms';
 import { getMyProfile, joinTeam } from '@/api';
@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
   },
   infoBox: {
     display: 'flex',
-    width: '70%',
     minWidth: '230px',
     justifyContent: 'space-between',
     marginTop: 30,
@@ -204,6 +203,13 @@ export const JoinTeamItem: React.FC<Props> = ({ team }) => {
               {team.accepted_people_id?.length}/{team.size}
             </p>
           </Box>
+          {team.cost_per_person ? (
+            <Box className={styles.iconInfo}>
+              <MonetizationOnIcon style={{ height: '20px', width: '20px' }} />
+
+              <p className={styles.minorInfo}>{team.cost_per_person} zł</p>
+            </Box>
+          ) : null}
         </Box>
         <Box className={styles.interestsContainer}>
           <Box className={styles.interestsLabel}>

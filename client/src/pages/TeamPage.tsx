@@ -6,7 +6,6 @@ import { Layout, MainWrapper, CurrentTeam } from '@/components';
 import { paths } from '@/routing';
 import { useParams } from 'react-router';
 import { Loading } from '@/components';
-// zamienić kiedyś na currentteam
 import { getTeamToJoin } from '@/api';
 import { TeamI } from '@/interfaces';
 
