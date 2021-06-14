@@ -13,6 +13,7 @@ export interface ProfileI {
   social_media_URL2: string;
   social_media_URL3: string;
   list_of_interests_id: number[];
+  yourRate?: number;
 }
 
 export interface EditI {
