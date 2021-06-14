@@ -33,13 +33,26 @@ def get_data_to_register(user_name: str, email: str):
 
     return deepcopy(data)
 
-class RegistrationTestCase(APITestCase):
+class RegistrationLoginTestCase(APITestCase):
 
-    def test_registration(self):
+    def test_registration_login(self):
         data = get_data_to_register("test_user_1", "test_1@email.com")
 
         response = self.client.post("/api/register", data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        register_token = response.data['token']
+
+        data = {
+            "username": "test_user_1",
+            "password": "maslo"
+        }
+
+        response = self.client.post("/api/login", data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(register_token, response.data["token"])
+
 
 class UserTestCase(APITestCase):
 
@@ -178,5 +191,122 @@ class UserTestCase(APITestCase):
         self.assertEqual(len(response.data["users_info"]), 2)
 
 
+def get_data_to_create_team(name: str, expiration_date):
+    data = {
+        "name": "_",
+        "description": "cokolwiek",
+        "expiration_date": "2011-11-04T00:05:23",
+        "location": "Lwowska 24 Kraków",
+        "longitude": 20,
+        "latitude": 30,
+        "cost_per_person": 10,
+        "size": 4,
+        "host_profile_picture_url" : "http://placecorgi.com/250",
+        "list_of_interests": [1, 2],
+        "waiting_people": [],
+        "accepted_people": []
+    }
 
-# TODO zespoly w tym moje zespoly
+    data["name"] = name
+    data["expiration_date"] = expiration_date
+    return deepcopy(data)
+
+class TeamTestCase(APITestCase):
+
+    def setUp(self):
+        # uzytkownicy
+        for i in range(3):
+            data = get_data_to_register("UserTestCase_" + str(i+1), f"UserTestCase_{i+1}@email.com")
+            response = self.client.post("/api/register", json.dumps(data), content_type='application/json')
+            assert(response.status_code == status.HTTP_200_OK)
+
+        # zespoly
+        self.api_authentication_as("UserTestCase_2")
+        for i in range(3):  #uzytkownik 2 jest hostem 3 zespolow nieaktualnych
+            data = get_data_to_create_team("TeamTestCase_2_" + str(i+1), "2011-11-04T00:05:23")
+            response = self.client.post('/api/teams', json.dumps(data), content_type='application/json')
+            assert(response.status_code == status.HTTP_201_CREATED)
+
+        self.api_authentication_as("UserTestCase_3")
+        for i in range(3):  #uzytkownik 3 jest hostem 2 zespolow aktualnych
+            data = get_data_to_create_team("TeamTestCase_3_" + str(i+1), "2030-11-04T00:05:23")
+            response = self.client.post('/api/teams', json.dumps(data), content_type='application/json')
+            assert(response.status_code == status.HTTP_201_CREATED)
+
+    def api_authentication_as(self, user_name:str):   # jeżeli chcesz byc zalogowany jako uzytkownik user_name
+        account = Account.objects.get(user_name = user_name)
+        token = Token.objects.get(user = account)
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+    # api/teams
+    def test_create_team(self):
+        self.api_authentication_as("UserTestCase_1")   # wysylanie tokenu
+        data = get_data_to_create_team("TeamTestCase_test_create", "2011-11-04T00:05:23")
+        response = self.client.post('/api/teams', json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_get_all_teams(self):
+        self.api_authentication_as("UserTestCase_1")   # wysylanie tokenu
+        response = self.client.get('/api/teams')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 6) # 6, a nie 5 bo w tescie test_create_team() tworzymy kolejny nieaktualny team
+
+    
+    def test_join_team_process(self):
+        # uzytkownik 2 dolacza do zespolu TeamTestCase_3_1 (wchodzi na liste chetnych)
+        team = Team.objects.get(name = "TeamTestCase_3_1")
+        person_joining = User.objects.get(user_name = "UserTestCase_2")
+        host = User.objects.get(user_name = "UserTestCase_3")
+        self.api_authentication_as("UserTestCase_2")
+        data = {
+            "team_id": team.id,
+            "person_joining": str(person_joining.user_name)
+        }
+        response = self.client.put('/api/teams', json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        self.api_authentication_as("UserTestCase_3") # przelogowanie na hosta
+
+        # sprawdzamy powiadomienia
+        response = self.client.get('/api/waiting_people')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # sprawdzenie czy uzytkownik 2 jest na liscie oczekujacych
+        is_team_in_list = False
+        for p in response.data:
+            if p["team_id"] == team.id:
+                self.assertEqual(len(p["waiting_people"]), 1)
+                self.assertEqual(p["waiting_people"][0]["id"], person_joining.id)
+                is_team_in_list = True
+        self.assertEqual(is_team_in_list, True)
+
+        # przenosimy uzytkownika 2 z listy oczekujacych na liste zaakceptowanych
+        data = {
+            "team_id":team.id,
+            "people_to_accept":[str(person_joining.user_name)]
+        }
+        response = self.client.put('/api/teams', json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # sprawdzenie czy uzytkownik jest na liscie zaakceptowanych
+        response = self.client.get(f'/api/team_by_ID/{str(team.id)}/') 
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(len(response.data["accepted_people_id"]), 1)
+        self.assertEqual(response.data["accepted_people_id"].pop(), person_joining.id)
+
+
+    def test_my_teams(self):
+        self.api_authentication_as("UserTestCase_1")   # wysylanie tokenu
+        data = get_data_to_create_team("TeamTestCase_test_my_teams", "2011-11-04T00:05:23")
+        data['accepted_people'].append(User.objects.get(user_name = "UserTestCase_2").id)
+        response = self.client.post('/api/teams', json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        self.api_authentication_as("UserTestCase_2")   # wysylanie tokenu
+        response = self.client.post('/api/my_teams')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(len(response.data['my_teams']), 4)
+
