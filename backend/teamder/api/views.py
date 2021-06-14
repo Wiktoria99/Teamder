@@ -216,6 +216,9 @@ def manage_teams(request):
 
         if serializer.is_valid():
             team = serializer.save(Team())
+            user = User.objects.get(user_name = host)    # dodanie teamu do listy moich teamow hosta
+            user.add_team_by_ID(team.id)
+            
             for interest in request.data['list_of_interests']:
                 if type(interest) == str:
                     team.add_interest_by_name(interest)
