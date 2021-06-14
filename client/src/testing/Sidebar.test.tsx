@@ -1,12 +1,13 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 import { StaticRouter } from 'react-router';
 import '@testing-library/jest-dom/extend-expect';
 import renderer from 'react-test-renderer';
 import { Sidebar } from '@/components';
+import { cleanup } from '@testing-library/react';
 
-//TEST #1
+afterEach(cleanup);
+
 it('Sidebar renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
@@ -28,13 +29,60 @@ it('Sidebar matches snapshot', () => {
   expect(tree).toMatchSnapshot();
 });
 
-//TEST NAVLINK
 it('NavLink matches snapshot', () => {
   const context = {};
   const tree = renderer
     .create(
       <StaticRouter location="loc" context={context}>
         <NavLink to="#" />
+      </StaticRouter>,
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('NavLink to my_profile matches snapshot', () => {
+  const context = {};
+  const tree = renderer
+    .create(
+      <StaticRouter location="loc" context={context}>
+        <NavLink to="/my_profile" />
+      </StaticRouter>,
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('NavLink to mainpage matches snapshot', () => {
+  const context = {};
+  const tree = renderer
+    .create(
+      <StaticRouter location="loc" context={context}>
+        <NavLink to="/" />
+      </StaticRouter>,
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('NavLink to my_teams matches snapshot', () => {
+  const context = {};
+  const tree = renderer
+    .create(
+      <StaticRouter location="loc" context={context}>
+        <NavLink to="/my_teams" />
+      </StaticRouter>,
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('NavLink to notifications matches snapshot', () => {
+  const context = {};
+  const tree = renderer
+    .create(
+      <StaticRouter location="loc" context={context}>
+        <NavLink to="/notifications" />
       </StaticRouter>,
     )
     .toJSON();

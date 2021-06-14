@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicInfo matches snapshot 1`] = `
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "length": 1,
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
+>
+  <BasicInfo
+    registerInfo={
+      Object {
+        "age": 2,
+        "bio": "test",
+        "email": "test",
+        "list_of_interests": Array [
+          "test",
+        ],
+        "location": "test",
+        "name": "test",
+        "password": "test",
+        "password2": "test",
+        "photo_src": "test",
+        "social_media_URL1": "test",
+        "social_media_URL2": "test",
+        "social_media_URL3": "test",
+        "surname": "test",
+        "user_name": "test",
+      }
+    }
+    setRegisterInfo=""
+    updateProgressState=""
+  />
+</Router>
+`;

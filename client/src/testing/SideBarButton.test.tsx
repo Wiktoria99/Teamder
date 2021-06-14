@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from "enzyme";
 import { SideBarButton } from '@/components';
+import { cleanup } from '@testing-library/react';
 
-//TEST #1
+afterEach(cleanup);
+
 it('SideBarButton renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<SideBarButton />, div);
+  shallow(<SideBarButton />);
 });

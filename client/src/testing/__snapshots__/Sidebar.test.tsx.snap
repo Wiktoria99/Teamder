@@ -10,18 +10,50 @@ exports[`NavLink matches snapshot 1`] = `
 />
 `;
 
+exports[`NavLink to mainpage matches snapshot 1`] = `
+<a
+  aria-current={null}
+  href="/"
+  onClick={[Function]}
+/>
+`;
+
+exports[`NavLink to my_profile matches snapshot 1`] = `
+<a
+  aria-current={null}
+  href="/my_profile"
+  onClick={[Function]}
+/>
+`;
+
+exports[`NavLink to my_teams matches snapshot 1`] = `
+<a
+  aria-current={null}
+  href="/my_teams"
+  onClick={[Function]}
+/>
+`;
+
+exports[`NavLink to notifications matches snapshot 1`] = `
+<a
+  aria-current={null}
+  href="/notifications"
+  onClick={[Function]}
+/>
+`;
+
 exports[`Sidebar matches snapshot 1`] = `
 <div
-  className="MuiBox-root MuiBox-root-9 makeStyles-barContainer-2"
+  className="MuiBox-root MuiBox-root-12 makeStyles-barContainer-5"
 >
   <div
-    className="MuiBox-root MuiBox-root-10 makeStyles-barBox-3"
+    className="MuiBox-root MuiBox-root-13 makeStyles-barBox-6"
   >
     <div
-      className="MuiBox-root MuiBox-root-11"
+      className="MuiBox-root MuiBox-root-14 makeStyles-mainContainer-1"
     >
       <svg
-        className="makeStyles-svg-7"
+        className="makeStyles-svg-10"
         fill="none"
         height="32"
         onClick={[Function]}
@@ -43,6 +75,7 @@ exports[`Sidebar matches snapshot 1`] = `
         />
       </svg>
       <div
+        className="makeStyles-routeList-3"
         style={
           Object {
             "marginTop": "45px",
@@ -51,13 +84,13 @@ exports[`Sidebar matches snapshot 1`] = `
       >
         <a
           aria-current="page"
-          className="sc-bdvvaa YsbHv active"
+          className="sc-bdvvaa fyBRYB active"
           href="/"
           onClick={[Function]}
           style={Object {}}
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-flex-end"
+            className="MuiGrid-root makeStyles-linkItem-4 MuiGrid-container MuiGrid-align-items-xs-flex-end"
           >
             <svg
               aria-hidden={true}
@@ -78,12 +111,12 @@ exports[`Sidebar matches snapshot 1`] = `
         </a>
         <a
           aria-current={null}
-          className="sc-bdvvaa YsbHv"
+          className="sc-bdvvaa fyBRYB"
           href="/my_teams"
           onClick={[Function]}
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-flex-end"
+            className="MuiGrid-root makeStyles-linkItem-4 MuiGrid-container MuiGrid-align-items-xs-flex-end"
           >
             <svg
               aria-hidden={true}
@@ -104,12 +137,12 @@ exports[`Sidebar matches snapshot 1`] = `
         </a>
         <a
           aria-current={null}
-          className="sc-bdvvaa YsbHv"
+          className="sc-bdvvaa fyBRYB"
           href="/notifications"
           onClick={[Function]}
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-flex-end"
+            className="MuiGrid-root makeStyles-linkItem-4 MuiGrid-container MuiGrid-align-items-xs-flex-end"
           >
             <svg
               aria-hidden={true}
@@ -130,12 +163,12 @@ exports[`Sidebar matches snapshot 1`] = `
         </a>
         <a
           aria-current={null}
-          className="sc-bdvvaa YsbHv"
+          className="sc-bdvvaa fyBRYB"
           href="/my_profile"
           onClick={[Function]}
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-flex-end"
+            className="MuiGrid-root makeStyles-linkItem-4 MuiGrid-container MuiGrid-align-items-xs-flex-end"
           >
             <svg
               aria-hidden={true}
@@ -166,7 +199,7 @@ exports[`Sidebar matches snapshot 1`] = `
         }
       >
         <button
-          className="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-8 MuiButton-text makeStyles-button-1 MuiButton-textSecondary"
+          className="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-11 MuiButton-text makeStyles-button-2 MuiButton-textSecondary"
           disabled={false}
           onBlur={[Function]}
           onDragLeave={[Function]}
@@ -191,9 +224,10 @@ exports[`Sidebar matches snapshot 1`] = `
       </a>
     </div>
     <button
-      className="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-8 MuiButton-text makeStyles-button-1 MuiButton-textSecondary"
+      className="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-11 MuiButton-text makeStyles-button-2 MuiButton-textSecondary"
       disabled={false}
       onBlur={[Function]}
+      onClick={[Function]}
       onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}

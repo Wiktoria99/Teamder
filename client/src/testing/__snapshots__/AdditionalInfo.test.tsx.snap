@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdditionalInfo matches snapshot 1`] = `
+<Fragment>
+  <form
+    className="makeStyles-form-1"
+    onSubmit={[Function]}
+  >
+    <WithStyles(WithStyles(ForwardRef(TextField)))
+      color="secondary"
+      label="Biogram"
+      multiline={true}
+      onChange={[Function]}
+      value="test"
+      variant="standard"
+    />
+    <WithStyles(WithStyles(ForwardRef(TextField)))
+      color="secondary"
+      label="Social Media URL #1"
+      onChange={[Function]}
+      value="test"
+      variant="standard"
+    />
+    <WithStyles(WithStyles(ForwardRef(TextField)))
+      color="secondary"
+      label="Social Media URL #2"
+      onChange={[Function]}
+      value="test"
+      variant="standard"
+    />
+    <WithStyles(WithStyles(ForwardRef(TextField)))
+      color="secondary"
+      label="Social Media URL #3"
+      onChange={[Function]}
+      value="test"
+      variant="standard"
+    />
+    <WithStyles(WithStyles(ForwardRef(TextField)))
+      color="secondary"
+      label="Photo source file"
+      onChange={[Function]}
+      value="test"
+      variant="standard"
+    />
+    <WithStyles(WithStyles(ForwardRef(Button)))
+      className="makeStyles-button-2"
+      color="secondary"
+      type="submit"
+      variant="contained"
+    >
+      <WithStyles(ForwardRef(Typography))
+        variant="button"
+      >
+        Kontynuuj
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(WithStyles(ForwardRef(Button)))>
+  </form>
+  <div
+    className="makeStyles-formLinkDisclaimer-4"
+    onClick={[Function]}
+  >
+    <span>
+      Powrót
+    </span>
+  </div>
+</Fragment>
+`;
