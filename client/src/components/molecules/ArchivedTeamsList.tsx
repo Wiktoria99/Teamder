@@ -53,7 +53,7 @@ export const ArchivedTeamsList = (props: Props) => {
                 alignItems: 'center',
               }}
             >
-              No teams found!
+              Nie znaleziono zespołów!
             </div>
           )}
         </>

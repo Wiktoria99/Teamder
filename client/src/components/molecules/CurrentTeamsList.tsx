@@ -52,7 +52,7 @@ export const CurrentTeamsList = (props: Props) => {
                 alignItems: 'center',
               }}
             >
-              No teams found!
+              Nie znaleziono zespołów!
             </div>
           )}
         </>
