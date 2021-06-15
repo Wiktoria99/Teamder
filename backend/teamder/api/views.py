@@ -80,7 +80,16 @@ def list_of_user_info_view(request): # dostaje tablice z ID, zwraca tablice info
     for user_id in id_table:
         user = User.objects.filter(id = user_id)
         if user:
-            response_data['users_info'].append(get_user_info(user[0].user_name))
+            data = get_user_info(user[0].user_name)
+   
+            if request.user.is_anonymous:
+                    data['yourRate'] = None 
+            else:
+                currUser = User.objects.filter(user_name=request.user.user_name)[0]
+                data['yourRate'] = User.objects.filter(user_name=user[0].user_name)[0].check_if_user_was_rated_by(currUser)
+
+            response_data['users_info'].append(data)
+
     return Response(response_data, status=status.HTTP_200_OK)
 
 
