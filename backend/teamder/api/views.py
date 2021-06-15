@@ -266,19 +266,31 @@ def manage_teams(request):
 
         host = request.user.user_name
         if host == team.host:
-            for w_person in request.data['people_to_accept']:
-                if type(w_person) == str:
-                    team.remove_w_person_by_name(w_person)
-                    team.add_a_person_by_name(w_person)
-                    user = User.objects.filter(user_name = w_person)    # dodanie teamu do listy moich teamow
-                    if user:
-                        user[0].add_team_by_ID(team.id)
-                elif type(w_person) == int:
-                    team.remove_w_person_by_ID(w_person)
-                    team.add_a_person_by_ID(w_person)
-                    user = User.objects.filter(id = w_person)       # dodanie teamu do listy moich teamow
-                    if user:
-                        user[0].add_team_by_ID(team.id)
+
+            ppl_accept = request.data['people_to_accept']   #akceptowanie ludzi
+            if ppl_accept:
+                for w_person in ppl_accept:
+                    if type(w_person) == str:
+                        team.remove_w_person_by_name(w_person)
+                        team.add_a_person_by_name(w_person)
+                        user = User.objects.filter(user_name = w_person)    # dodanie teamu do listy moich teamow
+                        if user:
+                            user[0].add_team_by_ID(team.id)
+                    elif type(w_person) == int:
+                        team.remove_w_person_by_ID(w_person)
+                        team.add_a_person_by_ID(w_person)
+                        user = User.objects.filter(id = w_person)       # dodanie teamu do listy moich teamow
+                        if user:
+                            user[0].add_team_by_ID(team.id)
+
+            ppl_reject = request.data.get('people_to_reject')     # odrzycanie ludzi z list ppl to accept
+            if ppl_reject:
+                for w_person in ppl_reject:      
+                    if type(w_person) == str:
+                        team.remove_w_person_by_name(w_person)
+                    elif type(w_person) == int:
+                        team.remove_w_person_by_ID(w_person)
+
         return Response("Updated team succesfully", status=201)
 
 
