@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { colors } from '@/styles';
 import { ProfileI, TeamI } from '@/interfaces';
-import { acceptJoining, getTeamToJoin } from '@/api';
+import { acceptJoining, getTeamToJoin, rejectJoining } from '@/api';
 import { toast } from 'react-toastify';
 
 interface Props {
@@ -108,7 +108,11 @@ export const NotificationItem: React.FC<Props> = ({
 
   const handleAccept = async () => {
     try {
-      await acceptJoining({ team_id: team_id, people_to_accept: [person.id] });
+      await acceptJoining({
+        team_id: team_id,
+        people_to_accept: [person.id],
+        people_to_reject: [],
+      });
       toast.success('Zaakceptowano!');
       window.location.reload();
     } catch (e) {
@@ -116,7 +120,19 @@ export const NotificationItem: React.FC<Props> = ({
     }
   };
 
-  const handleReject = async () => {};
+  const handleReject = async () => {
+    try {
+      await rejectJoining({
+        team_id: team_id,
+        people_to_reject: [person.id],
+        people_to_accept: [],
+      });
+      toast.success('Odrzucono!');
+      window.location.reload();
+    } catch (e) {
+      toast.error('Nie udało się odrzucić!');
+    }
+  };
 
   return (
     <>

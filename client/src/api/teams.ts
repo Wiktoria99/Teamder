@@ -8,6 +8,8 @@ import {
   JoinTeamI,
   JoinTeamResponseI,
   NotificationI,
+  RejectJoinI,
+  RejectJoinResponseI,
   TeamI,
 } from '@/interfaces';
 import { axiosAuthorizedConfig } from '@/api';
@@ -83,6 +85,16 @@ export const getNotifications = () => {
 export const acceptJoining = (data: AcceptJoinI) => {
   const token = localStorage.getItem('token');
   const response: Promise<AxiosResponse<AcceptJoinResponseI>> = axios.put(
+    '/teams',
+    data,
+    axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,
+  );
+  return response;
+};
+
+export const rejectJoining = (data: RejectJoinI) => {
+  const token = localStorage.getItem('token');
+  const response: Promise<AxiosResponse<RejectJoinResponseI>> = axios.put(
     '/teams',
     data,
     axiosAuthorizedConfig(token!) || axiosUnauthorizedConfig,

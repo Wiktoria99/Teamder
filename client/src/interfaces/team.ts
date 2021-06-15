@@ -48,7 +48,16 @@ export interface NotificationI {
 
 export interface AcceptJoinI {
   team_id: number;
+  people_to_reject: number[];
   people_to_accept: number[];
 }
 
 export interface AcceptJoinResponseI {}
+
+export interface RejectJoinI {
+  team_id: number;
+  people_to_reject: number[];
+  people_to_accept: number[];
+}
+
+export interface RejectJoinResponseI {}
