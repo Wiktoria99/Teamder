@@ -45,10 +45,6 @@ export const CreateTeam: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(teamInfo);
-  }, [teamInfo]);
-
   const styles = useFormStyles();
   const createTeam = async (e: any) => {
     e.preventDefault();
