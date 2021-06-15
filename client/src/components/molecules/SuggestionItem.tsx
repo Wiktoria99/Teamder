@@ -40,7 +40,13 @@ const useStyles = makeStyles((theme) => ({
 export const SuggestionItem: React.FC<Props> = ({ interest, count=0}) => {
   const styles = useStyles();
   const history = useHistory();
-
+  var Zesp: string = '';
+  if(count==1)
+    Zesp = ' zespół';
+  else if(count >= 3 && count <= 4)
+    Zesp = ' zespoły'
+  else 
+    Zesp = ' zespołów';
   const selectedHandler = (id: number, name: string) => {
     history.push('/teambyinterest/' + id + '/' + name);
   };
@@ -49,7 +55,7 @@ export const SuggestionItem: React.FC<Props> = ({ interest, count=0}) => {
     <Box className={styles.suggestionItemContainer}>
       <a className={styles.interestTitle} onClick={() => selectedHandler(interest.id, interest.name)}>#{interest.name}</a>
       {/* tu zmienić id na numer  */}
-      <p className={styles.teamsNumber}>{count} Zespołów</p>
+      <p className={styles.teamsNumber}>{count} {Zesp}</p>
     </Box>
   );
 };
