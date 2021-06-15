@@ -11,10 +11,11 @@ export const InterestsContext = createContext();
 
 export const InterestsProvider = ({ children }: Props) => {
   const [interests, setInterests] = useState<InterestI[]>([]);
-
+  
   useEffect(() => {
     const getInterestsFnc = async () => {
       const { data } = await getInterests();
+      data.map((d) => (d.count = 0));
       setInterests(data);
     };
 

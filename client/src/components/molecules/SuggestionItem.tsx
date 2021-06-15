@@ -6,6 +6,7 @@ import { colors } from '@/styles';
 
 interface Props {
   interest: InterestI;
+  count: number;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SuggestionItem: React.FC<Props> = ({ interest }) => {
+export const SuggestionItem: React.FC<Props> = ({ interest, count=0}) => {
   const styles = useStyles();
   const history = useHistory();
 
@@ -48,7 +49,7 @@ export const SuggestionItem: React.FC<Props> = ({ interest }) => {
     <Box className={styles.suggestionItemContainer}>
       <a className={styles.interestTitle} onClick={() => selectedHandler(interest.id, interest.name)}>#{interest.name}</a>
       {/* tu zmienić id na numer  */}
-      <p className={styles.teamsNumber}>{interest.id} Zespołów</p>
+      <p className={styles.teamsNumber}>{count} Zespołów</p>
     </Box>
   );
 };

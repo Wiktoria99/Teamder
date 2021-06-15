@@ -3,8 +3,7 @@ import { Box, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { CustomTextField, InterestsContext } from '../atoms';
 import { Link } from 'react-router-dom';
 import { colors } from '@/styles';
-import { InterestI } from '@/interfaces';
-import { getInterests } from '@/api';
+import { InterestI, TeamI } from '@/interfaces';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router';
 
@@ -38,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: '15px',
     },
     myRow: {
+      height: 60,
       fontWeight: 500,
       border: '1px solid #3A444C',
       borderCollapse: 'collapse',
@@ -78,7 +78,8 @@ export const Suggestions = () => {
   const classes = useStyles();
 
   //@ts-ignore
-  const InterestList: InterestI[] = useContext(InterestsContext);
+  var InterestList: InterestI[] = useContext(InterestsContext);
+  const [teams, setTeams] = useState<TeamI[]>([]);
 
   const selectedHandler = (id: number, name: string) => {
     history.push('/teambyinterest/' + id + '/' + name);
@@ -104,7 +105,8 @@ export const Suggestions = () => {
                   >
                     #{interest.name}
                   </a>
-                  <p className={classes.sub}>{interest.id} zespołów</p>
+                  {/* tu dodać liczbę */}
+                  <p className={classes.sub}></p>
                 </td>
               </tr>
             );
