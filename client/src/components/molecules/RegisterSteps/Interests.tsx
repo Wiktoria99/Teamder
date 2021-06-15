@@ -102,14 +102,10 @@ export const Interests: React.FC<Props> = ({
         <List className={classes.root}>
           {InterestList.map((value) => {
             return (
-              <ListItem
-                key={value.id}
-                dense
-                button
-                onClick={handleToggle(value.name)}
-              >
+              <ListItem key={value.id} dense button>
                 <ListItemIcon>
                   <Checkbox
+                    onClick={handleToggle(value.name)}
                     edge="start"
                     color="primary"
                     checked={registerInfo.list_of_interests.includes(

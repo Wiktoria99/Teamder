@@ -146,14 +146,10 @@ export const UserInterests: React.FC<Props> = ({ profile, edit }) => {
             <List className={styles.root}>
               {InterestList.map((value) => {
                 return (
-                  <ListItem
-                    key={value.id}
-                    dense
-                    button
-                    onClick={handleToggle(value.id)}
-                  >
+                  <ListItem key={value.id} dense button>
                     <ListItemIcon>
                       <Checkbox
+                        onClick={handleToggle(value.id)}
                         edge="start"
                         color="primary"
                         style={{
