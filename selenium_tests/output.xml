@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.3 (Python 3.9.4 on win32)" generated="20210616 08:12:45.941" rpa="false" schemaversion="2">
+<suite id="s1" name="Teamder Smoke Tests" source="D:\WFiIS\InzynieriaOprogramowania\Teamder\selenium_tests\teamder_smoke_tests.robot">
+<kw name="Test Suite Setup" type="SETUP">
+<kw name="Remove File" library="OperatingSystem">
+<arg>screenshots/selenium-screenshot-*</arg>
+<doc>Removes a file with the given path.</doc>
+<msg timestamp="20210616 08:12:46.148" level="INFO" html="true">Removed file '&lt;a href="file://D:\WFiIS\InzynieriaOprogramowania\Teamder\selenium_tests\screenshots\selenium-screenshot-1.png"&gt;D:\WFiIS\InzynieriaOprogramowania\Teamder\selenium_tests\screenshots\selenium-screenshot-1.png&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20210616 08:12:46.147" endtime="20210616 08:12:46.148"/>
+</kw>
+<kw name="Set Environment Variable" library="OperatingSystem">
+<arg>PATH</arg>
+<arg>C:\\ChromeDriver</arg>
+<doc>Sets an environment variable to a specified value.</doc>
+<msg timestamp="20210616 08:12:46.149" level="INFO">Environment variable 'PATH' set to value 'C:\ChromeDriver'.</msg>
+<status status="PASS" starttime="20210616 08:12:46.148" endtime="20210616 08:12:46.149"/>
+</kw>
+<kw name="Set Screenshot Directory" library="SeleniumLibrary">
+<arg>screenshots</arg>
+<doc>Sets the directory for captured screenshots.</doc>
+<status status="PASS" starttime="20210616 08:12:46.149" endtime="20210616 08:12:46.149"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20210616 08:12:46.149" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x000001FECCC39520&gt;</msg>
+<status status="PASS" starttime="20210616 08:12:46.149" endtime="20210616 08:12:46.149"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>disable-web-security</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20210616 08:12:46.149" endtime="20210616 08:12:46.150"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>allow-running-insecure-content</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20210616 08:12:46.150" endtime="20210616 08:12:46.150"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>browser=chrome</arg>
+<arg>options=${options}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20210616 08:12:46.151" level="INFO">Opening browser 'chrome' to base url 'None'.</msg>
+<status status="PASS" starttime="20210616 08:12:46.150" endtime="20210616 08:12:47.484"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20210616 08:12:47.486" endtime="20210616 08:12:47.622"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:46.147" endtime="20210616 08:12:47.623"/>
+</kw>
+<test id="s1-t1" name="User Can See Login And Register Panel">
+<kw name="Go To" library="SeleniumLibrary">
+<arg>${PAGE_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20210616 08:12:47.627" level="INFO">Opening url 'http://127.0.0.1:3000'</msg>
+<status status="PASS" starttime="20210616 08:12:47.626" endtime="20210616 08:12:49.312"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Logowanie</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:49.312" endtime="20210616 08:12:49.335"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Zarejestruj się!")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:49.337" level="INFO">Clicking element '//span[contains(text(), "Zarejestruj się!")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:49.336" endtime="20210616 08:12:49.459"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Podstawowe informacje</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:49.462" endtime="20210616 08:12:49.475"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "logowania")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:49.475" level="INFO">Clicking element '//span[contains(text(), "logowania")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:49.475" endtime="20210616 08:12:49.700"/>
+</kw>
+<tag>smoke</tag>
+<status status="PASS" starttime="20210616 08:12:47.624" endtime="20210616 08:12:49.701"/>
+</test>
+<test id="s1-t2" name="User Can Login">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//input[contains(@type,"text")]</arg>
+<arg>mcwerz</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:49.704" level="INFO">Typing text 'mcwerz' into text field '//input[contains(@type,"text")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:49.703" endtime="20210616 08:12:49.940"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//input[contains(@type,"password")]</arg>
+<arg>haslo1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:49.942" level="INFO">Typing text 'haslo1' into text field '//input[contains(@type,"password")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:49.941" endtime="20210616 08:12:50.834"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Zaloguj")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:50.835" level="INFO">Clicking element '//span[contains(text(), "Zaloguj")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:50.835" endtime="20210616 08:12:50.896"/>
+</kw>
+<tag>smoke</tag>
+<status status="PASS" starttime="20210616 08:12:49.703" endtime="20210616 08:12:50.897"/>
+</test>
+<test id="s1-t3" name="User Can Go Through Main Tabs">
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Witaj!</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:50.900" endtime="20210616 08:12:51.563"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Strona główna")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:51.564" level="INFO">Clicking element '//span[contains(text(), "Strona główna")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:51.564" endtime="20210616 08:12:51.649"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Zespoły</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:51.650" endtime="20210616 08:12:51.675"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Moje zespoły")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:51.677" level="INFO">Clicking element '//span[contains(text(), "Moje zespoły")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:51.676" endtime="20210616 08:12:51.782"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Moje zespoły</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:51.782" endtime="20210616 08:12:51.799"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Powiadomienia")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:51.799" level="INFO">Clicking element '//span[contains(text(), "Powiadomienia")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:51.799" endtime="20210616 08:12:51.898"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Powiadomienia</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:51.899" endtime="20210616 08:12:51.913"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Profil")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:51.913" level="INFO">Clicking element '//span[contains(text(), "Profil")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:51.913" endtime="20210616 08:12:52.012"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Mój profil</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:52.012" endtime="20210616 08:12:52.030"/>
+</kw>
+<tag>smoke</tag>
+<status status="PASS" starttime="20210616 08:12:50.899" endtime="20210616 08:12:52.031"/>
+</test>
+<test id="s1-t4" name="User Can Create Team">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Stwórz zespół")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:52.033" level="INFO">Clicking element '//span[contains(text(), "Stwórz zespół")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:52.033" endtime="20210616 08:12:52.240"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Tworzenie zespołu</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:52.240" endtime="20210616 08:12:52.261"/>
+</kw>
+<kw name="Select Interest">
+<arg>taniec</arg>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "${interest_name}")]/parent::div/preceding-sibling::div//span//input</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:52.262" level="INFO">Clicking element '//span[contains(text(), "taniec")]/parent::div/preceding-sibling::div//span//input'.</msg>
+<status status="PASS" starttime="20210616 08:12:52.262" endtime="20210616 08:12:52.383"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:52.261" endtime="20210616 08:12:52.383"/>
+</kw>
+<kw name="Input Data">
+<arg>Nazwa zespołu</arg>
+<arg>Dzikie plonsy na rejonie</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//div//label[contains(text(),"${input_name}")]/following-sibling::div/input</arg>
+<arg>${input_data}</arg>
+<arg>clear=True</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:52.386" level="INFO">Typing text 'Dzikie plonsy na rejonie' into text field '//div//label[contains(text(),"Nazwa zespołu")]/following-sibling::div/input'.</msg>
+<status status="PASS" starttime="20210616 08:12:52.385" endtime="20210616 08:12:53.391"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:52.384" endtime="20210616 08:12:53.391"/>
+</kw>
+<kw name="Input Data">
+<arg>Data i czas</arg>
+<arg>10072021\t2137</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//div//label[contains(text(),"${input_name}")]/following-sibling::div/input</arg>
+<arg>${input_data}</arg>
+<arg>clear=True</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:53.392" level="INFO">Typing text '10072021	2137' into text field '//div//label[contains(text(),"Data i czas")]/following-sibling::div/input'.</msg>
+<status status="PASS" starttime="20210616 08:12:53.392" endtime="20210616 08:12:53.543"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:53.392" endtime="20210616 08:12:53.543"/>
+</kw>
+<kw name="Input Data">
+<arg>Lokalizacja</arg>
+<arg>Krakow rejon</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//div//label[contains(text(),"${input_name}")]/following-sibling::div/input</arg>
+<arg>${input_data}</arg>
+<arg>clear=True</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:53.545" level="INFO">Typing text 'Krakow rejon' into text field '//div//label[contains(text(),"Lokalizacja")]/following-sibling::div/input'.</msg>
+<status status="PASS" starttime="20210616 08:12:53.544" endtime="20210616 08:12:53.975"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:53.544" endtime="20210616 08:12:53.976"/>
+</kw>
+<kw name="Input Data To Textarea">
+<arg>Cena za osobę</arg>
+<arg>1</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//div//label[contains(text(),"${input_name}")]/following-sibling::div/textarea</arg>
+<arg>${input_data}</arg>
+<arg>clear=True</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:53.977" level="INFO">Typing text '1' into text field '//div//label[contains(text(),"Cena za osobę")]/following-sibling::div/textarea'.</msg>
+<status status="PASS" starttime="20210616 08:12:53.977" endtime="20210616 08:12:54.100"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:53.977" endtime="20210616 08:12:54.101"/>
+</kw>
+<kw name="Input Data To Textarea">
+<arg>Opis</arg>
+<arg>Tańce i hulanki</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//div//label[contains(text(),"${input_name}")]/following-sibling::div/textarea</arg>
+<arg>${input_data}</arg>
+<arg>clear=True</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:54.103" level="INFO">Typing text 'Tańce i hulanki' into text field '//div//label[contains(text(),"Opis")]/following-sibling::div/textarea'.</msg>
+<status status="PASS" starttime="20210616 08:12:54.102" endtime="20210616 08:12:54.614"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:54.101" endtime="20210616 08:12:54.614"/>
+</kw>
+<kw name="Input Data">
+<arg>Ilość miejsc</arg>
+<arg>40</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>//div//label[contains(text(),"${input_name}")]/following-sibling::div/input</arg>
+<arg>${input_data}</arg>
+<arg>clear=True</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:54.617" level="INFO">Typing text '40' into text field '//div//label[contains(text(),"Ilość miejsc")]/following-sibling::div/input'.</msg>
+<status status="PASS" starttime="20210616 08:12:54.616" endtime="20210616 08:12:54.766"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:54.615" endtime="20210616 08:12:54.766"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[text()="Stwórz"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:54.767" level="INFO">Clicking element '//span[text()="Stwórz"]'.</msg>
+<status status="PASS" starttime="20210616 08:12:54.767" endtime="20210616 08:12:54.828"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Moje zespoły")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:54.829" level="INFO">Clicking element '//span[contains(text(), "Moje zespoły")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:54.829" endtime="20210616 08:12:54.932"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Moje zespoły</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:54.933" endtime="20210616 08:12:54.944"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210616 08:12:57.946" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20210616 08:12:54.945" endtime="20210616 08:12:57.946"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>Dzikie plonsy na rejonie</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20210616 08:12:57.965" level="INFO">Current page contains text 'Dzikie plonsy na rejonie'.</msg>
+<status status="PASS" starttime="20210616 08:12:57.947" endtime="20210616 08:12:57.965"/>
+</kw>
+<tag>smoke</tag>
+<status status="PASS" starttime="20210616 08:12:52.032" endtime="20210616 08:12:57.966"/>
+</test>
+<test id="s1-t5" name="User Can Join Team">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Strona główna")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:12:57.969" level="INFO">Clicking element '//span[contains(text(), "Strona główna")]'.</msg>
+<status status="PASS" starttime="20210616 08:12:57.969" endtime="20210616 08:12:58.074"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Zespoły</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:12:58.075" endtime="20210616 08:12:58.084"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210616 08:13:01.087" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20210616 08:12:58.085" endtime="20210616 08:13:01.087"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//span[contains(text(), "Więcej")]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:13:01.088" level="INFO">Clicking element '//span[contains(text(), "Więcej")]'.</msg>
+<status status="PASS" starttime="20210616 08:13:01.088" endtime="20210616 08:13:01.208"/>
+</kw>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Zespół</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:13:01.209" endtime="20210616 08:13:01.223"/>
+</kw>
+<tag>smoke</tag>
+<status status="PASS" starttime="20210616 08:12:57.968" endtime="20210616 08:13:01.223"/>
+</test>
+<test id="s1-t6" name="User Can View Teams By Category">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//table//tr[1]//a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210616 08:13:01.227" level="INFO">Clicking element '//table//tr[1]//a'.</msg>
+<status status="PASS" starttime="20210616 08:13:01.226" endtime="20210616 08:13:01.314"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>//h3[contains(text(), "podróże")]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20210616 08:13:01.315" endtime="20210616 08:13:01.330"/>
+</kw>
+<tag>smoke</tag>
+<status status="PASS" starttime="20210616 08:13:01.225" endtime="20210616 08:13:01.330"/>
+</test>
+<kw name="Test Suite Teardown" type="TEARDOWN">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20210616 08:13:01.334" endtime="20210616 08:13:04.561"/>
+</kw>
+<status status="PASS" starttime="20210616 08:13:01.333" endtime="20210616 08:13:04.561"/>
+</kw>
+<status status="PASS" starttime="20210616 08:12:45.943" endtime="20210616 08:13:04.561"/>
+</suite>
+<statistics>
+<total>
+<stat pass="6" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="6" fail="0" skip="0">smoke</stat>
+</tag>
+<suite>
+<stat pass="6" fail="0" skip="0" id="s1" name="Teamder Smoke Tests">Teamder Smoke Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
